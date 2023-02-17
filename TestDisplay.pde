@@ -1,0 +1,2 @@
+class TestDisplay extends AbstractInterface {
+}
