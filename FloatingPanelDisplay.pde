@@ -1,11 +1,11 @@
 
-class FPanel {
+//class FPanel {
   
-}
+//}
 
 
-class FloatingPanelDisplay extends AbstractDisplay {
+//class FloatingPanelDisplay extends AbstractDisplay {
   
   
  
-}
+//}

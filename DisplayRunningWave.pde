@@ -1,17 +1,17 @@
 class DisplayRunningWave extends AbstractDisplay {
   PGraphics localG, prevG;
   float margin_x = 2;
-  int w, h;
-  DisplayRunningWave(int w, int h) {
-    this.w = w;
-    this.h = h;
+  
+  DisplayRunningWave(ARect bound) {
+    super(bound);
+    
   }
 
   void draw(PGraphics g) {
 
     if (super.hidden) return;
 
-    localG = createGraphics(this.w, this.h);
+    localG = createGraphics((int)this.bound.width, (int)this.bound.height);
     localG.beginDraw();
 
     if (prevG != null) {

@@ -74,9 +74,13 @@ class DisplayBouncingLaser extends AbstractDisplay{
   List<LaserTrail> trails;
   PGraphics g;
   
-  DisplayBouncingLaser(int w, int h) {
+  DisplayBouncingLaser(ARect bound) {
+    super(bound);
     trails = new ArrayList();
+    float w = bound.width;
+    float h = bound.height;
     for(int i=0; i<100; i++){
+      
       LaserTrail t = new LaserTrail(random(-1,1),random(-1,1),random(w*0.45,w*0.55),random(h*0.45,h*0.55));
       t.setSpeed(0.01);
       trails.add(t);

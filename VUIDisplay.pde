@@ -15,11 +15,11 @@ int wheelMode = KeyEvent.VK_A;
 void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
-  displays.add(new DisplayBarWaveForm(width,height));
+  displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
-  displays.add(new DisplayBouncingLaser(width,height));
-  displays.add(new DisplayWave());
-  displays.add(new DisplayRunningWave(width, height));
+  displays.add(new DisplayBouncingLaser(bound));
+  displays.add(new DisplayWave(bound));
+  displays.add(new DisplayRunningWave(bound));
   displays.add(new DisplayFFTPulse(bound));
   
 }

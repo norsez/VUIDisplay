@@ -28,8 +28,8 @@ class DisplayBarWaveForm extends AbstractDisplay {
   
   final color C_PLACEHOLDER = color(101,113,106, 72);
 
-  DisplayBarWaveForm(int w, int h) {
-    
+  DisplayBarWaveForm(ARect bound) {
+    super(bound);
   }
 
   void updateGraphData() {

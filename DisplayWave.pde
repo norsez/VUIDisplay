@@ -5,7 +5,8 @@ class DisplayWave extends AbstractDisplay {
   List<AlphaBall> balls;
  
 
-  DisplayWave() {
+  DisplayWave(ARect bound) {
+    super(bound);
     balls = new ArrayList();
     controlA = -100;
     controlB = -100;

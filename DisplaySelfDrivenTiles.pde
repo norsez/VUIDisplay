@@ -154,10 +154,10 @@ class PulseLine {
 
 
 class DisplayFFTPulse extends AbstractDisplay {
-  ARect bound;
   PulseLine topLine;
   DisplayFFTPulse(ARect bound) {
-    this.bound = bound;
+    super(bound);
+    
     ARect topRect = new ARect(10,10,bound.width-20, bound.height * 0.1);
     topLine = new PulseLine(topRect, 8);
   }

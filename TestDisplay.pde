@@ -1,5 +1,8 @@
 class TestDisplay extends AbstractDisplay {
   
+  TestDisplay(ARect b){
+    super(b);
+  }
   
   void draw(PGraphics g){
     

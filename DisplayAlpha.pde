@@ -11,7 +11,7 @@ class DisplayFFT extends AbstractDisplay {
   ARect bound;
   
   DisplayFFT (ARect bound) {
-    this.bound = bound;
+    super(bound);
     balls = new ArrayList();
     controlA = -100;
     controlB = -100;
