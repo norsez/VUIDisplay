@@ -12,3 +12,8 @@ ARect windowBoundingBox() {
   ARect r = new ARect(0,0,width,height);
   return r;
 }
+
+double withMathRound(double value, int places) {
+    double scale = Math.pow(10, places);
+    return Math.round(value * scale) / scale;
+}
