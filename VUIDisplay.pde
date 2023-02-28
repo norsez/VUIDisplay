@@ -1,33 +1,103 @@
+
+import java.awt.event.KeyEvent;
+
+boolean APPLY_BLOOM = true;
+BloomPProcess bloom = new BloomPProcess();
+
 PGraphics g;
-DisplayInterface [] displays;
+List<DisplayInterface> displays;
+
+
+float controlA, controlB, controlC, controlD = 0;
+boolean paused = false;
+int wheelMode = KeyEvent.VK_A;
 
 void initDisplays() {
-  displays = new DisplayInterface [1];
-  displays[0] = new TestDisplay();
+  ARect bound = windowBoundingBox();
+  displays = new ArrayList();
+  displays.add(new DisplayBarWaveForm(width,height));
+  displays.add(new DisplayBetaBall(bound));
+  displays.add(new DisplayBouncingLaser(width,height));
+  displays.add(new DisplayWave());
+  displays.add(new DisplayRunningWave(width, height));
+  displays.add(new DisplayFFTPulse(bound));
+  
 }
 
-void setup(){
-  size(800,600);
+void setup() {
+  size(800, 240);
   background(0);
-  g = createGraphics(width,height);
   
+  g = createGraphics(width, height);
+  
+  initColorMap(true);
   initDisplays();
+  initAudioInput();
 }
 
-void draw(){
-  receiveInput();
+void draw() {
   
-  g.beginDraw();
+ tickFFT();
+ tickAmp();
+ tickWave();
+ 
+
+ if (!paused) {
+    g.beginDraw();
+    g.background(0,25);
+    for (DisplayInterface di: displays) {
+      di.draw(g);
+    }
   
-  for (int i=0; i<displays.length; i++){
-    displays[i].draw(g);
+    g.endDraw();
   }
   
-  g.endDraw();
-  
-  image(g,0,0);
+  image(g, 0, 0);
+  if(APPLY_BLOOM) {
+    bloom.ApplyBloom();
+  }
 }
 
-void receiveInput() {
+int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
+            , KeyEvent.VK_6, KeyEvent.VK_7, KeyEvent.VK_8, KeyEvent.VK_9, KeyEvent.VK_0};
+
+
+void keyPressed() {
+  println(keyCode);
   
+  if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_9) {
+    int k = keyCode - KeyEvent.VK_1;
+    if (k < displays.size()) {
+      DisplayInterface d = displays.get(k);
+      d.toggleHidden(); //<>//
+    }
+    
+  
+  } else if (keyCode == KeyEvent.VK_A
+                        || keyCode == KeyEvent.VK_B
+                        || keyCode == KeyEvent.VK_C
+                        || keyCode == KeyEvent.VK_D){
+                          
+                          wheelMode = keyCode;
+    
+  } else if (keyCode == KeyEvent.VK_SPACE){
+    paused = !paused;
+  }
+
+  println(controlA + " " + controlB + " " + controlC + " " + controlD);
+}
+
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  if (wheelMode == KeyEvent.VK_A) {
+    controlA += e;
+  }else if (wheelMode == KeyEvent.VK_B) {
+    controlB += e;
+  }else if (wheelMode == KeyEvent.VK_C) {
+    controlC += e;
+  }else if (wheelMode == KeyEvent.VK_D) {
+    controlD += e;
+  }
+  
+   println(controlA + " " + controlB + " " + controlC + " " + controlD);
 }
