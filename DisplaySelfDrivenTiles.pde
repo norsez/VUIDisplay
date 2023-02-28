@@ -24,7 +24,7 @@ class AutoDrivenTile {
 
   void draw(PGraphics g) {
     g.noStroke();
-    color tileColor = colorFromMapScaledTo(int(this.tileRect.originX * 0.5),
+    color tileColor = colorFromMap(int(this.tileRect.originX * 0.5),
       int(this.tileRect.originY * 0.5),
       this.tileRect);
     g.stroke(tileColor, 100);

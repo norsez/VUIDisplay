@@ -21,6 +21,9 @@ abstract class AbstractDisplay implements DisplayInterface {
     g.pop();
   }
   
+  void drawOn(PGraphics localG, PGraphics mainG, ARect bound) {
+    drawOn(localG, mainG, bound, 150);
+  }
   void drawOn(PGraphics localG, PGraphics mainG, ARect bound, int alpha) {
      
     mainG.push();

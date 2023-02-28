@@ -15,12 +15,14 @@ int wheelMode = KeyEvent.VK_A;
 void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
+  
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
   displays.add(new DisplayBouncingLaser(bound));
   displays.add(new DisplayWave(bound));
   displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));
+  displays.add(new DisplayFFTPulse(bound));      
+  displays.add(new DisplayFFT(bound));
   
 }
 
@@ -69,7 +71,7 @@ void keyPressed() {
     int k = keyCode - KeyEvent.VK_1;
     if (k < displays.size()) {
       DisplayInterface d = displays.get(k);
-      d.toggleHidden(); //<>//
+      d.toggleHidden(); //<>// //<>//
     }
     
   

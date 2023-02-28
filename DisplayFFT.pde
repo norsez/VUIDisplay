@@ -3,12 +3,12 @@ import java.util.*;
 
 
 class DisplayFFT extends AbstractDisplay {
-  int maxInstances = 24;
+  int maxInstances = 500;
   final int ONE_INIT = 1;
   List<AlphaBall> balls;
   float fftscale = 25;
   float partOfFTT = 0.10;
-  ARect bound;
+  
   
   DisplayFFT (ARect bound) {
     super(bound);
@@ -33,7 +33,9 @@ class DisplayFFT extends AbstractDisplay {
     
     if (super.hidden) return;
     
-    
+    PGraphics lg = createGraphics(super.bound);
+    lg.beginDraw();
+    lg.background(0, 22);
     if (balls.size() >= maxInstances) {
         balls = balls.subList(ONE_INIT, balls.size() - 1);
      }
@@ -44,16 +46,16 @@ class DisplayFFT extends AbstractDisplay {
       float vel = this.getVelocity();
       float radius = this.getRadius();
       for (int i=0; i<ONE_INIT; i++) {
-        AlphaBall b = new AlphaBall(mouseX + (i * 2), mouseY, g);
+        AlphaBall b = new AlphaBall(mouseX + (i * 2), mouseY, lg);
         b.radius = radius + (i * 2);
         b.velocity_secs_per_round = vel + (i * 25);
         balls.add(b);
       }
     } else  {
-      float x_d = g.height/(bands * partOfFTT);
+      float x_d = lg.height/(bands * partOfFTT);
       for (int i=0; i < bands * partOfFTT; i++) {
-        AlphaBall b = new AlphaBall( map(i, 0, bands-1, 1, fftscale) * g.height * (fftsum[i]), i * x_d, g);
-        //AlphaBall b = new AlphaBall( g.width * ampsum * fftscale, i * x_d, g);
+        AlphaBall b = new AlphaBall( map(i, 0, bands-1, 1, fftscale) * lg.height * (fftsum[i]), i * x_d, lg);
+        //AlphaBall b = new AlphaBall( lg.width * ampsum * fftscale, i * x_d, g);
         b.radius =  this.getRadius() ;
         b.maxRadius = b.radius + map(controlC, -100,100, 4, 25);
         b.velocity_secs_per_round = this.getVelocity();
@@ -62,16 +64,19 @@ class DisplayFFT extends AbstractDisplay {
     }
 
     for (AlphaBall b : balls) {
-      b.draw(g);
-      printDebug(b, g);
+      b.draw(lg);
+      //printDebug(b, lg);
     }
     
-   
+    lg.endDraw();
+    
+    drawOn(lg, g, bound);
     
     //updateParams();
   }
   
   void printDebug(AlphaBall b, PGraphics g) {
+    //if (!DEBUG) return;
     debug("" + b.baseX +", " + b.baseY, (int)b.baseX, (int) b.baseY, g);
     
   }

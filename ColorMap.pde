@@ -18,7 +18,7 @@ color colorFromMap(int x, int y, boolean useMap) {
   }
 }
 
-color colorFromMapScaledTo(int at_x, int at_y, ARect ofRect) {
+color colorFromMap(int at_x, int at_y, ARect ofRect) {
   return colorMapImage.get( 
     (int)map(at_x, 0, colorMapImage.width, 0, ofRect.width),
     (int)map(at_y, 0, colorMapImage.height, 0, ofRect.height)

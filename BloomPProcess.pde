@@ -2,8 +2,8 @@ public class BloomPProcess
 {
   
   private PImage    bloomTarget;  
-  private int       BloomThreshold   = 190; //the minimum brightness that will be "bloomed"
-  private int       BloomRadius      = 48;   //the radius of the bloom
+  private int       BloomThreshold   = 80; //the minimum brightness that will be "bloomed"
+  private int       BloomRadius      = 16;   //the radius of the bloom
   
   BloomPProcess()
   {

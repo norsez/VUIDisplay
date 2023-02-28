@@ -2,23 +2,24 @@
 
 
 class DisplayBetaBall extends AbstractDisplay {
-  PGraphics lg;
+  
   DisplayBetaBall(ARect bound) {
     super(bound);
-    lg = createGraphics(super.bound);
+    
   }
   
   void draw(PGraphics g) {
     
     if (super.hidden) return;
-  
+    PGraphics lg = createGraphics(super.bound);
     lg.beginDraw();
-    lg.background(0, 55);
+    //lg.background(0, 35);
     int bands = int(fft.spectrum.length * 0.2);
     int spacing = (int)( bound.width / float(bands));
-    lg.textSize(8);
-    for (int i=0; i< bands; i++){
-      
+    
+    for (int i=1; i< bands + 1; i++){
+      lg.fill( colorFromMap(spacing * i, 40, bound), 150 + fft.spectrum[i]*200);
+      lg.textSize(4+ 3*fft.spectrum[i]);
       lg.text("" + withMathRound(fft.spectrum[i],2), spacing * i, 10 + bound.height * fft.spectrum[i]);
     }
     lg.endDraw();

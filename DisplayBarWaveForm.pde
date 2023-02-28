@@ -23,7 +23,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
   int MAX_BARS = NUM_SAMPLES_WAVE;
   
   int MAX_BALLS = 100;
-  PGraphics localG;
+  
   float maxWeight = 3;
   
   final color C_PLACEHOLDER = color(101,113,106, 72);
@@ -38,7 +38,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
   void draw(PGraphics g) {
     if (super.hidden) return;
 
-    localG = createGraphics(g.width, g.height);
+    PGraphics localG = createGraphics(g.width, g.height);
     localG.beginDraw();
     //localG.blendMode(ADD);
     localG.background(0, 1);
