@@ -52,7 +52,7 @@ class DisplayStarZoom extends AbstractDisplay {
       drawStars();
     }
     
-    drawOn(buffer, g, bound, 100); //<>//
+    drawOn(buffer, g, bound, 100);
   }
   
 }

@@ -24,6 +24,7 @@ void initDisplays() {
   displays.add(new DisplayRunningWave(bound));
   displays.add(new DisplayFFTPulse(bound));      
   displays.add(new DisplayFFT(bound));
+  displays.add(new DisplayWaveSnapshot(bound));
   
   
 }
