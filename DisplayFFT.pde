@@ -52,9 +52,9 @@ class DisplayFFT extends AbstractDisplay {
         balls.add(b);
       }
     } else  {
-      float x_d = lg.height/(bands * partOfFTT);
-      for (int i=0; i < bands * partOfFTT; i++) {
-        AlphaBall b = new AlphaBall( map(i, 0, bands-1, 1, fftscale) * lg.height * (fftsum[i]), i * x_d, lg);
+      float x_d = lg.height/(FFT_NUM_BANDS * partOfFTT);
+      for (int i=0; i < FFT_NUM_BANDS * partOfFTT; i++) {
+        AlphaBall b = new AlphaBall( map(i, 0, FFT_NUM_BANDS-1, 1, fftscale) * lg.height * (fftsum[i]), i * x_d, lg);
         //AlphaBall b = new AlphaBall( lg.width * ampsum * fftscale, i * x_d, g);
         b.radius =  this.getRadius() ;
         b.maxRadius = b.radius + map(controlC, -100,100, 4, 25);

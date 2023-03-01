@@ -72,7 +72,7 @@ class LaserTrail {
 class DisplayBouncingLaser extends AbstractDisplay{
   int MAX_INSTANCES = 500;
   List<LaserTrail> trails;
-  PGraphics g;
+  
   
   DisplayBouncingLaser(ARect bound) {
     super(bound);
@@ -104,9 +104,8 @@ class DisplayBouncingLaser extends AbstractDisplay{
       trails.add(t);
     }
     
-    g = createGraphics(int(mainG.width), mainG.height);
+    PGraphics g = createGraphics(int(mainG.width), mainG.height);
     g.beginDraw();
-    g.background(0, 15);
     for(LaserTrail t: trails) {
       t.draw(g);
     }

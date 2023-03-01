@@ -13,8 +13,8 @@ import processing.sound.*;
   
   //FFT
   FFT fft;
-  int bands = 256;
-  float[] fftsum = new float[bands];
+  int FFT_NUM_BANDS = 512;
+  float[] fftsum = new float[FFT_NUM_BANDS];
   int NUM_SAMPLES_WAVE = 64;
   List FFTBPs;
   Sound sound;
@@ -30,7 +30,7 @@ import processing.sound.*;
     rms = new Amplitude(this);
     rms.input(sample);
     
-    fft = new FFT(this, bands);
+    fft = new FFT(this, FFT_NUM_BANDS);
     fft.input(sample);
     
     waveform = new Waveform(this, NUM_SAMPLES_WAVE);
@@ -52,7 +52,7 @@ import processing.sound.*;
   float[] tickFFT() {
     
     fft.analyze();
-    for (int i = 0; i < bands; i++) {
+    for (int i = 0; i < FFT_NUM_BANDS; i++) {
       // Smooth the FFT spectrum data by smoothing factor
       fftsum[i] += (fft.spectrum[i] - fftsum[i]) * smoothingFactorFFT;
     }

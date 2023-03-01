@@ -1,7 +1,7 @@
 
 import java.awt.event.KeyEvent;
 
-boolean APPLY_BLOOM = true;
+boolean APPLY_BLOOM = false;
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;

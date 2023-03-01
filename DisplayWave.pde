@@ -15,16 +15,17 @@ class DisplayWave extends AbstractDisplay {
   void draw(PGraphics g) {
     
     if (super.hidden) return;
-    
+    PGraphics lg = createGraphics(super.bound);
+    lg.beginDraw();
      balls.removeIf(b -> (b.dead));
     if (balls.size() >= MAX_INSTANCES) {
         balls = balls.subList(ONE_INIT, balls.size() - 1);
      }
     
-    float bandwidth = g.width / float(NUM_SAMPLES_WAVE);
+    float bandwidth = lg.width / float(NUM_SAMPLES_WAVE);
     for(int i=0; i< NUM_SAMPLES_WAVE; i++){
       AlphaBall b = new AlphaBall(int(i * bandwidth), 
-                                  (int)map(waveform.data[i], -1, 1, 0, g.height)
+                                  (int)map(waveform.data[i], -1, 1, 0, lg.height)
                                   , g);
       b.velocity_secs_per_round = 0.01;
       b.radius = 1;
@@ -34,8 +35,12 @@ class DisplayWave extends AbstractDisplay {
     }
     
     for(AlphaBall b: balls){
-      b.draw(g);
+      b.draw(lg);
     }
+    
+    lg.endDraw();
+    
+    drawOn(lg, g, super.bound);
     
   }
 }

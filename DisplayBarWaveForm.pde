@@ -46,7 +46,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
     float space_width = localG.width / float(MAX_BARS);
 
 
-    //draw last frame
+    //draw last frame 
     PGraphics g_1 = createGraphics(localG.width, localG.height);
     g_1.beginDraw();
     g_1.image(g, 0, 0);
