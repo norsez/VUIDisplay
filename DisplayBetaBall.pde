@@ -47,7 +47,7 @@ class DisplayBetaBall extends AbstractDisplay {
       lg.text(formatFreq(map(i,1,bands + 1,20,this.topFreq), 1), 
           spacing * i, 
           easings.get(i-1).ease(10 + bound.height * fft.spectrum[i]));
-  }
+    }
     lg.endDraw();
     
     

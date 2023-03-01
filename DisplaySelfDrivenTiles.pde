@@ -152,14 +152,45 @@ class PulseLine {
   
 }
 
+class BottomLine {
+  List<AutoDrivenTile> tiles = new ArrayList();
+  ARect bound;
+  BottomLine(ARect bound, int numTiles){
+    this.bound = bound;
+    for (int i=0; i< numTiles; i++) {
+      ARect r = new ARect(this.bound.width * 0.5 ,0, mapCurve( float(i)/numTiles, 0.5) * 36, random(4, this.bound.height*.6));
+      AutoDrivenTile t = new AutoDrivenTile(r, this.bound);
+      t.setSpeed(random(25,100));
+      tiles.add(t);
+    }
+  }
+  
+  void draw(PGraphics g) {
+    PGraphics lg = createGraphics(this.bound);
+    lg.beginDraw();
+    for (AutoDrivenTile t: tiles) {
+      t.draw(lg);
+    }
+    lg.endDraw();
+    
+    g.image(lg, this.bound.originX, this.bound.originY);
+  }
+}
+
 
 class DisplayFFTPulse extends AbstractDisplay {
   PulseLine topLine;
+  BottomLine bottomLine;
   DisplayFFTPulse(ARect bound) {
     super(bound);
     
     ARect topRect = new ARect(10,10,bound.width-20, bound.height * 0.1);
     topLine = new PulseLine(topRect, 8);
+    ARect bottomRect = new ARect(10, 
+                                 bound.height - (bound.height * 0.025) - 10,
+                                 bound.width-20, 
+                                 bound.height * 0.025);
+    bottomLine = new BottomLine(bottomRect, 8);
   }
 
   void draw(PGraphics g) {
@@ -168,6 +199,7 @@ class DisplayFFTPulse extends AbstractDisplay {
     PGraphics localG = createGraphics(this.bound);
     localG.beginDraw();
     topLine.draw(localG);
+    bottomLine.draw(localG);
     localG.endDraw();
     g.tint(255,120);
     g.image(localG, this.bound.originX, this.bound.originY);
