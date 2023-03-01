@@ -21,7 +21,7 @@ double withMathRound(double value, int places) {
 String formatFreq(float value, int places) {
   String s = "";
   if (value >= 1000) {
-    s = "" + Math.round(value * 0.001) + "k"; //<>//
+    s = "" + Math.round(value * 0.001) + "k";
     
    }else {
     s = "" + value;

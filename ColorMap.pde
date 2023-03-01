@@ -18,6 +18,10 @@ color colorFromMap(int x, int y, boolean useMap) {
   }
 }
 
+color colorFromMap(){
+  return colorMapImage.get((int)random(0, colorMapImage.width), (int) random(0, colorMapImage.height));
+}
+
 color colorFromMap(int at_x, int at_y, ARect ofRect) {
   return colorMapImage.get( 
     (int)map(at_x, 0, colorMapImage.width, 0, ofRect.width),

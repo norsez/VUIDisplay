@@ -158,7 +158,7 @@ class BottomLine {
   BottomLine(ARect bound, int numTiles){
     this.bound = bound;
     for (int i=0; i< numTiles; i++) {
-      ARect r = new ARect(this.bound.width * 0.5 ,0, mapCurve( float(i)/numTiles, 0.5) * 36, random(4, this.bound.height*.6));
+      ARect r = new ARect(this.bound.width * 0.5 ,0, mapCurve( float(i)/numTiles, 0.95) * 36, random(4, this.bound.height*.6));
       AutoDrivenTile t = new AutoDrivenTile(r, this.bound);
       t.setSpeed(random(25,100));
       tiles.add(t);

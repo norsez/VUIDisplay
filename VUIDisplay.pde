@@ -16,6 +16,7 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
   
+  displays.add(new DisplayStarZoom(bound));
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
   displays.add(new DisplayBouncingLaser(bound));
@@ -23,6 +24,7 @@ void initDisplays() {
   displays.add(new DisplayRunningWave(bound));
   displays.add(new DisplayFFTPulse(bound));      
   displays.add(new DisplayFFT(bound));
+  
   
 }
 
