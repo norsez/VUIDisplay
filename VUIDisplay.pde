@@ -1,4 +1,4 @@
-
+ //<>//
 import java.awt.event.KeyEvent;
 
 boolean APPLY_BLOOM = false;
@@ -15,77 +15,72 @@ int wheelMode = KeyEvent.VK_A;
 void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
-  
+
   displays.add(new DisplayStarZoom(bound));
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
   displays.add(new DisplayBouncingLaser(bound));
   displays.add(new DisplayWave(bound));
   displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));      
+  displays.add(new DisplayFFTPulse(bound));
   displays.add(new DisplayFFT(bound));
   displays.add(new DisplayWaveSnapshot(bound));
-  
-  
 }
 
 void setup() {
-  size(800, 240);
+  size(600, 600);
   background(0);
-  
+
   g = createGraphics(width, height);
-  
+
   initColorMap(true);
   initDisplays();
   initAudioInput();
 }
 
 void draw() {
-  
- tickFFT();
- tickAmp();
- tickWave();
- 
 
- if (!paused) {
+  tickFFT();
+  tickAmp();
+  tickWave();
+
+
+  if (!paused) {
     g.beginDraw();
-    g.background(0,25);
-    for (DisplayInterface di: displays) {
+    g.background(0, 25);
+    for (DisplayInterface di : displays) {
       di.draw(g);
     }
-  
+
     g.endDraw();
   }
-  
+
   image(g, 0, 0);
-  if(APPLY_BLOOM) {
+  if (APPLY_BLOOM) {
     bloom.ApplyBloom();
   }
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
-            , KeyEvent.VK_6, KeyEvent.VK_7, KeyEvent.VK_8, KeyEvent.VK_9, KeyEvent.VK_0};
+  , KeyEvent.VK_6, KeyEvent.VK_7, KeyEvent.VK_8, KeyEvent.VK_9, KeyEvent.VK_0};
 
 
 void keyPressed() {
   println(keyCode);
-  
+
   if (keyCode >= KeyEvent.VK_1 && keyCode <= KeyEvent.VK_9) {
     int k = keyCode - KeyEvent.VK_1;
     if (k < displays.size()) {
       DisplayInterface d = displays.get(k);
-      d.toggleHidden(); //<>// //<>//
+      d.toggleHidden(); //<>//
     }
-    
-  
   } else if (keyCode == KeyEvent.VK_A
-                        || keyCode == KeyEvent.VK_B
-                        || keyCode == KeyEvent.VK_C
-                        || keyCode == KeyEvent.VK_D){
-                          
-                          wheelMode = keyCode;
-    
-  } else if (keyCode == KeyEvent.VK_SPACE){
+    || keyCode == KeyEvent.VK_B
+    || keyCode == KeyEvent.VK_C
+    || keyCode == KeyEvent.VK_D) {
+
+    wheelMode = keyCode;
+  } else if (keyCode == KeyEvent.VK_SPACE) {
     paused = !paused;
   }
 
@@ -96,13 +91,13 @@ void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   if (wheelMode == KeyEvent.VK_A) {
     controlA += e;
-  }else if (wheelMode == KeyEvent.VK_B) {
+  } else if (wheelMode == KeyEvent.VK_B) {
     controlB += e;
-  }else if (wheelMode == KeyEvent.VK_C) {
+  } else if (wheelMode == KeyEvent.VK_C) {
     controlC += e;
-  }else if (wheelMode == KeyEvent.VK_D) {
+  } else if (wheelMode == KeyEvent.VK_D) {
     controlD += e;
   }
-  
-   println(controlA + " " + controlB + " " + controlC + " " + controlD);
+
+  println(controlA + " " + controlB + " " + controlC + " " + controlD);
 }
