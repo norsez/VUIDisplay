@@ -31,7 +31,7 @@ void initDisplays() {
 }
 
 void setup() {
-  size(240, 800);
+  size(600, 320);
   background(0);
 
   g = createGraphics(width, height);
