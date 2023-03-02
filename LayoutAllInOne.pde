@@ -14,7 +14,32 @@ class LayoutAllInOne extends AbstractLayout {
     
     if (super.isAuto) {
       if (switchFrame >= nextSwitch) { //<>//
-        nextSwitch = frameCount * random (1.7, 2.7);  
+        calcNextSwitch();
+      }
+      
+    }
+    
+    
+    for(DisplayInterface d: displays){
+      d.draw(g);
+    }
+    lg.endDraw();
+    g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
+    
+    switchFrame += 1;
+    
+    
+    //debug(switchFrame +"/"+nextSwitch, width - 200, height - 30, g);
+  }
+  
+  void toggleAuto(){
+    super.toggleAuto();
+    calcNextSwitch();
+    
+  }
+  
+  void calcNextSwitch() {
+    nextSwitch = frameCount * random (1.7, 2.7);  
         switchFrame = 0;
         
         int notHidden = 0;
@@ -33,21 +58,5 @@ class LayoutAllInOne extends AbstractLayout {
         for (int i=0; i < hiddens.length; i++){
           this.displays.get(i).setHidden(hiddens[i]);
         }
-      }
-      
-    }
-    
-    
-    for(DisplayInterface d: displays){
-      d.draw(g);
-    }
-    lg.endDraw();
-    g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
-    
-    switchFrame += 1;
-    
-    if(DEBUG)
-       debug(switchFrame +"/"+nextSwitch, width - 200, height - 30, g);
   }
-  
 }
