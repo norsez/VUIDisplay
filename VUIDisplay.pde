@@ -16,22 +16,22 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
 
-  displays.add(new DisplayStarZoom(bound));
-  displays.add(new DisplayBarWaveForm(bound));
-  displays.add(new DisplayBetaBall(bound));
-  displays.add(new DisplayBouncingLaser(bound));
-  displays.add(new DisplayWave(bound));
-  displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));
-  displays.add(new DisplayFFT(bound));
-  displays.add(new DisplayWaveSnapshot(bound));
-  
+  //displays.add(new DisplayStarZoom(bound));
+  //displays.add(new DisplayBarWaveForm(bound));
+  //displays.add(new DisplayBetaBall(bound));
+  //displays.add(new DisplayBouncingLaser(bound));
+  //displays.add(new DisplayWave(bound));
+  //displays.add(new DisplayRunningWave(bound));
+  //displays.add(new DisplayFFTPulse(bound));
+  //displays.add(new DisplayFFT(bound));
+  //displays.add(new DisplayWaveSnapshot(bound));
+  displays.add(new DisplaySpectrumBars(bound));
+
   layout = new LayoutAllInOne(bound, displays);
-  
 }
 
 void setup() {
-  size(600, 600);
+  size(600, 240);
   background(0);
 
   g = createGraphics(width, height);
@@ -51,7 +51,7 @@ void draw() {
   if (!paused) {
     g.beginDraw();
     g.background(0, 25);
-    
+
     layout.draw(g);
 
     g.endDraw();
