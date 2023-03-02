@@ -1,11 +1,9 @@
 class DisplaySpectrumBars extends AbstractDisplay {
-    int HORIZON = 0, VERTICAL = 1;
-    int orientation = HORIZON;
     color C_BAR_PLACEHOLDER = color(191,203,198, 8);
     int numBars  = 16;
     int barMargin = 2;
-    int numStepsPerSubBar = 20;
-    int subBarMargin = 1;
+    float spectrumMultiplier = 12;
+    float inset = 24;
     PGraphics lg;
     
     DisplaySpectrumBars(ARect b) {
@@ -16,7 +14,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
     void draw(PGraphics g) {
       if (super.hidden) return;
       lg.beginDraw();
-      lg.background(0, 5);
+      lg.background(0, 25);
       
       
       float barWidth = (bound.width / numBars) - barMargin * 2;
@@ -34,11 +32,12 @@ class DisplaySpectrumBars extends AbstractDisplay {
       
       for(int i=0; i< numBars; i++) {
         lg.noStroke();
-        lg.fill(colorFromMap(), 50 + 145 * ampsum);
+        
         lg.translate(2,0); 
-        float h = fft.spectrum[i * numBars] * bound.height;
+        float h = fft.spectrum[i * numBars] * spectrumMultiplier * bound.height;
         lg.push();
         lg.translate(0,bound.height - h);
+        lg.fill(color(81,216,172), 50 + 50 * ampsum);
         lg.rect(0,0, barWidth, h);
         lg.pop();
         lg.translate(barWidth, 0);
@@ -46,7 +45,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
       
       
       lg.endDraw();
-      
-      drawOn(lg,g,bound);
+      ARect insetBound = new ARect(bound.originX + inset, bound.originY + inset, bound.width - inset*2, bound.height - inset*2);
+      drawOn(lg,g,insetBound);
     }
 }

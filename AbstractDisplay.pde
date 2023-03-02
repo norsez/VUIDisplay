@@ -37,7 +37,7 @@ abstract class AbstractDisplay implements DisplayInterface {
      
     mainG.push();
     mainG.tint(255,alpha);
-    mainG.image(localG, bound.originX, bound.originY);
+    mainG.image(localG, bound.originX, bound.originY, bound.width, bound.height);
     mainG.pop();
   }
   
