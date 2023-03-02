@@ -6,7 +6,7 @@ BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
 List<DisplayInterface> displays;
-
+AbstractLayout layout;
 
 float controlA, controlB, controlC, controlD = 0;
 boolean paused = false;
@@ -25,6 +25,9 @@ void initDisplays() {
   displays.add(new DisplayFFTPulse(bound));
   displays.add(new DisplayFFT(bound));
   displays.add(new DisplayWaveSnapshot(bound));
+  
+  layout = new LayoutAllInOne(bound, displays);
+  
 }
 
 void setup() {
@@ -48,9 +51,8 @@ void draw() {
   if (!paused) {
     g.beginDraw();
     g.background(0, 25);
-    for (DisplayInterface di : displays) {
-      di.draw(g);
-    }
+    
+    layout.draw(g);
 
     g.endDraw();
   }

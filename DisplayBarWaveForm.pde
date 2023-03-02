@@ -93,7 +93,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
 
     localG.endDraw();
     
-    g.image(localG, 0, 0);
+    drawOn(localG, g, bound);
     
     updateParams();
   }
