@@ -1,18 +1,53 @@
 class LayoutAllInOne extends AbstractLayout {
+  int maxDisplays = 4;
   
   LayoutAllInOne(ARect bound, List<DisplayInterface> dis) {
     super(bound,dis);
     
   }
   
+  float switchFrame, nextSwitch = 0;
+  
   void draw(PGraphics g) {
     PGraphics lg = createGraphics(bound);
     lg.beginDraw();
+    
+    if (super.isAuto) {
+      if (switchFrame >= nextSwitch) { //<>//
+        nextSwitch = frameCount * random (1.7, 2.7);  
+        switchFrame = 0;
+        
+        int notHidden = 0;
+        boolean [] hiddens = new boolean [displays.size()];
+        for (int i=0; i< hiddens.length; i++) {
+           hiddens[i] = random(0,100) > 50;
+           if (hiddens[i] == false) notHidden++;
+           if (notHidden >= maxDisplays) {
+             for (int j = i+1; j < hiddens.length; j++){
+               hiddens[j] = true;
+             }
+             break;
+           }
+        }
+        
+        for (int i=0; i < hiddens.length; i++){
+          this.displays.get(i).setHidden(hiddens[i]);
+        }
+      }
+      
+    }
+    
+    
     for(DisplayInterface d: displays){
       d.draw(g);
     }
     lg.endDraw();
     g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
+    
+    switchFrame += 1;
+    
+    if(DEBUG)
+       debug(switchFrame +"/"+nextSwitch, width - 200, height - 30, g);
   }
   
 }

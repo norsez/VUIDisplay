@@ -12,6 +12,15 @@ abstract class AbstractDisplay implements DisplayInterface {
   void toggleHidden() {
     this.hidden = !hidden;
   }
+  
+  boolean isHidden() {
+    return hidden;
+  }
+  
+  void setHidden(boolean h) {
+    this.hidden = h;
+  }
+  
 
   void draw(PGraphics g) {
     g.push();

@@ -84,6 +84,8 @@ void keyPressed() {
     wheelMode = keyCode;
   } else if (keyCode == KeyEvent.VK_SPACE) {
     paused = !paused;
+  } else if (keyCode == KeyEvent.VK_Z) {
+    this.layout.toggleAuto();
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
