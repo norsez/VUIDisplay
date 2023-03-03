@@ -1,6 +1,24 @@
-boolean DEBUG = false;
+
 PFont debugFont;
 int debugFontSize = 12;
+int debug_y = debugFontSize;
+float debug_skipFrames = frameRate;
+
+color C_RED = color(200,0,0,200);
+void debug(String txt, color c) {
+  if (frameCount % debug_skipFrames != 0) return;
+  push();
+  textSize(debugFontSize);
+  fill(c);
+  text(txt, 5, debug_y);
+  pop();
+  
+  debug_y += debugFontSize;
+  if (debug_y >= height - debugFontSize){
+    debug_y = debugFontSize;
+  }
+}
+
 
 void debug(String txt, int x, int y, PGraphics g) {
   if (DEBUG)
