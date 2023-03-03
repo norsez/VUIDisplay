@@ -27,13 +27,12 @@ void initDisplays() {
   displays.add(new DisplayWaveDNA(bound));
   displays.add(new DisplaySpectrumBars(bound));
   displays.add(new DisplaySourceCode(bound));
-  displays.add(new DisplaySourceCode(bound));
 
   layout = new LayoutA(bound, displays);
 }
 
 void setup() {
-  size(600, 320);
+  size(640, 480);
   background(0);
 
   g = createGraphics(width, height);

@@ -5,7 +5,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
     int numBars  = 16;
     int barMargin = 2;
     float spectrumMultiplier = 12;
-    int steps = 100;
+    int steps = 50;
     float inset = 24;
     PGraphics lg;
     

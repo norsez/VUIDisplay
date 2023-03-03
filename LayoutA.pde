@@ -5,15 +5,14 @@ class LayoutA extends AbstractLayout {
   float dxToSwitch;
   
   PGraphics [] dgs;
-  
-  
-  
-  int maxSubWindows = 5;
+  int maxSubWindows = 4;
   int maxLayers = 6;
   int minLayers = 3;
+  int curLayer; //
   Set<PGraphics> bgDisplays;
   ArrayList<Set<PGraphics>> subWindows;
   List<ARect> subWindowRects;
+  
   
   LayoutA(ARect b, List<DisplayInterface> dis) {
     super(b,dis);
@@ -50,13 +49,11 @@ class LayoutA extends AbstractLayout {
   
   Set<PGraphics> randomBuffer() {
     Set<PGraphics> s = new HashSet();
-    randomSeed((long)random(50));
     int numDis = (int) random(minLayers,maxLayers+1);
     while (s.size() < numDis) {
-      List l = Arrays.asList(dgs);
-      Collections.shuffle(l);
-      if ( ! s.contains(l.get(0)) {
-        s.add(l.get(0));
+      s.add(dgs[curLayer++]);
+      if (curLayer >= dgs.length) {
+        curLayer = 0;
       }
     }  
     
@@ -66,7 +63,7 @@ class LayoutA extends AbstractLayout {
   void drawSubWindows(PGraphics g) {
     g.push();
     for(int i=0; i< subWindows.size();i++){
-      //g.tint(255,180);
+      g.tint(255,180);
       //g.blendMode(ADD);
       Set<PGraphics> sw = subWindows.get(i);
       ARect r = subWindowRects.get(i);
@@ -87,13 +84,11 @@ class LayoutA extends AbstractLayout {
      
   }
   
- 
-  
   void drawBg(PGraphics g) {
-    
     g.push();
-    //g.blendMode(ADD);
-    //g.tint(255,200);
+    g.background(0, 25);
+    g.blendMode(ADD);
+    g.tint(255,175);
     debug("bg displays: " + bgDisplays.size() + ", subw:" + subWindows.size(), 20,100,g);
     for(int i=0; i< bgDisplays.size(); i++) {
       PGraphics b = (PGraphics)bgDisplays.toArray()[i];
@@ -104,6 +99,7 @@ class LayoutA extends AbstractLayout {
   
   void toggleAuto(){
     super.toggleAuto();
+    Collections.shuffle(this.displays);
     this.shuffleDisplays();
     
   }

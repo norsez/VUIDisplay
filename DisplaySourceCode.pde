@@ -1,7 +1,7 @@
 class DisplaySourceCode extends AbstractDisplay {
   String FILE_NAME = "sourcecode.txt";
   String [] lines;
-  float fontSize = 5;
+  float fontSize = 8;
   float waitDx;
   float curFrame = 0;
   int lineIndex = 0;
