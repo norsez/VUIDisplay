@@ -27,8 +27,8 @@ class DisplayWave extends AbstractDisplay {
     for(int i=0; i< NUM_SAMPLES_WAVE; i++){
       AlphaBall b = new AlphaBall(int(i * bandwidth), 
                                   (int)map(waveform.data[i], -1, 1, 0, lg.height)
-                                  , g);
-      b.velocity_secs_per_round = 0.01;
+                                  , bound);
+      b.vel_px_per_sec = 0.01;
       b.radius = 1;
       b.maxRadius = 8; 
       b.alpha = random(100,200);
