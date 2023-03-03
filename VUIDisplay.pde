@@ -24,7 +24,7 @@ void initDisplays() {
   displays.add(new DisplayRunningWave(bound));
   displays.add(new DisplayFFTPulse(bound));
   displays.add(new DisplayFFT(bound));
-  displays.add(new DisplayWaveSnapshot(bound));
+  displays.add(new DisplayWaveDNA(bound));
   displays.add(new DisplaySpectrumBars(bound));
   //displays.add(new DisplayMatrixRain(bound));
 

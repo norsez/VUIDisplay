@@ -1,4 +1,4 @@
-class DisplayWaveSnapshot extends AbstractDisplay { //<>//
+class DisplayWaveDNA extends AbstractDisplay { //<>//
 
   float secsPerSnapshot;
   PGraphics buffer;
@@ -7,7 +7,7 @@ class DisplayWaveSnapshot extends AbstractDisplay { //<>//
   float [] waveformBuf;
   List<Easing> easings;
 
-  DisplayWaveSnapshot(ARect bound) {
+  DisplayWaveDNA(ARect bound) {
     super(bound);
     buffer = createGraphics(bound);
     setSecsPerSnapshot(1);
