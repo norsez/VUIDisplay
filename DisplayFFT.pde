@@ -34,7 +34,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     PGraphics lg = createGraphics(super.bound);
     lg.beginDraw();
     lg.background(0, 22);
-    if (balls.size() >= maxInstances + mapCtrl(controlA, 1, 2000)) {
+    if (balls.size() >= maxInstances + mapCtrl(controlA, 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
         debug("flush balls", C_RED);
      }
