@@ -28,13 +28,13 @@ class DisplaySourceCode extends AbstractDisplay {
     lg.beginDraw();
     lg.textSize(fontSize);
     if (curFrame >= waitDx) {
-      curFrame = 0; //<>//
+      curFrame = 0;
       lg.fill(0,250);
       lg.rect(inset,0, bound.width, fontSize + inset + lineSpacing);
       
       lg.fill(colorFromMap());
       lg.noStroke();
-      lg.text(lines[lineIndex++], inset, y); 
+      lg.text(lines[lineIndex++], bound.width * 0.6 + inset, y); 
       y += inset + lineSpacing;
       
       

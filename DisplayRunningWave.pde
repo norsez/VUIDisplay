@@ -13,7 +13,7 @@ class DisplayRunningWave extends AbstractDisplay {
 
     localG = createGraphics((int)this.bound.width, (int)this.bound.height);
     localG.beginDraw();
-    localG.background(0, 40);
+    localG.background(0, 20);
     if (prevG != null) {
       localG.image(prevG, -margin_x * 2, 0);
     }
@@ -33,7 +33,7 @@ class DisplayRunningWave extends AbstractDisplay {
   
   void drawLineSimple(float fromX, float fromY, float toX, float toY, PGraphics g) {
     float ca = norm(constrain(controlA, -100,100), -100,100);
-    localG.stroke(colorFromMap(int(fromX), int(toY), bound), 155);
+    localG.stroke(colorFromMap(int(fromX), int(toY), bound), 120 + 80 * ampsum);
     localG.strokeWeight(margin_x + ca * 50);
 
     localG.line(  fromX

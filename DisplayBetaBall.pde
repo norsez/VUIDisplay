@@ -30,13 +30,15 @@ class DisplayBetaBall extends AbstractDisplay {
     if (super.hidden) return;
     
     if (frameCount % skipFrame !=0) {
-      super.drawOn(lg,g,super.bound);
+      lg.beginDraw();
+      lg.endDraw();
+      drawOn(lg,g,super.bound); //<>//
       return;
     }
     
     
     lg.beginDraw();
-    lg.background(0, 225);
+    lg.background(0, 50);
     
     
     for (int i=1; i< bands + 1; i++){
@@ -51,7 +53,7 @@ class DisplayBetaBall extends AbstractDisplay {
     lg.endDraw();
     
     
-    super.drawOn(lg,g,super.bound);
+    drawOn(lg,g,super.bound); //<>//
   }
   
   

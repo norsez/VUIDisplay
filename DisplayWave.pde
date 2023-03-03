@@ -17,7 +17,7 @@ class DisplayWave extends AbstractDisplay {
     if (super.hidden) return;
     PGraphics lg = createGraphics(super.bound);
     lg.beginDraw();
-    lg.background(0,50);
+    lg.background(0,10);
      balls.removeIf(b -> (b.dead));
     if (balls.size() >= MAX_INSTANCES) {
         balls = balls.subList(ONE_INIT, balls.size() - 1);
@@ -31,7 +31,7 @@ class DisplayWave extends AbstractDisplay {
       b.velocity_secs_per_round = 0.01;
       b.radius = 1;
       b.maxRadius = 8; 
-      b.alpha = 60;
+      b.alpha = random(100,200);
       balls.add(b);
     }
     

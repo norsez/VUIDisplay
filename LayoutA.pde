@@ -6,8 +6,8 @@ class LayoutA extends AbstractLayout {
   
   PGraphics [] dgs;
   int maxSubWindows = 4;
-  int maxLayers = 6;
-  int minLayers = 3;
+  int maxLayers = 4;
+  int minLayers = 2;
   int curLayer; //
   Set<PGraphics> bgDisplays;
   ArrayList<Set<PGraphics>> subWindows;

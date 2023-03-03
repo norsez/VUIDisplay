@@ -1,5 +1,5 @@
 class LayoutAllInOne extends AbstractLayout {
-  int maxDisplays = 3;
+  int maxDisplays = 5;
   
   LayoutAllInOne(ARect bound, List<DisplayInterface> dis) {
     super(bound,dis);
@@ -11,7 +11,8 @@ class LayoutAllInOne extends AbstractLayout {
   void draw(PGraphics g) {
     PGraphics lg = createGraphics(bound);
     lg.beginDraw();
-    
+    lg.blendMode(ADD);
+    lg.tint(255,200);
     if (super.isAuto) {
       if (switchFrame >= nextSwitch) {
         calcNextSwitch();
@@ -21,9 +22,10 @@ class LayoutAllInOne extends AbstractLayout {
     
     
     for(DisplayInterface d: displays){
-      d.draw(g);
+      d.draw(lg);
     }
     lg.endDraw();
+    g.background(0, 15);
     g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
     
     switchFrame += 1;

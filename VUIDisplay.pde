@@ -1,7 +1,7 @@
  //<>//
 import java.awt.event.KeyEvent;
 
-boolean APPLY_BLOOM = false;
+boolean APPLY_BLOOM = true;
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
@@ -28,12 +28,13 @@ void initDisplays() {
   displays.add(new DisplaySpectrumBars(bound));
   displays.add(new DisplaySourceCode(bound));
 
-  layout = new LayoutA(bound, displays);
+  layout = new LayoutAllInOne(bound, displays);
 }
 
 void setup() {
-  size(640, 480);
+  size(640, 240);
   background(0);
+  frameRate(24);
 
   g = createGraphics(width, height);
 
@@ -51,9 +52,10 @@ void draw() {
 
   if (!paused) {
     g.beginDraw();
-    g.background(0);
-
+    g.background(0, 25);
+    //g.blendMode(SCREEN);
     layout.draw(g);
+    
 
     g.endDraw();
   }
