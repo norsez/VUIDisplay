@@ -20,7 +20,6 @@ abstract class AbstractDisplay implements DisplayInterface {
   void setHidden(boolean h) {
     this.hidden = h;
   }
-  
 
   void draw(PGraphics g) {
     g.push();

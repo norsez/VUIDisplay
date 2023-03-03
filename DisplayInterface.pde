@@ -4,4 +4,5 @@ interface DisplayInterface {
   void toggleHidden();
   boolean isHidden();
   void setHidden(boolean h);
+  //void bang();
 }
