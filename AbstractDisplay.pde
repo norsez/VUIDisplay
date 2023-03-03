@@ -42,4 +42,7 @@ abstract class AbstractDisplay implements DisplayInterface {
     mainG.pop();
   }
   
+  float mapCtrl(float controlValue, float min, float max) {
+    return map(controlValue, MIN_CONTROL, MAX_CONTROL, min, max);
+  }
 }
