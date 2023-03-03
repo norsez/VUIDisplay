@@ -1,6 +1,6 @@
 class DisplaySpectrumBars extends AbstractDisplay {
     final int HORIZONTAL = 0, VERTICAL = 1;
-    int orientation = 1;
+    int orientation = 0;
     color C_BAR_PLACEHOLDER = color(191,203,198, 8);
     int numBars  = 16;
     int barMargin = 2;

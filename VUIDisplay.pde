@@ -26,6 +26,7 @@ void initDisplays() {
   displays.add(new DisplayFFT(bound));
   displays.add(new DisplayWaveSnapshot(bound));
   displays.add(new DisplaySpectrumBars(bound));
+  //displays.add(new DisplayMatrixRain(bound));
 
   layout = new LayoutAllInOne(bound, displays);
 }

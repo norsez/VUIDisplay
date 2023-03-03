@@ -13,7 +13,7 @@ class LayoutAllInOne extends AbstractLayout {
     lg.beginDraw();
     
     if (super.isAuto) {
-      if (switchFrame >= nextSwitch) { //<>//
+      if (switchFrame >= nextSwitch) {
         calcNextSwitch();
       }
       
