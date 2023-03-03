@@ -13,7 +13,7 @@ class DisplayRunningWave extends AbstractDisplay {
 
     localG = createGraphics((int)this.bound.width, (int)this.bound.height);
     localG.beginDraw();
-
+    localG.background(0, 40);
     if (prevG != null) {
       localG.image(prevG, -margin_x * 2, 0);
     }

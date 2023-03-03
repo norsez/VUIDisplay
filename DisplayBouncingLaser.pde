@@ -106,6 +106,7 @@ class DisplayBouncingLaser extends AbstractDisplay{
     
     PGraphics g = createGraphics(int(mainG.width), mainG.height);
     g.beginDraw();
+    g.background(0,50);
     for(LaserTrail t: trails) {
       t.draw(g);
     }

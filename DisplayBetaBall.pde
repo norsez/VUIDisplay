@@ -36,7 +36,7 @@ class DisplayBetaBall extends AbstractDisplay {
     
     
     lg.beginDraw();
-    lg.background(0, 35);
+    lg.background(0, 225);
     
     
     for (int i=1; i< bands + 1; i++){

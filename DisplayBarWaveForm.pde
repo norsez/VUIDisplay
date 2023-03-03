@@ -40,8 +40,8 @@ class DisplayBarWaveForm extends AbstractDisplay {
 
     PGraphics localG = createGraphics(g.width, g.height);
     localG.beginDraw();
-    //localG.blendMode(ADD);
-    localG.background(0, 1);
+    
+    localG.background(0, 50);
 
     float space_width = localG.width / float(MAX_BARS);
 

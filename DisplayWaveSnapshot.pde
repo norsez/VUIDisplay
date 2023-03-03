@@ -31,7 +31,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>//
     if (super.hidden) return;
 
     buffer.beginDraw();
-    buffer.background(0,20);
+    buffer.background(0,190);
     
     float spacing = bound.width/NUM_SAMPLES_WAVE;
     buffer.strokeWeight(1);

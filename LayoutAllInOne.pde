@@ -1,5 +1,5 @@
 class LayoutAllInOne extends AbstractLayout {
-  int maxDisplays = 4;
+  int maxDisplays = 3;
   
   LayoutAllInOne(ARect bound, List<DisplayInterface> dis) {
     super(bound,dis);

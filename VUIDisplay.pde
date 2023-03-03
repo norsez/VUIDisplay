@@ -16,19 +16,20 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
 
-  //displays.add(new DisplayStarZoom(bound));
-  //displays.add(new DisplayBarWaveForm(bound));
-  //displays.add(new DisplayBetaBall(bound));
-  //displays.add(new DisplayBouncingLaser(bound));
-  //displays.add(new DisplayWave(bound));
-  //displays.add(new DisplayRunningWave(bound));
-  //displays.add(new DisplayFFTPulse(bound));
-  //displays.add(new DisplayFFT(bound));
-  //displays.add(new DisplayWaveDNA(bound));
-  //displays.add(new DisplaySpectrumBars(bound));
+  displays.add(new DisplayStarZoom(bound));
+  displays.add(new DisplayBarWaveForm(bound));
+  displays.add(new DisplayBetaBall(bound));
+  displays.add(new DisplayBouncingLaser(bound));
+  displays.add(new DisplayWave(bound));
+  displays.add(new DisplayRunningWave(bound));
+  displays.add(new DisplayFFTPulse(bound));
+  displays.add(new DisplayFFT(bound));
+  displays.add(new DisplayWaveDNA(bound));
+  displays.add(new DisplaySpectrumBars(bound));
+  displays.add(new DisplaySourceCode(bound));
   displays.add(new DisplaySourceCode(bound));
 
-  layout = new LayoutAllInOne(bound, displays);
+  layout = new LayoutA(bound, displays);
 }
 
 void setup() {
@@ -51,7 +52,7 @@ void draw() {
 
   if (!paused) {
     g.beginDraw();
-    g.background(0, 25);
+    g.background(0);
 
     layout.draw(g);
 

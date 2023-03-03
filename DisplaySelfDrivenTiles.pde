@@ -198,6 +198,7 @@ class DisplayFFTPulse extends AbstractDisplay {
     
     PGraphics localG = createGraphics(this.bound);
     localG.beginDraw();
+    localG.background(0);
     topLine.draw(localG);
     bottomLine.draw(localG);
     localG.endDraw();

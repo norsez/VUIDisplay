@@ -27,7 +27,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
       int alpha = 25;
       for (int i=0; i< steps; i++){
         lg.translate(0, stepSpacing);
-        if(i % 5 ==0)alpha = 80; else alpha = 40;
+        if(i % 5 ==0)alpha = 40; else alpha = 20;
         lg.stroke(0, alpha);
         lg.strokeWeight(0.5);
         lg.line(0,0,bound.width,0);
@@ -37,7 +37,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
       lg.push();
       for(int i=0; i< numBars; i++) {
         lg.noStroke();
-        lg.fill(this.C_BAR_PLACEHOLDER);
+        lg.fill(this.C_BAR_PLACEHOLDER, 40);
         lg.translate(barMargin,0);
         lg.rect(0,0, barWidth, bound.height);
         lg.translate(barWidth, 0);
