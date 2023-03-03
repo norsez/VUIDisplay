@@ -90,6 +90,9 @@ void keyPressed() {
     paused = !paused;
   } else if (keyCode == KeyEvent.VK_Z) {
     this.layout.toggleAuto();
+  } else if (keyCode == KeyEvent.VK_X) {
+    println("bang!");
+    controlA = controlB = controlC = controlD = 0;
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
