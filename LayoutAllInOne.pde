@@ -17,7 +17,6 @@ class LayoutAllInOne extends AbstractLayout {
       if (switchFrame >= nextSwitch) {
         calcNextSwitch();
       }
-      
     }
     
     

@@ -9,32 +9,40 @@ class DisplaySpectrumBars extends AbstractDisplay {
     float inset = 24;
     PGraphics lg;
     
+    Easing [] easings;
+    
     DisplaySpectrumBars(ARect b) {
       super(b);
       lg = createGraphics(b);
+      easings = new Easing [numBars];
+      for(int i=0; i< easings.length; i++) {
+        easings[i] = new Easing();
+        easings[i].easing = 0.05;
+      }
     }
     
     void draw(PGraphics g) {
       if (super.hidden) return;
-      lg.beginDraw();
-      lg.background(0, 25);
-      
-      
+      lg.beginDraw(); //<>//
+      lg.background(0, 35);
       float barWidth = (bound.width / numBars) - barMargin * 2;
       
       lg.push();
+      //lg.blendMode(ADD);
+      //lg.tint(255,190);
       float stepSpacing = (bound.height) / steps;
-      int alpha = 25;
+      
       for (int i=0; i< steps; i++){
         lg.translate(0, stepSpacing);
-        if(i % 5 ==0)alpha = 40; else alpha = 20;
-        lg.stroke(0, alpha);
+        lg.stroke(0);
         lg.strokeWeight(0.5);
         lg.line(0,0,bound.width,0);
       }
       lg.pop();
       
       lg.push();
+      //lg.blendMode(ADD);
+      //lg.tint(255,190);
       for(int i=0; i< numBars; i++) {
         lg.noStroke();
         lg.fill(this.C_BAR_PLACEHOLDER, 40);
@@ -46,6 +54,8 @@ class DisplaySpectrumBars extends AbstractDisplay {
       lg.pop();
       
       lg.push();
+      //lg.blendMode(ADD);
+      //lg.tint(255,190);
       for(int i=0; i< numBars; i++) {
         
         lg.noStroke();
@@ -54,7 +64,7 @@ class DisplaySpectrumBars extends AbstractDisplay {
         float h = fft.spectrum[i * numBars] * spectrumMultiplier * bound.height;
         lg.push();
         lg.translate(0,bound.height - h);
-        lg.fill(color(81,216,172), 4 + 80 * ampsum);
+        lg.fill(colorFromMap(), 180 + 50 * ampsum);
         lg.rect(0,0, barWidth, h);
         lg.pop();
         lg.translate(barWidth, 0);

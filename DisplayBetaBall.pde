@@ -32,7 +32,7 @@ class DisplayBetaBall extends AbstractDisplay {
     if (frameCount % skipFrame !=0) {
       lg.beginDraw();
       lg.endDraw();
-      drawOn(lg,g,super.bound); //<>//
+      drawOn(lg,g,super.bound);
       return;
     }
     

@@ -1,7 +1,7 @@
  //<>//
 import java.awt.event.KeyEvent;
 
-boolean APPLY_BLOOM = true;
+boolean APPLY_BLOOM = false;
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
@@ -32,7 +32,7 @@ void initDisplays() {
 }
 
 void setup() {
-  size(640, 240);
+  size(640, 640);
   background(0);
   frameRate(24);
 

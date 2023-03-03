@@ -1,10 +1,11 @@
 class DisplayRunningWave extends AbstractDisplay {
   PGraphics localG, prevG;
   float margin_x = 2;
-  
+  Easing easing;
   DisplayRunningWave(ARect bound) {
     super(bound);
-    
+    easing = new Easing();
+    easing.easing = 0.25;
   }
 
   void draw(PGraphics g) {
@@ -20,7 +21,7 @@ class DisplayRunningWave extends AbstractDisplay {
 
     float x = localG.width - (margin_x * 2);
     float y = map(waveform.data[0] * mapCurve( ampsum, 2), -1, 1, localG.height, 0);
-    
+    y = easing.ease(y);
     
     drawLineSimple(x, localG.height * 0.5, x, y, localG);
 
