@@ -9,6 +9,7 @@ class LaserTrail {
   float size = 3;
   float maxSizeAmp = 20;
   float vel_px_per_sec = 0.1;
+  Easing eAlpha;
   
   
   LaserTrail(float vx, float vy, float x, float y) {
@@ -16,6 +17,8 @@ class LaserTrail {
     this.vy = vy;
     this.x = x;
     this.y = y;
+    eAlpha = new Easing();
+    eAlpha.easing = random(0.1,0.5);
   }
   
   void setSpeed(float px_per_sec) {
@@ -37,11 +40,11 @@ class LaserTrail {
   void draw(PGraphics g) {
     
     g.noStroke();
-    g.fill(colorFromMap(int(x),int(y), true), alpha);
+    g.fill(colorFromMap(int(x),int(y), true), eAlpha.ease(alpha));
     g.strokeCap(ROUND);
     g.rectMode(CENTER);
     float s = size + (mapCurve(ampsum, 8) * maxSizeAmp);
-    g.rect(x,y,s,s);
+    g.rect(x,y,s,s,5);
     
     this.addAmpSpeed(ampsum);
     this.calcDxDy();
