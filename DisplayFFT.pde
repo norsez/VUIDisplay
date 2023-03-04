@@ -8,11 +8,13 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   List<AlphaBall> balls;
   float fftscale = 25;
   float partOfFTT = 0.10;
+  PGraphics lg;
   
   
   DisplayFFTAlphaBall (ARect bound) {
     super(bound);
     balls = new ArrayList();
+    lg = createGraphics(super.bound);
   }
 
   float getRadius() {
@@ -31,9 +33,9 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     
     if (super.hidden) return;
     
-    PGraphics lg = createGraphics(super.bound);
+    
     lg.beginDraw();
-    lg.background(0, 22);
+    lg.background(0, 1);
     if (balls.size() >= maxInstances + mapCtrl(controlA, 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
         debug("flush balls", C_RED);
@@ -58,6 +60,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
         b.radius = 0.4;
         b.maxRadius = 3 + random(1,3) +  mapCtrl(controlA, 20, 1) + random(0.2,1) * mapCtrl(controlA, 20, 1);
         b.vel_px_per_sec = 0.05 + mapCtrl(controlA, 1, 1000) ;
+        b.alpha = mapCtrl(controlA, 100,20) + random(0.2,1) * 20;
         balls.add(b);
         
         int y = 10;

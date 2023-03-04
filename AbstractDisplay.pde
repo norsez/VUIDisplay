@@ -35,7 +35,8 @@ abstract class AbstractDisplay implements DisplayInterface {
   void drawOn(PGraphics localG, PGraphics mainG, ARect bound, int alpha) {
      
     mainG.push();
-    mainG.tint(255,alpha);
+    //mainG.background(0, 1);
+    //mainG.tint(255,alpha);
     
     mainG.image(localG, bound.originX, bound.originY, bound.width, bound.height);
     
