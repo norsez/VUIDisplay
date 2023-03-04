@@ -11,8 +11,7 @@ class LayoutAllInOne extends AbstractLayout {
   void draw(PGraphics g) {
     PGraphics lg = createGraphics(bound);
     lg.beginDraw();
-    lg.blendMode(ADD);
-    lg.tint(255,200);
+    
     if (super.isAuto) {
       if (switchFrame >= nextSwitch) {
         calcNextSwitch();

@@ -18,7 +18,7 @@ void initDisplays() {
   displays = new ArrayList();
 
   displays.add(new DisplayStarZoom(bound));
-  //displays.add(new DisplayBarWaveForm(bound));
+  displays.add(new DisplayBarWaveForm(bound));
   //displays.add(new DisplayBetaBall(bound));
   //displays.add(new DisplayBouncingLaser(bound));
   //displays.add(new DisplayWave(bound));
@@ -53,8 +53,6 @@ void draw() {
 
   if (!paused) {
     g.beginDraw();
-    
-    //g.blendMode(SCREEN);
     layout.draw(g);
     
 

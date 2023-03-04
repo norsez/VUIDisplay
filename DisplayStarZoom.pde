@@ -18,7 +18,7 @@ class DisplayStarZoom extends AbstractDisplay {
     width_per_layer =  b.width/MAX_STARS_LAYERS;
     height_per_layer = b.height/MAX_STARS_LAYERS;
     scalingDx = 0.1 / ( speed_max_scaling_in_sec * frameRate );
-    minModA = 0.01/frameRate;
+    minModA = 0.005/frameRate;
     maxModA = 1 / frameRate;
   }
   

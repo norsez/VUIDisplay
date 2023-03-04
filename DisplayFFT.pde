@@ -60,7 +60,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
         b.radius = 0.4;
         b.maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
         b.vel_px_per_sec = 0.05 + mapCtrlA( 1, 1000) ;
-        b.alpha = mapCtrlA( 100,20) + random(0.2,1) * 20;
+        b.alpha = ampsum * (mapCtrlA( 60,1) + random(0.2,1) * 7);
         balls.add(b);
         
         int y = 10;
