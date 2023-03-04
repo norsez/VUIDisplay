@@ -1,6 +1,6 @@
 class LayoutAllInOne extends AbstractLayout {
   int maxDisplays = 5;
-  
+  int fullAlphaLayer = 0;
   LayoutAllInOne(ARect bound, List<DisplayInterface> dis) {
     super(bound,dis);
     
@@ -19,11 +19,19 @@ class LayoutAllInOne extends AbstractLayout {
     }
     
     
-    for(DisplayInterface d: displays){
+    for(int i=0; i<displays.size(); i++){
+      DisplayInterface d = displays.get(i);
+      lg.push();
+      if (fullAlphaLayer != i) {
+        lg.tint(255, 200);
+      }else {
+        lg.tint(255);
+      }
       d.draw(lg);
+      lg.pop();
     }
     lg.endDraw();
-    g.background(0, 15);
+    
     g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
     
     switchFrame += 1;
@@ -55,8 +63,16 @@ class LayoutAllInOne extends AbstractLayout {
            }
         }
         
+        List<Integer>unHiddenIndices = new ArrayList();
         for (int i=0; i < hiddens.length; i++){
           this.displays.get(i).setHidden(hiddens[i]);
+          if (hiddens[i] == false) {
+            unHiddenIndices.add(i);
+          }
         }
+        Collections.shuffle(unHiddenIndices);
+        this.fullAlphaLayer = unHiddenIndices.size()==0?0: unHiddenIndices.get(0);
+        
+        println("full alpha layer: " + fullAlphaLayer, C_WHITE);
   }
 }
