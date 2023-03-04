@@ -8,7 +8,7 @@ class LaserTrail {
   boolean dead;
   float size = 3;
   float maxSizeAmp = 20;
-  float speed = 0.1;
+  float vel_px_per_sec = 0.1;
   
   
   LaserTrail(float vx, float vy, float x, float y) {
@@ -18,20 +18,20 @@ class LaserTrail {
     this.y = y;
   }
   
-  void setSpeed(float n_speed) {
-    this.speed = n_speed;
+  void setSpeed(float px_per_sec) {
+    this.vel_px_per_sec = px_per_sec;
     this.calcDxDy();
   }
   
   void calcDxDy() {
     //pixel = k * width/frameRate
-    dx = vx * map(mapCurve(speed,9), 0,1,0.001,1) * width/frameRate;
-    dy = vy * map(mapCurve(speed,9), 0,1,0.001,1) * height/frameRate;
+    dx = vx * vel_px_per_sec /frameRate;
+    dy = vy * vel_px_per_sec /frameRate;
   }
   
   void addAmpSpeed(float n_temp_speed) {
-    dxAmp = vx * map(n_temp_speed, 0,1,0,0.8) * width/frameRate;
-    dyAmp = vy * map(n_temp_speed, 0,1,0,0.8) * height/frameRate;
+    dxAmp = vx * map(n_temp_speed, 0,1,0,0.8) /frameRate;
+    dyAmp = vy * map(n_temp_speed, 0,1,0,0.8) /frameRate;
   }
          
   void draw(PGraphics g) {
@@ -45,12 +45,12 @@ class LaserTrail {
     
     this.addAmpSpeed(ampsum);
     this.calcDxDy();
-    x = x + dx + dxAmp;
-    y = y + dy + dyAmp;
+    x = x + dx ;//+ dxAmp;
+    y = y + dy ;// + dyAmp;
      
     calcDirection();
     
-    receiveMouseKeyInput();
+   // receiveMouseKeyInput();
   }
   
   void calcDirection() {
@@ -58,7 +58,7 @@ class LaserTrail {
       //recalc new direction
       vx = random(-1,1);
       vy = random(-1,1);
-      this.setSpeed(this.speed);
+      this.setSpeed(this.vel_px_per_sec);
     }
   }
   
@@ -82,7 +82,7 @@ class DisplayBouncingLaser extends AbstractDisplay{
     for(int i=0; i<100; i++){
       
       LaserTrail t = new LaserTrail(random(-1,1),random(-1,1),random(w*0.45,w*0.55),random(h*0.45,h*0.55));
-      t.setSpeed(0.01);
+      t.setSpeed(50);
       trails.add(t);
     }
   }
@@ -98,7 +98,7 @@ class DisplayBouncingLaser extends AbstractDisplay{
     
     if (mousePressed) {
       LaserTrail t = new LaserTrail(random(-1,1),random(-1,1),mouseX,mouseY);
-      t.setSpeed(0.01);
+      t.setSpeed(0.1);
       t.size = 5;
       t.maxSizeAmp = 10;
       trails.add(t);
@@ -106,8 +106,10 @@ class DisplayBouncingLaser extends AbstractDisplay{
     
     PGraphics g = createGraphics(int(mainG.width), mainG.height);
     g.beginDraw();
-    g.background(0,10);
+    g.background(0,100);
     for(LaserTrail t: trails) {
+      t.setSpeed(mapCtrlA(15,500));
+      t.maxSizeAmp = mapCtrlA(10,150);
       t.draw(g);
     }
     g.endDraw();
