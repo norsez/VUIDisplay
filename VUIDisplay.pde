@@ -19,15 +19,15 @@ void initDisplays() {
 
   displays.add(new DisplayStarZoom(bound));
   displays.add(new DisplayBarWaveForm(bound));
-  //displays.add(new DisplayBetaBall(bound));
-  //displays.add(new DisplayBouncingLaser(bound));
-  //displays.add(new DisplayWave(bound));
-  //displays.add(new DisplayRunningWave(bound));
-  //displays.add(new DisplayFFTPulse(bound));
+  displays.add(new DisplayBetaBall(bound));
+  displays.add(new DisplayBouncingLaser(bound));
+  displays.add(new DisplayWave(bound));
+  displays.add(new DisplayRunningWave(bound));
+  displays.add(new DisplayFFTPulse(bound));
   displays.add(new DisplayFFTAlphaBall(bound));
-  //displays.add(new DisplayWaveDNA(bound));
-  //displays.add(new DisplaySpectrumBars(bound));
-  //displays.add(new DisplaySourceCode(bound));
+  displays.add(new DisplayWaveDNA(bound));
+  displays.add(new DisplaySpectrumBars(bound));
+  displays.add(new DisplaySourceCode(bound));
 
   layout = new LayoutAllInOne(bound, displays);
 }
@@ -38,10 +38,11 @@ void setup() {
   frameRate(24);
 
   g = createGraphics(width, height);
-
+  initTables();
   initColorMap(true);
   initDisplays();
   initAudioInput();
+  
 }
 
 void draw() {

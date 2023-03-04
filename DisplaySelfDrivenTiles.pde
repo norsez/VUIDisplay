@@ -10,12 +10,16 @@ class AutoDrivenTile {
   float topAmpSpeed = 100;
   float topAmpSize = 10;
   int baseAlpha = 35;
+  String someId = "?";
 
   AutoDrivenTile(ARect tileRect, ARect boundingBox) {
     this.tileRect = tileRect;
     this.boundingBox = boundingBox;
-    this.baseAlpha = (int) random(12, 76);
+    this.baseAlpha = (int) random(66, 176);
     direction = int(random(0, 3));
+    
+    int value = int(random(0,1) * 10000);
+    someId = Integer.toHexString(value);
   }
 
   void setSpeed(float speed_px_per_sec) {
@@ -42,6 +46,10 @@ class AutoDrivenTile {
 
     g.rect(tileRect.originX, tileRect.originY, tileRect.width + ampsum * topAmpSize, tileRect.height + ampsum * topAmpSize, 4);
     printDebug(g);
+    g.textSize(6);
+    g.fill(tileColor,200);
+    
+    g.text(someId, 2 + tileRect.originX, 2 + tileRect.originY + 6);
   }
 
   void printDebug(PGraphics g) {
@@ -203,7 +211,7 @@ class DisplayFFTPulse extends AbstractDisplay {
     topLine.draw(localG);
     bottomLine.draw(localG);
     localG.endDraw();
-    g.tint(255,200);
+    //g.tint(255,200);
     g.image(localG, this.bound.originX, this.bound.originY);
   }
 }
