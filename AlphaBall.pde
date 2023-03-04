@@ -9,6 +9,7 @@ class AlphaBall {
   float alpha = 100;
   float vel_radius_px_per_sec = 10;
   float deltaRadius = 0;
+  float radiusY = 0;
   
   AlphaBall(float initX, float initY, ARect g) {
     this.baseX = initX;
@@ -29,7 +30,7 @@ class AlphaBall {
     //g.stroke(color(0,200,0,10));
     g.stroke(colorFromMap(int(baseX), int(baseY), true), alpha + 50 * ampsum);
     g.fill(0, 0);
-    g.ellipse(baseX, baseY, this.radius, this.radius);
+    g.ellipse(baseX, baseY, this.radius, this.radius + this.radiusY);
 
     this.baseX += this.deltaDistance;
     if (this.baseX > g.width) {
