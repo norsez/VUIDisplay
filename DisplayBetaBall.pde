@@ -29,23 +29,24 @@ class DisplayBetaBall extends AbstractDisplay {
     
     if (super.hidden) return;
     
-    if (frameCount % skipFrame !=0) {
-      lg.beginDraw();
-      lg.endDraw();
-      drawOn(lg,g,super.bound);
-      return;
-    }
+    //if (frameCount % skipFrame !=0) {
+    //  lg.beginDraw();
+    //  lg.endDraw();
+    //  drawOn(lg,g,super.bound);
+    //  return;
+    //}
     
     
     lg.beginDraw();
-    lg.background(0, 50);
+    lg.background(0, 200);
     
     
     for (int i=1; i< bands + 1; i++){
       
-      lg.fill( colorFromMap(spacing * i, 40, bound), 150 + fft.spectrum[i]*200);
+      lg.fill( colorFromMap(spacing * i, 40, bound), 150 + fft.spectrum[i]*200 );
       lg.textSize(4 + 4*fft.spectrum[i]);
       //lg.text("" + withMathRound(fft.spectrum[i],2), spacing * i, 10 + bound.height * fft.spectrum[i]);
+      easings.get(i-1).easing = mapCtrlA(0.05, 0.7);
       lg.text(formatFreq(map(i,1,bands + 1,20,this.topFreq), 1), 
           spacing * i, 
           easings.get(i-1).ease(10 + bound.height * fft.spectrum[i]));
