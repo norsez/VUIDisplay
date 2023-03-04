@@ -36,7 +36,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     
     lg.beginDraw();
     lg.background(0, 1);
-    if (balls.size() >= maxInstances + mapCtrl(controlA, 1024, 1)) {
+    if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
         debug("flush balls", C_RED);
      }
@@ -58,9 +58,9 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
         AlphaBall b = new AlphaBall( map(i, 0, FFT_NUM_BANDS-1, 1, fftscale) * lg.height * (fftsum[i]), i * x_d, bound);
         //AlphaBall b = new AlphaBall( lg.width * ampsum * fftscale, i * x_d, g);
         b.radius = 0.4;
-        b.maxRadius = 3 + random(1,3) +  mapCtrl(controlA, 20, 1) + random(0.2,1) * mapCtrl(controlA, 20, 1);
-        b.vel_px_per_sec = 0.05 + mapCtrl(controlA, 1, 1000) ;
-        b.alpha = mapCtrl(controlA, 100,20) + random(0.2,1) * 20;
+        b.maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
+        b.vel_px_per_sec = 0.05 + mapCtrlA( 1, 1000) ;
+        b.alpha = mapCtrlA( 100,20) + random(0.2,1) * 20;
         balls.add(b);
         
         int y = 10;

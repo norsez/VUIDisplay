@@ -46,4 +46,8 @@ abstract class AbstractDisplay implements DisplayInterface {
   float mapCtrl(float controlValue, float min, float max) {
     return map(controlValue, MIN_CONTROL, MAX_CONTROL, min, max);
   }
+  
+  float mapCtrlA(float min, float max) {
+    return mapCtrl(controlA, min, max);
+  }
 }
