@@ -5,6 +5,7 @@ int debug_y = debugFontSize;
 float debug_skipFrames = frameRate;
 
 color C_RED = color(200,0,0,200);
+color C_WHITE = color(200,200);
 void debug(String txt, color c) {
   //if (frameCount % debug_skipFrames != 0) return;
   push();
