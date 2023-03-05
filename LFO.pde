@@ -16,9 +16,9 @@ static class LFO {
   
   float DisplaySelfDrivenTiles;
   float previousValue;
-  LFO (int shape, float angel, float speed) {
+  LFO (int shape, float angel, float speedPxPerHalfCycle) {
     this.angle = angel;
-    this.speed = speed;
+    this.speed = speedPxPerHalfCycle;
     
     initTables();
     this.setShape(shape);
