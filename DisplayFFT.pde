@@ -32,7 +32,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   void draw(PGraphics g) {
     
     if (super.hidden) return;
-    
+    lg = createGraphics(bound);
     
     lg.beginDraw();
     if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {

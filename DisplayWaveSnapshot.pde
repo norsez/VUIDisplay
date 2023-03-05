@@ -41,7 +41,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>//
     for (int i=0; i< NUM_SAMPLES_WAVE-1; i++) {
       easings.get(i).easing = mapCtrlA(0.8, 0.2);
       waveformBuf[i] = easings.get(i).ease(map(waveform.data[i], -1, 1, bound.height, 0));
-      buffer.stroke(colorFromMap(i * (int)spacing, (int)waveformBuf[i], true), mapCtrlA(100,50) + 80);
+      buffer.stroke(colorFromMap(i * (int)spacing, (int)waveformBuf[i], true), mapCtrlA(100,50) + 40);
       buffer.strokeWeight(random(0.1, 7));
 
       float r =  3 + ampsum * mapCtrlA(0, 5) + random(1,12) ;

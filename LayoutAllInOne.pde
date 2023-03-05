@@ -19,11 +19,8 @@ class LayoutAllInOne extends AbstractLayout {
     }
     
     lg.push();
-    for(int i=0; i<displays.size(); i++){
       DisplayInterface d = displays.get(i);
-      
-     
-      
+      if(i != fullAlphaLayer) lg.tint(255,200); else lg.noTint();
       d.draw(lg);
       
     }
