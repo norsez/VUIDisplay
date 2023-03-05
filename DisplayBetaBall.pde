@@ -36,11 +36,8 @@ class DisplayBetaBall extends AbstractDisplay {
     //  return;
     //}
     
-    
+    lg = createGraphics(bound);
     lg.beginDraw();
-    lg.background(0, 200);
-    
-    
     for (int i=1; i< bands + 1; i++){
       
       lg.fill( colorFromMap(spacing * i, 40, bound), 150 + fft.spectrum[i]*200 );
@@ -57,6 +54,6 @@ class DisplayBetaBall extends AbstractDisplay {
     drawOn(lg,g,super.bound); //<>//
   }
   
-  
+   //<>//
   
 }

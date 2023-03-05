@@ -35,7 +35,6 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     
     
     lg.beginDraw();
-    lg.background(0, 45);
     if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
         debug("flush balls", C_RED);

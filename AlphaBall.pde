@@ -28,7 +28,7 @@ class AlphaBall {
     this.deltaRadius = vel_radius_px_per_sec/frameRate;
 
     //g.stroke(color(0,200,0,10));
-    alpha = alpha  * radius/maxRadius;
+    alpha = 80 + alpha  * radius/maxRadius;
     g.stroke(colorFromMap(int(baseX), int(baseY), true), alpha + 50 * ampsum);
     g.fill(0, 0);
     g.ellipse(baseX, baseY, this.radius, this.radius + this.radiusY);

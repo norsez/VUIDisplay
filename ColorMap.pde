@@ -1,4 +1,4 @@
-String FILENAME_COLOR_MAP = "greenbokeh.jpg";
+String FILENAME_COLOR_MAP = "matrix.jpg";
 PImage colorMapImage;
 
 

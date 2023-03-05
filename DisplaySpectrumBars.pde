@@ -1,4 +1,4 @@
-class DisplaySpectrumBars extends AbstractDisplay { //<>//
+class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
   final int HORIZONTAL = 0, VERTICAL = 1;
   int orientation = 0;
   color C_BAR_PLACEHOLDER = color(191, 203, 198, 8);
@@ -27,8 +27,9 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>//
 
   void draw(PGraphics g) {
     if (super.hidden) return;
+    lg = createGraphics(bound);
     lg.beginDraw();
-    lg.background(0, mapCtrlA(35, 180));
+    
     float barWidth = (bound.width / numBars) - barMargin * 2;
 
     lg.push();
@@ -69,7 +70,7 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>//
       lg.push();
       
       lg.translate(0, bound.height - h);
-      lg.fill(colorFromMap(), mapCtrlA(9, 150) * ampsum);
+      lg.fill(colorFromMap(), 100 + mapCtrlA(9, 130) * ampsum);
       lg.rect(0, 0, barWidth, h);
       lg.pop();
       

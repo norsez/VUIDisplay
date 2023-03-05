@@ -14,7 +14,6 @@ class DisplayRunningWave extends AbstractDisplay {
 
     localG = createGraphics((int)this.bound.width, (int)this.bound.height);
     localG.beginDraw();
-    localG.background(0, mapCtrlA(200,1));
     if (prevG != null) {
       localG.image(prevG, -margin_x * 2, 0);
     }
@@ -34,7 +33,7 @@ class DisplayRunningWave extends AbstractDisplay {
     //float ca = mapCtrlA(1,5);
     easing.easing = mapCtrlA(0.7,.3);
     float ctrlA = mapCtrlA(0,1);
-    localG.stroke(colorFromMap(int(fromX), int(toY), bound), 80 + ctrlA * 140 * ampsum);
+    localG.stroke(colorFromMap(int(fromX), int(toY), bound), 200 + ctrlA * 140 * ampsum);
     localG.strokeWeight( ctrlA * margin_x + 2);
 
     localG.line(  fromX

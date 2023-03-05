@@ -11,25 +11,23 @@ class LayoutAllInOne extends AbstractLayout {
   void draw(PGraphics g) {
     PGraphics lg = createGraphics(bound);
     lg.beginDraw();
-    
+    lg.background(0);
     if (super.isAuto) {
       if (switchFrame >= nextSwitch) {
         calcNextSwitch();
       }
     }
     
-    
+    lg.push();
     for(int i=0; i<displays.size(); i++){
       DisplayInterface d = displays.get(i);
-      lg.push();
-      if (fullAlphaLayer != i) {
-        lg.tint(255, 200);
-      }else {
-        lg.tint(255);
-      }
+      
+     
+      
       d.draw(lg);
-      lg.pop();
+      
     }
+    lg.pop();
     lg.endDraw();
     
     g.image(lg,bound.originX,bound.originY,bound.width, bound.height);
@@ -73,6 +71,8 @@ class LayoutAllInOne extends AbstractLayout {
         Collections.shuffle(unHiddenIndices);
         this.fullAlphaLayer = unHiddenIndices.size()==0?0: unHiddenIndices.get(0);
         
-        println("full alpha layer: " + fullAlphaLayer, C_WHITE);
+        println("full alpha layer: " + fullAlphaLayer);
+        println("unhiidden: " + unHiddenIndices);
+        
   }
 }

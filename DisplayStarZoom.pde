@@ -25,8 +25,7 @@ class DisplayStarZoom extends AbstractDisplay {
   void drawStars() {
     buffer = createGraphics(bound);
     buffer.beginDraw();
-    buffer.background(0);
-    int maxStars = int( random(80, 100) ); //<>//
+    int maxStars = int( random(80, 100) ); //<>// //<>//
     for (int i=0; i < maxStars; i++){
       buffer.noStroke();
       buffer.fill(colorFromMap(), random(1,190));
@@ -39,8 +38,10 @@ class DisplayStarZoom extends AbstractDisplay {
   
   void draw(PGraphics g) {
     if (super.hidden) return;
+    buffer = createGraphics(bound);
+    
     buffer.beginDraw();
-    buffer.background(0, 1);
+    
     buffer.imageMode(CENTER);
     buffer.scale(currentScaling, currentScaling);
     buffer.image( buffer, buffer.width * 0.5/currentScaling, buffer.height * 0.5/currentScaling);

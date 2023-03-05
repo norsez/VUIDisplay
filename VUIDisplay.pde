@@ -1,4 +1,4 @@
- //<>//
+ //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false;
 boolean APPLY_BLOOM = false;
@@ -16,17 +16,17 @@ int wheelMode = KeyEvent.VK_A;
 void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
-
-  displays.add(new DisplayStarZoom(bound));
-  displays.add(new DisplayBarWaveForm(bound));
-  displays.add(new DisplayBetaBall(bound));
-  displays.add(new DisplayBouncingLaser(bound));
-  displays.add(new DisplayWave(bound));
-  displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));
-  displays.add(new DisplayFFTAlphaBall(bound));
-  displays.add(new DisplayWaveDNA(bound));
-  displays.add(new DisplaySpectrumBars(bound));
+  
+  
+  //displays.add(new DisplayStarZoom(bound));
+  //displays.add(new DisplayBarWaveForm(bound));
+  //displays.add(new DisplayBetaBall(bound));
+  //displays.add(new DisplayBouncingLaser(bound));
+  //displays.add(new DisplayWave(bound));
+  //displays.add(new DisplayRunningWave(bound));
+  //displays.add(new DisplayFFTPulse(bound));
+  //displays.add(new DisplayWaveDNA(bound));
+  //displays.add(new DisplaySpectrumBars(bound));
   displays.add(new DisplaySourceCode(bound));
 
   layout = new LayoutAllInOne(bound, displays);
@@ -42,7 +42,6 @@ void setup() {
   initColorMap(true);
   initDisplays();
   initAudioInput();
-  
 }
 
 void draw() {
@@ -54,8 +53,9 @@ void draw() {
 
   if (!paused) {
     g.beginDraw();
-    layout.draw(g);
     
+    layout.draw(g);
+
 
     g.endDraw();
   }
@@ -77,7 +77,7 @@ void keyPressed() {
     int k = keyCode - KeyEvent.VK_1;
     if (k < displays.size()) {
       DisplayInterface d = displays.get(k);
-      d.toggleHidden(); //<>//
+      d.toggleHidden();
     }
   } else if (keyCode == KeyEvent.VK_A
     || keyCode == KeyEvent.VK_B
@@ -101,16 +101,16 @@ void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   if (wheelMode == KeyEvent.VK_A) {
     controlA += e;
-    controlA = (constrain(controlA,MIN_CONTROL,MAX_CONTROL));
+    controlA = (constrain(controlA, MIN_CONTROL, MAX_CONTROL));
   } else if (wheelMode == KeyEvent.VK_B) {
     controlB += e;
-    controlB = (constrain(controlB,MIN_CONTROL,MAX_CONTROL));
+    controlB = (constrain(controlB, MIN_CONTROL, MAX_CONTROL));
   } else if (wheelMode == KeyEvent.VK_C) {
     controlC += e;
-    controlC = (constrain(controlC,MIN_CONTROL,MAX_CONTROL));
+    controlC = (constrain(controlC, MIN_CONTROL, MAX_CONTROL));
   } else if (wheelMode == KeyEvent.VK_D) {
     controlD += e;
-    controlD = (constrain(controlD,MIN_CONTROL,MAX_CONTROL));
+    controlD = (constrain(controlD, MIN_CONTROL, MAX_CONTROL));
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);

@@ -1,4 +1,4 @@
-class DisplayWaveDNA extends AbstractDisplay { //<>//
+class DisplayWaveDNA extends AbstractDisplay { //<>// //<>//
 
   float secsPerSnapshot;
   PGraphics buffer;
@@ -29,9 +29,8 @@ class DisplayWaveDNA extends AbstractDisplay { //<>//
 
   void draw(PGraphics g) {
     if (super.hidden) return;
-
+    buffer = createGraphics(bound);
     buffer.beginDraw();
-    buffer.background(0, mapCtrlA(180, 45));
 
     float spacing = bound.width/NUM_SAMPLES_WAVE;
     buffer.strokeWeight(1);
