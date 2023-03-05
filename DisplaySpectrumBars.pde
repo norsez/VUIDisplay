@@ -107,7 +107,7 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
 
       lg.background(0, 25);
 
-      debug("sx: " + sx + ", sy: " + sy, 20, 20, lg);
+      pdebug("sx: " + sx + ", sy: " + sy);
 
       lg.image(vg, 0, 0);
       lg.endDraw();

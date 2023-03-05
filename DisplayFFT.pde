@@ -35,10 +35,12 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     lg = createGraphics(bound);
     
     lg.beginDraw();
+    balls.removeIf((b -> b.dead));
     if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
-        debug("flush balls", C_RED);
-     }
+        pdebug("flush balls", C_RED);
+    }
+    pdebug(balls.size() + " balls.");
 
     if (mousePressed) {
       
@@ -63,7 +65,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
         balls.add(b);
         
         int y = 10;
-        debug("radius: " + getRadius() + ", " + getRadius()*3, 10,y, lg);
+        //pdebug("radius: " + getRadius() + ", " + getRadius()*3);
         
       }
     }
@@ -82,7 +84,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   
   void printDebug(AlphaBall b, PGraphics g) {
     //if (!DEBUG) return;
-    debug("" + b.baseX +", " + b.baseY, (int)b.baseX, (int) b.baseY, g);
+    pdebug("" + b.baseX +", " + b.baseY, (int)b.baseX, (int) b.baseY, g);
     
   }
   void updateParams() {

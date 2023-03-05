@@ -2,7 +2,7 @@ import com.hamoid.*; //<>//
 
  //<>//
 import java.awt.event.KeyEvent;
-boolean DEBUG = true;
+boolean DEBUG = false;
 boolean APPLY_BLOOM = false;
 boolean RECORD_VIDEO = false;
 BloomPProcess bloom = new BloomPProcess();
@@ -43,6 +43,7 @@ void setup() {
   size(640, 640);
   background(0);
   frameRate(24);
+  logG = createGraphics(width,height);
 
   g = createGraphics(width, height);
   initTables();
@@ -71,7 +72,7 @@ void draw() {
     
     layout.draw(g);
 
-
+    showLogList(g);
     g.endDraw();
   }
 
@@ -113,6 +114,8 @@ void keyPressed() {
   } else if (keyCode == KeyEvent.VK_Q && RECORD_VIDEO) {
     videoExport.endMovie();
     exit();
+  } else if (keyCode == KeyEvent.VK_W) {
+    DEBUG = !DEBUG;
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
