@@ -2,9 +2,9 @@ import com.hamoid.*; //<>//
 
  //<>//
 import java.awt.event.KeyEvent;
-boolean DEBUG = false;
+boolean DEBUG = true;
 boolean APPLY_BLOOM = false;
-boolean RECORD_VIDEO = true;
+boolean RECORD_VIDEO = false;
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
@@ -24,17 +24,17 @@ void initDisplays() {
   displays = new ArrayList();
   
   
-  //displays.add(new DisplayStarZoom(bound));
-  displays.add(new DisplayFFTAlphaBall(bound));
-  displays.add(new DisplayBarWaveForm(bound));
-  displays.add(new DisplayBetaBall(bound));
-  displays.add(new DisplayBouncingLaser(bound));
-  displays.add(new DisplayWave(bound));
-  displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));
-  displays.add(new DisplayWaveDNA(bound));
-  displays.add(new DisplaySpectrumBars(bound));
-  displays.add(new DisplaySourceCode(bound));
+   displays.add(new DisplayStarZoom(bound));
+   displays.add(new DisplayFFTAlphaBall(bound));
+   displays.add(new DisplayBarWaveForm(bound));
+   displays.add(new DisplayBetaBall(bound));
+   displays.add(new DisplayBouncingLaser(bound));
+   displays.add(new DisplayWave(bound));
+   displays.add(new DisplayRunningWave(bound));
+   displays.add(new DisplayFFTPulse(bound));
+   displays.add(new DisplayWaveDNA(bound));
+   displays.add(new DisplaySpectrumBars(bound));
+   displays.add(new DisplaySourceCode(bound));
 
   layout = new LayoutAllInOne(bound, displays);
 }
