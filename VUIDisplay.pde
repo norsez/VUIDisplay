@@ -1,7 +1,10 @@
- //<>// //<>//
+import com.hamoid.*; //<>//
+
+ //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false;
 boolean APPLY_BLOOM = false;
+boolean RECORD_VIDEO = true;
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
@@ -12,6 +15,9 @@ float controlA = 0, controlB = 0, controlC = 0, controlD = 0;
 final int MIN_CONTROL = 0, MAX_CONTROL = 128;
 boolean paused = false;
 int wheelMode = KeyEvent.VK_A;
+
+
+VideoExport videoExport;
 
 void initDisplays() {
   ARect bound = windowBoundingBox();
@@ -43,7 +49,15 @@ void setup() {
   initColorMap(true);
   initDisplays();
   initAudioInput();
+  initVideoExport();
 }
+
+void initVideoExport(){
+  if(!RECORD_VIDEO) return;
+  videoExport = new VideoExport(this,"export.mp4",g);
+  videoExport.startMovie();
+}
+
 
 void draw() {
 
@@ -65,6 +79,9 @@ void draw() {
   if (APPLY_BLOOM) {
     bloom.ApplyBloom();
   }
+
+  if(RECORD_VIDEO)
+    videoExport.saveFrame();
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
@@ -93,6 +110,9 @@ void keyPressed() {
   } else if (keyCode == KeyEvent.VK_X) {
     println("bang!");
     controlA = controlB = controlC = controlD = 0;
+  } else if (keyCode == KeyEvent.VK_Q && RECORD_VIDEO) {
+    videoExport.endMovie();
+    exit();
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
