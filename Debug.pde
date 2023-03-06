@@ -13,7 +13,7 @@ ArrayList<LogEntry> logList = new ArrayList();
 
 class LogEntry {
   String text;
-  color colour;
+  color colour; //<>//
   LogEntry(String s, color c){
     this.text = s;
     this.colour = c;
@@ -55,10 +55,12 @@ void showLogList(PGraphics g) {
   
   logG.endDraw();
   }
-
-  g.push();
-  g.image(logG, 0, 0);
-  g.pop();
+  
+  if (DEBUG){
+    g.push();
+    g.image(logG, 0, 0);
+    g.pop();
+  }
 
 
 }
