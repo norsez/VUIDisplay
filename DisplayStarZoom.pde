@@ -43,7 +43,7 @@ class StarWithPath {
     dy += distance;
     
     dead = dx > 1 && dy > 1;
-  } //<>//
+  }
 
 }
 
