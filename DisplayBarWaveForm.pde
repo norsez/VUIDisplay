@@ -10,9 +10,16 @@ class LineB1 {
   }
 
   void draw(PGraphics g) {
-    g.stroke(colorFromMap(int(sx), int(sy), true), 215);
+    color c = colorFromMap(int(sx), int(sy), true);
+    g.stroke(c, 215);
     g.strokeWeight(this.weight);
     g.line(sx, sy, ex, ey);
+  
+    for(int i=0; i<(int)random(4,15); i++){
+      g.fill(c, random (20,80));
+      g.noStroke();
+      g.rect(random(sx,ex), random(sy,ey), random(1,4), random(1,6), 3);
+    }
   }
 }
 
@@ -33,6 +40,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
   float y1_10;
   float y2_10;
   float ph_space_width, space_width;
+  Easing [] easings;
 
   DisplayBarWaveForm(ARect bound) {
     super(bound);
@@ -43,6 +51,13 @@ class DisplayBarWaveForm extends AbstractDisplay {
     y2_10 = bound.height * 0.55;
     space_width = bound.width / float(MAX_BARS);
     ph_space_width = space_width / 5.0;
+    easings = new Easing [MAX_BARS];
+    for(int i=0; i< MAX_BARS; i++) {
+      easings[i] = new Easing();
+      easings[i].easing = 0.25;
+      easings[i].lastValue = 0.5;
+    }
+    
   }
 
   void updateGraphData() {
@@ -53,49 +68,19 @@ class DisplayBarWaveForm extends AbstractDisplay {
 
     PGraphics localG = createGraphics(g.width, g.height);
     localG.beginDraw();
-    
-    
-
-
-    //draw last frame 
-    PGraphics g_1 = createGraphics(localG.width, localG.height);
-    g_1.beginDraw();
-    g_1.image(g, 0, 0);
-    g_1.endDraw();
-    localG.tint(0,55);
-    
-    localG.image(g_1
-      , int((g_1.width - localG.width) * 0.5)
-      , int((g_1.height - localG.height) * 0.5)
-      , int(g_1.width * 1.1)
-      , int(g_1.height * 1.1)
-      );
-      
-    //draw placeholding
-    localG.stroke(this.C_PLACEHOLDER);
-    localG.strokeWeight(0.02);
-    
-    int total_ticks_pl = int(localG.width / ph_space_width);
-    for (int i=0; i< total_ticks_pl; i++) {
-       if (i % 10 == 0) {
-         localG.line(ph_space_width * i, y1_10, ph_space_width* i, y2_10);
-       }else {
-         localG.line(ph_space_width * i, y1, ph_space_width* i, y2);
-       }
-    }
-
 
     //draw this frame
-
     for (int i=0; i< MAX_BARS; i++) {
+      easings[i].easing = _easingCtrlA;
+      float dataPoint = easings[i].ease(waveform.data[i]);
+
       LineB1 ball = new LineB1(space_width *i,
-        g.height - map(waveform.data[i], -1, 1, g.height, 0),
+        g.height - map(dataPoint, -1, 1, g.height, 0),
         space_width * i,
-        map(waveform.data[i], -1, 1, g.height, 0)
+        map(dataPoint, -1, 1, g.height, 0)
         );
-      ball.weight = maxWeight * mapCurve(abs(waveform.data[i]), 4);
+      ball.weight = maxWeight * mapCurve(abs(dataPoint), 4);
       ball.draw(localG);
-     
     }
 
     localG.endDraw();
@@ -104,8 +89,11 @@ class DisplayBarWaveForm extends AbstractDisplay {
     
     updateParams();
   }
+
+  float _easingCtrlA;
   
   void updateParams() {
-    maxWeight = map(constrain(int(controlA), -100, 100), -100, 100, 1.5, 20);
+    maxWeight = mapCtrlA(1.5, 30);
+    _easingCtrlA = mapCtrlA(0.025,0.7);
   }
 }
