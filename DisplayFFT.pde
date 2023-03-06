@@ -92,9 +92,14 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   }
   void updateParams() {
     if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+
      _maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
-     _pixelPerSec = 0.05 + mapCtrlA( 1, 1000) ;
+     _pixelPerSec = 0.05 + mapCtrlA(300, 2) ;
      _alpha = ampsum * (mapCtrlA( 60,1) + random(0.2,1) * 7);
      
+  }
+  
+  void bang() {
+    this.balls = new ArrayList();
   }
 }
