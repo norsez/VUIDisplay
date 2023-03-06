@@ -3,8 +3,9 @@ class DisplayWave extends AbstractDisplay {
   final int MAX_INSTANCES = 200;
   final int ONE_INIT = 1;
   List<AlphaBall> balls;
- 
+  PGraphics lg;
 
+  float _maxRadius, _radiusY;
   DisplayWave(ARect bound) {
     super(bound);
     balls = new ArrayList();
@@ -13,13 +14,13 @@ class DisplayWave extends AbstractDisplay {
   void draw(PGraphics g) {
     
     if (super.hidden) return;
-    PGraphics lg = createGraphics(super.bound);
+    lg = createGraphics(super.bound);
     lg.beginDraw();
     
      balls.removeIf(b -> (b.dead));
     if (balls.size() >= MAX_INSTANCES) {
-        balls = balls.subList(0, balls.size() - 1);
-     }
+        balls = new ArrayList();
+    }
     
     float bandwidth = lg.width / float(NUM_SAMPLES_WAVE);
     for(int i=0; i< NUM_SAMPLES_WAVE; i++){
@@ -28,8 +29,8 @@ class DisplayWave extends AbstractDisplay {
                                   , bound);
       b.vel_px_per_sec = 0.01;
       b.radius = 2;
-      b.maxRadius = 8 * mapCtrlA(0,1); 
-      b.radiusY = b.radius * mapCtrlA(1,8);
+      b.maxRadius = _maxRadius; 
+      b.radiusY = _radiusY * b.radius ;
       b.alpha = 190 +  random(2,40);
       balls.add(b);
     }
@@ -41,6 +42,13 @@ class DisplayWave extends AbstractDisplay {
     lg.endDraw();
     
     drawOn(lg, g, super.bound);
-    
+    updateParams();
+  }
+
+  void updateParams() {
+    if(frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    _maxRadius = 2 + 8 * mapCtrlA(0,1);
+    _radiusY =  mapCtrlA(1,8);
+
   }
 }
