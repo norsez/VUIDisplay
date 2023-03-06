@@ -5,6 +5,10 @@ import java.awt.event.KeyEvent;
 boolean DEBUG = false;
 boolean APPLY_BLOOM = false;
 boolean RECORD_VIDEO = false;
+
+long APP_FRAME_RATE = 24;
+long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
+
 BloomPProcess bloom = new BloomPProcess();
 
 PGraphics g;
@@ -42,7 +46,7 @@ void initDisplays() {
 void setup() {
   size(640, 640);
   background(0);
-  frameRate(24);
+  frameRate(APP_FRAME_RATE);
   logG = createGraphics(width,height);
 
   g = createGraphics(width, height);
