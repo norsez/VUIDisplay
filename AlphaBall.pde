@@ -19,13 +19,17 @@ class AlphaBall {
     
   }
 
+  void setPixelPerSec(float PixelPerSec) {
+    this.deltaDistance = this.vel_px_per_sec/frameRate;
+    this.deltaRadius = vel_radius_px_per_sec/frameRate;
+  }
+
   void draw(PGraphics g) {
 
     if (dead)
       return;
       
-    this.deltaDistance = this.vel_px_per_sec/frameRate;
-    this.deltaRadius = vel_radius_px_per_sec/frameRate;
+    
 
     //g.stroke(color(0,200,0,10));
     alpha = 80 + alpha  * radius/maxRadius;
