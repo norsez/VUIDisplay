@@ -23,6 +23,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
     for (int i=0; i<NUM_SAMPLES_WAVE; i++) {
       Easing e = new Easing();
       e.easing = 0.05;
+      e.lastValue = bound.height * 0.5;
       easings.add(e);
     }
 
@@ -57,7 +58,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
       buffer.line(i * spacing, waveformBuf[i],
         (i+1) * spacing, lineLen);
 
-      float r =  2 + lfoBulbBrigtness.currentValue * 15;
+      float r =  2 + i * lfoBulbBrigtness.currentValue * 15.0 / NUM_SAMPLES_WAVE;
       pdebug("lfo " + lfoBulbBrigtness.currentValue);
       buffer.pushStyle();
       buffer.fill(colorFromMap(), 30);
