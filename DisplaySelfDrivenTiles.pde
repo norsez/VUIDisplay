@@ -61,16 +61,16 @@ class AutoDrivenTile {
     color c = wait > 0? color(255, 0, 0): color(255);
 
 
-    debug("d: " + direction, x, y, g, c);
+    pdebug("d: " + direction, x, y, g, c);
     y += margin;
 
-    debug("wait: " + wait, x, y, g, c);
+    pdebug("wait: " + wait, x, y, g, c);
     y+=margin;
 
-    debug("dx: " + dx, x, y, g, c);
+    pdebug("dx: " + dx, x, y, g, c);
     y+=margin;
 
-    debug("wt: " + walkTime, x, y, g, c);
+    pdebug("wt: " + walkTime, x, y, g, c);
   }
   
   void calcWalk() {
@@ -206,7 +206,7 @@ class DisplayFFTPulse extends AbstractDisplay {
     
     PGraphics localG = createGraphics(this.bound);
     localG.beginDraw();
-    localG.background(0,15);
+    
     localG.blendMode(ADD);
     topLine.draw(localG);
     bottomLine.draw(localG);

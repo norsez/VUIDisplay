@@ -89,7 +89,7 @@ class LayoutA extends AbstractLayout {
     g.background(0, 25);
     g.blendMode(ADD);
     g.tint(255,175);
-    debug("bg displays: " + bgDisplays.size() + ", subw:" + subWindows.size(), 20,100,g);
+    pdebug("bg displays: " + bgDisplays.size() + ", subw:" + subWindows.size(), 20,100,g);
     for(int i=0; i< bgDisplays.size(); i++) {
       PGraphics b = (PGraphics)bgDisplays.toArray()[i];
       g.image(b,0,0);

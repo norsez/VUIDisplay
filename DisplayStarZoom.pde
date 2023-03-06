@@ -1,61 +1,101 @@
+class StarWithPath {
+  ARect bound;
+  ARect path;
+  float velPxPerSec, distance;
+  float maxRadius;
+  float startRadius;
+  float alpha;
+  color myColor;
+  float dx = 0, dy = 0;
+  boolean dead;
+  
+  StarWithPath(ARect bound, float velPxPerSec){
+    this.bound = bound;
+    path = new ARect();
+    path.originX  = bound.width * 0.5;
+    path.originY  = bound.height * 0.5;
+    path.width = random(0,bound.width);
+    path.height = random(0,bound.height);
+    this.maxRadius = random (1.5, 15);
+    this.alpha = random(40,190);
+    this.velPxPerSec = velPxPerSec;
+    this.distance =  velPxPerSec / frameRate;
+    this.myColor = colorFromMap();
+    
+  }
+
+  void draw(PGraphics g){
+    
+    if (dead) return;
+    
+    g.fill(this.myColor, 200);
+    g.noStroke();
+
+    float r = 0.5 + lerp(startRadius, maxRadius, dx);
+    float x = lerp(path.originX, path.width, dx);
+    float y = lerp(path.originY, path.height, dy);
+    g.ellipse(x,y,
+      
+      r, r
+      );
+
+    dx += distance;
+    dy += distance;
+    
+    dead = dx > 1 && dy > 1;
+  }
+
+}
+
 class DisplayStarZoom extends AbstractDisplay {
-  float MAX_STARS_LAYERS = 10;
+  
+  List<StarWithPath> stars;
+  final int MAX_STARS = 100;
+  float newStarEveryNFrames;
+  float NUM_STARS_PER_N_FRAMES = 25;
+  float curFrame;
   PGraphics buffer;
-  
-  float width_per_layer;
-  float height_per_layer;
-  float maxScaling = 2;
-  float currentScaling = 1;
-  float scalingDx = 1;
-  float speed_max_scaling_in_sec = 8.0;
-  
-  float minModA,maxModA;
   
   DisplayStarZoom(ARect b) {
     super(b);
-    buffer = createGraphics(b);
-    drawStars();
-    width_per_layer =  b.width/MAX_STARS_LAYERS;
-    height_per_layer = b.height/MAX_STARS_LAYERS;
-    scalingDx = 0.1 / ( speed_max_scaling_in_sec * frameRate );
-    minModA = 0.005/frameRate;
-    maxModA = 1 / frameRate;
-  }
-  
-  void drawStars() {
-    buffer = createGraphics(bound);
-    buffer.beginDraw();
-    buffer.background(0);
-    int maxStars = int( random(80, 100) ); //<>//
-    for (int i=0; i < maxStars; i++){
-      buffer.noStroke();
-      buffer.fill(colorFromMap(), random(1,190));
-      float size = random (0.01, 2.8) + mapCtrl(controlA, 0.1, 2);
-      buffer.ellipse(random(0,bound.width),random(0,bound.height),size,size);
-    }
-    buffer.endDraw();
+    newStarEveryNFrames = 2 * frameRate;
+    stars = new ArrayList();
+    createStars();
   }
 
+  void createStars() {
+    
+    stars.removeIf(s ->(s.dead));
+    if (stars.size() > MAX_STARS ){
+      stars = stars.subList(MAX_STARS, stars.size()-1);
+    }
+
+    for(int i=0; i < NUM_STARS_PER_N_FRAMES; i++) {
+      StarWithPath s = new StarWithPath(bound, random(0.0001, 1));
+      stars.add(s);
+    }
+  }
   
   void draw(PGraphics g) {
     if (super.hidden) return;
-    buffer.beginDraw();
-    buffer.background(0, 1);
-    buffer.imageMode(CENTER);
-    buffer.scale(currentScaling, currentScaling);
-    buffer.image( buffer, buffer.width * 0.5/currentScaling, buffer.height * 0.5/currentScaling);
- 
-    buffer.endDraw();
-    currentScaling += scalingDx + mapCtrl(controlA, minModA, maxModA);
-    
-    //reach max
-    if (currentScaling > maxScaling) {
-      currentScaling = 1;
-      drawStars();
-      debug("new stars", C_RED);
+    buffer = createGraphics(bound);
+
+    if (curFrame >= newStarEveryNFrames) {
+      curFrame = 0;
+      createStars();
     }
     
+    buffer.beginDraw();
+
+    for(StarWithPath s: stars){
+      s.draw(g);
+    }
+    buffer.endDraw();
+
+    
     drawOn(buffer, g, bound);
+
+    curFrame++;
   }
   
 }

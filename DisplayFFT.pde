@@ -10,6 +10,9 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   float partOfFTT = 0.10;
   PGraphics lg;
   
+  float _maxRadius;
+  float _pixelPerSec;
+  float _alpha;
   
   DisplayFFTAlphaBall (ARect bound) {
     super(bound);
@@ -32,14 +35,15 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
   void draw(PGraphics g) {
     
     if (super.hidden) return;
-    
+    lg = createGraphics(bound);
     
     lg.beginDraw();
-    lg.background(0, 45);
+    balls.removeIf((b -> b.dead));
     if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
-        debug("flush balls", C_RED);
-     }
+        pdebug("flush balls", C_RED);
+    }
+    pdebug(balls.size() + " balls.");
 
     if (mousePressed) {
       
@@ -58,13 +62,13 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
         AlphaBall b = new AlphaBall( map(i, 0, FFT_NUM_BANDS-1, 1, fftscale) * lg.height * (fftsum[i]), i * x_d, bound);
         //AlphaBall b = new AlphaBall( lg.width * ampsum * fftscale, i * x_d, g);
         b.radius = 0.4;
-        b.maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
-        b.vel_px_per_sec = 0.05 + mapCtrlA( 1, 1000) ;
-        b.alpha = ampsum * (mapCtrlA( 60,1) + random(0.2,1) * 7);
+        b.maxRadius = _maxRadius;
+        b.setPixelPerSec( _pixelPerSec) ;
+        b.alpha = _alpha;
         balls.add(b);
         
         int y = 10;
-        debug("radius: " + getRadius() + ", " + getRadius()*3, 10,y, lg);
+        //pdebug("radius: " + getRadius() + ", " + getRadius()*3);
         
       }
     }
@@ -78,15 +82,19 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     
     drawOn(lg, g, bound);
     
-    //updateParams();
+    updateParams();
   }
   
   void printDebug(AlphaBall b, PGraphics g) {
     //if (!DEBUG) return;
-    debug("" + b.baseX +", " + b.baseY, (int)b.baseX, (int) b.baseY, g);
+    pdebug("" + b.baseX +", " + b.baseY, (int)b.baseX, (int) b.baseY, g);
     
   }
   void updateParams() {
-    maxInstances = int(map(controlD, -100,100, 128, 2000));
+    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+     _maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
+     _pixelPerSec = 0.05 + mapCtrlA( 1, 1000) ;
+     _alpha = ampsum * (mapCtrlA( 60,1) + random(0.2,1) * 7);
+     
   }
 }

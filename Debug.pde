@@ -2,31 +2,76 @@
 PFont debugFont;
 int debugFontSize = 12;
 int debug_y = debugFontSize;
-float debug_skipFrames = frameRate;
+
+float framesToShowLogEntries = 24;
 
 color C_RED = color(200,0,0,200);
 color C_WHITE = color(200,200);
-void debug(String txt, color c) {
-  //if (frameCount % debug_skipFrames != 0) return;
-  push();
-  textSize(debugFontSize);
-  fill(c);
-  text(txt, 5, debug_y);
-  pop();
-  
-  debug_y += debugFontSize;
-  if (debug_y >= height - debugFontSize){
-    debug_y = debugFontSize;
+PGraphics logG;
+
+ArrayList<LogEntry> logList = new ArrayList();
+
+class LogEntry {
+  String text;
+  color colour; //<>//
+  LogEntry(String s, color c){
+    this.text = s;
+    this.colour = c;
   }
 }
 
+void _addLogList(String s, color c) {
 
-void debug(String txt, int x, int y, PGraphics g) {
-  if (DEBUG)
-    debug(txt,x,y,g, color(255));
+  if (logList.size() > 50) {
+    logList = new ArrayList();
+  }
+
+  LogEntry e = new LogEntry(s,c);
+  logList.add(e);
+
 }
 
-void debug(String txt, int x, int y, PGraphics g, color c) {
+void pdebug(String txt) {
+  pdebug(txt,C_WHITE);
+}
+
+void pdebug(String txt, color c) {
+  _addLogList(txt, C_WHITE);
+}
+
+void showLogList(PGraphics g) {
+
+  if(int(frameCount) % int(framesToShowLogEntries) == 0) {
+
+  logG = createGraphics(width,height);
+  logG.beginDraw();
+  logG.textSize(debugFontSize);
+  logG.translate(5,0);
+  for(LogEntry e: logList) {
+      logG.fill(e.colour);
+      logG.text(e.text, 0, 0);
+      logG.translate(0, debugFontSize);
+  }
+  
+  logG.endDraw();
+  }
+  
+  if (DEBUG){
+    g.push();
+    g.image(logG, 0, 0);
+    g.pop();
+  }
+
+
+}
+
+
+void pdebug(String txt, int x, int y, PGraphics g) {
+  if (DEBUG)
+    pdebug(txt,x,y,g, color(255));
+}
+
+void pdebug(String txt, int x, int y, PGraphics g, color c) {
   if(!DEBUG) return;
   
   g.push();
