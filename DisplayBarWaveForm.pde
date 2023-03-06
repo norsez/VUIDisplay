@@ -28,8 +28,21 @@ class DisplayBarWaveForm extends AbstractDisplay {
   
   final color C_PLACEHOLDER = color(101,113,106, 72);
 
+  float y1;
+  float y2;
+  float y1_10;
+  float y2_10;
+  float ph_space_width, space_width;
+
   DisplayBarWaveForm(ARect bound) {
     super(bound);
+
+    y1 = bound.height * 0.47;
+    y2 = bound.height * 0.52;
+    y1_10 = bound.height * 0.45;
+    y2_10 = bound.height * 0.55;
+    space_width = bound.width / float(MAX_BARS);
+    ph_space_width = space_width / 5.0;
   }
 
   void updateGraphData() {
@@ -41,7 +54,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
     PGraphics localG = createGraphics(g.width, g.height);
     localG.beginDraw();
     
-    float space_width = localG.width / float(MAX_BARS);
+    
 
 
     //draw last frame 
@@ -61,11 +74,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
     //draw placeholding
     localG.stroke(this.C_PLACEHOLDER);
     localG.strokeWeight(0.02);
-    float y1 = localG.height * 0.47;
-    float y2 = localG.height * 0.52;
-    float y1_10 = localG.height * 0.45;
-    float y2_10 = localG.height * 0.55;
-    float ph_space_width = space_width / 5.0;
+    
     int total_ticks_pl = int(localG.width / ph_space_width);
     for (int i=0; i< total_ticks_pl; i++) {
        if (i % 10 == 0) {
