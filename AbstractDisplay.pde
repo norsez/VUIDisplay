@@ -50,4 +50,8 @@ abstract class AbstractDisplay implements DisplayInterface {
   float mapCtrlA(float min, float max) {
     return mapCtrl(controlA, min, max);
   }
+
+  void bang() {
+    println("Bang!");
+  }
 }

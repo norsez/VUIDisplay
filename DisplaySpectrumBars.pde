@@ -1,4 +1,4 @@
-class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
+class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>//
   final int HORIZONTAL = 0, VERTICAL = 1;
   int orientation = 0;
   color C_BAR_PLACEHOLDER = color(191, 203, 198, 8);
@@ -11,17 +11,22 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
 
   Easing [] easings;
   Easing [] easingMeters;
+  color [] barColors;
+
+  float _alphaCtrlA, _hCtrlA;
 
   DisplaySpectrumBars(ARect b) {
     super(b);
     lg = createGraphics(b);
     easings = new Easing [numBars];
     easingMeters = new Easing [numBars];
+    barColors = new color [numBars];
     for (int i=0; i< easings.length; i++) {
       easings[i] = new Easing();
       easings[i].easing = 0.05;
       easingMeters[i] = new Easing();
       easingMeters[i].easing = 0.01;
+      barColors[i] = colorFromMap();
     }
   }
 
@@ -65,19 +70,19 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
       lg.noStroke();
 
       lg.translate(barMargin, 0);
-      float h = fft.spectrum[i * numBars] * spectrumMultiplier * bound.height;
-      h = h * mapCtrlA(0.45, 1);
+      float h = fft.spectrum[i * numBars] * bound.height * spectrumMultiplier;
+      h = h * _hCtrlA;
       lg.push();
       
       lg.translate(0, bound.height - h);
-      lg.fill(colorFromMap(), 100 + mapCtrlA(9, 130) * ampsum);
+      lg.fill(barColors[i], _alphaCtrlA * ampsum);
       lg.rect(0, 0, barWidth, h);
       lg.pop();
       
       lg.push();
       lg.translate(0, easingMeters[i].ease(bound.height-h));
       
-      lg.fill(colorFromMap(), 200);
+      lg.fill(barColors[i], 200);
       lg.textSize(7);
       lg.text(round(cvLinearTodB(fft.spectrum[i * numBars])) + "dB", 0, 0);
       lg.pop();
@@ -85,36 +90,24 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>//
       lg.translate(barWidth, 0);
     }
     lg.pop();
-
-
-
     lg.endDraw();
-
-    if (orientation == VERTICAL) {
-      PGraphics vg = createGraphics(bound);
-      vg.beginDraw();
-      vg.push();
-      float sx = float(vg.width) / lg.height;
-      float sy = float(vg.height)/ lg.width;
-      vg.scale(sx, sy);
-      vg.rotate(radians(90));
-      vg.translate(0, -vg.height);
-      vg.image(lg, 0, 0);
-      vg.endDraw();
-      vg.pop();
-
-      lg.beginDraw();
-
-      lg.background(0, 25);
-
-      pdebug("sx: " + sx + ", sy: " + sy);
-
-      lg.image(vg, 0, 0);
-      lg.endDraw();
-    }
 
 
     ARect insetBound = new ARect(bound.originX + inset, bound.originY + inset, bound.width - inset*2, bound.height - inset*2);
     drawOn(lg, g, insetBound);
+    updateParams();
+  }
+
+  void updateParams() {
+    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+  
+    _alphaCtrlA = 100 + mapCtrlA(9, 130);
+    _hCtrlA = mapCtrlA(0.45, 1);
+  }
+
+  void bang() {
+    for (int i=0; i< easings.length; i++) {
+      barColors[i] = colorFromMap();
+    }
   }
 }

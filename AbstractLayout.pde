@@ -15,4 +15,9 @@ abstract class AbstractLayout {
   }
   
   abstract void draw(PGraphics g);
+  void bang() {
+    for(DisplayInterface d: this.displays) {
+      d.bang();
+    }
+  }
 }
