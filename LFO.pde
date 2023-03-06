@@ -14,11 +14,13 @@ static class LFO {
   
   boolean reverseDirection; //wave going right to left
   
-  float DisplaySelfDrivenTiles;
+  float currentValue;
   float previousValue;
-  LFO (int shape, float angel, float speedPxPerHalfCycle) {
+
+  
+  LFO (int shape, float angel, float speedSecPerFrameRate) {
     this.angle = angel;
-    this.speed = speedPxPerHalfCycle;
+    this.speed = speedSecPerFrameRate;
     
     initTables();
     this.setShape(shape);
@@ -69,14 +71,14 @@ static class LFO {
     float lowerV = this.lfoTable[firstIndex];
     float upperV = this.lfoTable[nextIndex];
     float interpolationAmt = (floatIndex-firstIndex);
-    previousValue = DisplaySelfDrivenTiles;
-    DisplaySelfDrivenTiles = lerp(lowerV, upperV, interpolationAmt);
+    previousValue = currentValue;
+    currentValue = lerp(lowerV, upperV, interpolationAmt); //<>//
     
     angle += speed;
     if (angle>=1) {
       angle = 0;
     }
-    return DisplaySelfDrivenTiles;
+    return currentValue;
   }
   
   String debugLog() {
