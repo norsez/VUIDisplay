@@ -45,7 +45,7 @@ class LayoutAllInOne extends AbstractLayout {
   }
   
   void calcNextSwitch() {
-    nextSwitch = frameCount * random (1.7, 2.7);  
+    nextSwitch = frameCount * random (0.5, 2.1);  
         switchFrame = 0;
         
         int notHidden = 0;
