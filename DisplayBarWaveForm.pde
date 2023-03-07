@@ -59,10 +59,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
     }
     
   }
-
-  void updateGraphData() {
-  }
- 
+  
   void draw(PGraphics g) {
     if (super.hidden) return;
 
@@ -95,5 +92,11 @@ class DisplayBarWaveForm extends AbstractDisplay {
   void updateParams() {
     maxWeight = mapCtrlA(1.5, 30);
     _easingCtrlA = mapCtrlA(0.025,0.7);
+  }
+  
+  void bang() {
+    for(int i=0; i< MAX_BARS; i++) {
+      easings[i].lastValue = i%2 == 0 ? -1:1;
+    }
   }
 }
