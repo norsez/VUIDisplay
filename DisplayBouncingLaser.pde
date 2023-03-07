@@ -115,10 +115,10 @@ class DisplayBouncingLaser extends AbstractDisplay{
     
     PGraphics g = createGraphics(int(mainG.width), mainG.height);
     g.beginDraw();
-    g.background(0,100);
+    //g.background(0,100);
     for(LaserTrail t: trails) {
-      t.setSpeed(mapCtrlA(15,500));
-      t.maxSizeAmp = mapCtrlA(10,150);
+      t.setSpeed(_speedCtrlA);
+      t.maxSizeAmp = _maxSizeCtrlA;
       t.draw(g);
     }
     g.endDraw();
@@ -131,7 +131,17 @@ class DisplayBouncingLaser extends AbstractDisplay{
     mainG.image(g, 0, 0);
     mainG.pop();
     
+    updateParameters();
     
+  }
+
+  float _speedCtrlA, _maxSizeCtrlA;
+
+  void updateParameters() {
+    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+
+    _speedCtrlA = mapCtrlA(15,500);
+    _maxSizeCtrlA = mapCtrlA(10,150);
   }
   
   
