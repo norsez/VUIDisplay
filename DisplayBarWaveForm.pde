@@ -2,6 +2,7 @@
 class LineB1 {
   float weight = 3;
   float sx, sy, ex, ey;
+  float alpha = 100;
   LineB1(float startX, float startY, float endX, float endY) {
     sx = startX;
     sy = startY;
@@ -16,7 +17,7 @@ class LineB1 {
     g.line(sx, sy, ex, ey);
   
     for(int i=0; i<(int)random(4,15); i++){
-      g.fill(c, random (20,80));
+      g.fill(c, alpha);
       g.noStroke();
       g.rect(random(sx,ex), random(sy,ey), random(1,4), random(1,6), 3);
     }
@@ -76,7 +77,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
         space_width * i,
         map(dataPoint, -1, 1, g.height, 0)
         );
-      ball.weight = maxWeight * mapCurve(abs(dataPoint), 4);
+      ball.weight = maxWeight + cvLinearToExp8(abs(dataPoint)) * 10;
       ball.draw(localG);
     }
 
@@ -87,11 +88,12 @@ class DisplayBarWaveForm extends AbstractDisplay {
     updateParams();
   }
 
-  float _easingCtrlA;
+  float _easingCtrlA, _alphaCtrlA;
   
   void updateParams() {
-    maxWeight = mapCtrlA(1.5, 30);
+    maxWeight = mapCtrlA(0.7, 15);
     _easingCtrlA = mapCtrlA(0.025,0.7);
+    _alphaCtrlA = mapCtrlA(200, 80);
   }
   
   void bang() {
