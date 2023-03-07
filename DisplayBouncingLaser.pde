@@ -21,15 +21,17 @@ class LaserTrail {
     eAlpha.easing = random(0.1,0.5);
   }
   
+  float _pxPerFrame;
   void setSpeed(float px_per_sec) {
     this.vel_px_per_sec = px_per_sec;
+    _pxPerFrame = vel_px_per_sec /frameRate;
     this.calcDxDy();
   }
   
   void calcDxDy() {
     //pixel = k * width/frameRate
-    dx = vx * vel_px_per_sec /frameRate;
-    dy = vy * vel_px_per_sec /frameRate;
+    dx = vx * _pxPerFrame;
+    dy = vy * _pxPerFrame;
   }
   
   void addAmpSpeed(float n_temp_speed) {
@@ -43,17 +45,21 @@ class LaserTrail {
     g.fill(colorFromMap(int(x),int(y), true), eAlpha.ease(alpha));
     g.strokeCap(ROUND);
     g.rectMode(CENTER);
-    float s = size + (mapCurve(ampsum, 8) * maxSizeAmp);
+    float s = size + cvLinearToExp8(ampsum) * maxSizeAmp;
     g.rect(x,y,s,s,5);
     
-    this.addAmpSpeed(ampsum);
+    
     this.calcDxDy();
     x = x + dx ;//+ dxAmp;
     y = y + dy ;// + dyAmp;
      
     calcDirection();
-    
-   // receiveMouseKeyInput();
+    updateParameters();
+  }
+
+  void updateParameters() {
+    if(frameCount % APP_PARAM_UPDATE_RATE !=0) return;
+    this.addAmpSpeed(ampsum);
   }
   
   void calcDirection() {

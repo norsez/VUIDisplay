@@ -99,7 +99,7 @@ class DisplayRulers extends AbstractDisplay {
 
         localG = createGraphics(bound);
         localG.beginDraw();
-        localG.tint(255, 190 + ampsum * 60);
+        localG.tint(255, 200 + ampsum * 55);
         ruler1.draw(localG);
         ruler2.drawRight(localG);
         localG.endDraw();
