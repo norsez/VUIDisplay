@@ -5,6 +5,8 @@ Inspired by the inspiring communities of synth jam posts on Instagram with cute 
 
 Below are example screenshots:
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=QH8t0uytZyU)
+
 How to run it:
 - Download Processing 4 here https://processing.org/download
 - Pull the master branch
