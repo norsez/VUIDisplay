@@ -10,7 +10,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
   float _strokeCtrlA;
   float _fillCtrlA;
   float _radiusCtrlA;
-  float _easingCtrlA;
+  float _easingCtrlA, _lineLenControlA;
 
   LFO lfoBulbBrigtness; 
 
@@ -50,16 +50,19 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
 
     waveformBuf = new float[NUM_SAMPLES_WAVE];
     for (int i=0; i< NUM_SAMPLES_WAVE-1; i++) {
-      easings.get(i).easing = _easingCtrlA;
+      easings.get(i).easing = _easingCtrlA ;
       waveformBuf[i] = easings.get(i).ease(map(waveform.data[i], -1, 1, bound.height, 0));
       buffer.stroke(colorFromMap(i * (int)spacing, (int)waveformBuf[i], true), _strokeCtrlA);
       buffer.strokeWeight(random(0.1, 7));
 
       float lineLen = map(waveformBuf[i+1], -1, 1, bound.height, 0);
-      buffer.line(i * spacing, waveformBuf[i],
-        (i+1) * spacing, lineLen);
+      buffer.line(i * spacing, 
+                  waveformBuf[i],
+                  (i+1) * spacing, 
+                  lineLen);
 
       float r =  2 + i * lfoBulbBrigtness.currentValue * 15.0 / NUM_SAMPLES_WAVE;
+      r += waveform.data[i] * _lineLenControlA;
       pdebug("lfo " + lfoBulbBrigtness.currentValue);
       buffer.pushStyle();
       buffer.fill(colorFromMap(), 30);
@@ -88,6 +91,7 @@ void updateParams() {
     _fillCtrlA = 45 + mapCtrlA(70,0);
     _radiusCtrlA =  mapCtrlA(0, 5);
     _easingCtrlA = mapCtrlA(0.01, 0.9);
+    _lineLenControlA = mapCtrlA(1, 0) * bound.height * ampsum;
   }
 
 void bang() {
