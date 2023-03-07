@@ -32,3 +32,11 @@ String formatFreq(float value, int places) {
   
   return s + "Hz";
 }
+
+String randomString(int len) {
+  String s = "";
+  for(int i=0; i<len; i++) {
+    s += (char)random(33,177);
+  }
+  return s;
+}

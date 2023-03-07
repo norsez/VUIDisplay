@@ -10,7 +10,7 @@ long APP_FRAME_RATE = 24;
 long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
 
 BloomPProcess bloom = new BloomPProcess();
-
+PFont FONT_6, FONT_8;
 PGraphics g;
 List<DisplayInterface> displays;
 AbstractLayout layout;
@@ -27,26 +27,28 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
   
-     displays.add(new DisplayRulers(bound));
-     displays.add(new DisplayStarZoom(bound));
-     displays.add(new DisplayFFTAlphaBall(bound));
-     displays.add(new DisplayBarWaveForm(bound));
-     displays.add(new DisplayBetaBall(bound));
-     displays.add(new DisplayBouncingLaser(bound));
-     displays.add(new DisplayWave(bound));
-     displays.add(new DisplayRunningWave(bound));
-     displays.add(new DisplayFFTPulse(bound));
-     displays.add(new DisplayWaveDNA(bound));
-     displays.add(new DisplaySpectrumBars(bound));
-     displays.add(new DisplaySourceCode(bound));
+   displays.add(new DisplayRulers(bound));
+   displays.add(new DisplayStarZoom(bound));
+   displays.add(new DisplayFFTAlphaBall(bound));
+   displays.add(new DisplayBarWaveForm(bound));
+   displays.add(new DisplayBetaBall(bound));
+   displays.add(new DisplayBouncingLaser(bound));
+   displays.add(new DisplayWave(bound));
+   displays.add(new DisplayRunningWave(bound));
+   displays.add(new DisplayFFTPulse(bound));
+   displays.add(new DisplayWaveDNA(bound));
+   displays.add(new DisplaySpectrumBars(bound));
+   displays.add(new DisplaySourceCode(bound));
 
   layout = new LayoutAllInOne(bound, displays);
 }
 
 void setup() {
-  size(800, 320);
+  size(1024,640);
   background(0);
   frameRate(APP_FRAME_RATE);
+  FONT_6 = loadFont("automat-6.vlw");
+  FONT_8 = loadFont("04b08-8.vlw");
   logG = createGraphics(width,height);
 
   g = createGraphics(width, height);

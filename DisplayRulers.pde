@@ -32,20 +32,28 @@ class Ruler {
         int numTicks = (int)random(95, 395);
         int numBigTicks = (int)random(6, 67);
         int bigTickPer  = int(numTicks / float(numBigTicks));
-        float tickHeight = random(0.2, 0.66) * rulerHeight;
-        float bigTickHeight = random(0.6,0.9) * rulerHeight;
+        float tickHeight = random(0.2, 0.6) * rulerHeight;
+        float bigTickHeight = random(0.6,0.75) * rulerHeight;
         color tickColor = color(C_TICK);
         color bigTickColor = color(C_TICK);
         float tickMargin = float(gRuler.width) / numTicks;
 
         gRuler.push();
+        gRuler.textFont(FONT_6);
         for(int i=0; i <numTicks; i++) {
             boolean isBigTick = i % bigTickPer == 0;
             gRuler.noFill();
             gRuler.stroke(isBigTick?bigTickColor:tickColor, 100 + random(1,50));
             gRuler.strokeWeight(isBigTick? 1.7: 0.5 + random(-0.1,0.1));
             gRuler.line(0,0,0,isBigTick?bigTickHeight:tickHeight);
+            if (isBigTick) {
+              gRuler.fill(C_TICK, random(120,190));
+              int strLen = (int)map(numBigTicks,6,67,6,2);
+              gRuler.text(randomString(strLen), -strLen * 0.5, rulerHeight - 7);
+            }
             gRuler.translate(tickMargin, 0);
+            
+            
         }
         gRuler.pop();
         gRuler.endDraw();
