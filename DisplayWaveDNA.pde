@@ -41,6 +41,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
     if (super.hidden) return;
     buffer = createGraphics(bound);
     buffer.beginDraw();
+    
 
     float spacing = bound.width/NUM_SAMPLES_WAVE;
     buffer.strokeWeight(1);
@@ -70,7 +71,10 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
 
 
     buffer.endDraw();
+    g.push();
+    buffer.tint(255, 200+ ampsum * 55);
     drawOn(buffer, g, bound);
+    g.pop();
     framePast += 1;
     updateParams();
     lfoBulbBrigtness.nextValue();
@@ -79,10 +83,18 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
   
 
 void updateParams() {
-  if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
-  _strokeCtrlA = mapCtrlA(100,50) + 40;
-  _fillCtrlA = 45 + mapCtrlA(70,0);
-  _radiusCtrlA =  mapCtrlA(0, 5);
-  _easingCtrlA = mapCtrlA(0.01, 0.9);
+    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    _strokeCtrlA = mapCtrlA(100,50) + 40;
+    _fillCtrlA = 45 + mapCtrlA(70,0);
+    _radiusCtrlA =  mapCtrlA(0, 5);
+    _easingCtrlA = mapCtrlA(0.01, 0.9);
+  }
+
+void bang() {
+    for(int i=0; i<easings.size(); i++) {
+      easings.get(i).lastValue = random(-0.1,0.1);
+    }
+    _easingCtrlA = 0.9;
+  }
 }
-}
+

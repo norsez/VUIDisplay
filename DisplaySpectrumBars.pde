@@ -75,7 +75,7 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>//
       lg.push();
       
       lg.translate(0, bound.height - h);
-      lg.fill(barColors[i], _alphaCtrlA * ampsum);
+      lg.fill(barColors[i]);
       lg.rect(0, 0, barWidth, h);
       lg.pop();
       
@@ -94,7 +94,11 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>//
 
 
     ARect insetBound = new ARect(bound.originX + inset, bound.originY + inset, bound.width - inset*2, bound.height - inset*2);
+    
+    g.push();
+    g.tint(255, _alphaCtrlA * ampsum);
     drawOn(lg, g, insetBound);
+    g.pop();
     updateParams();
   }
 
