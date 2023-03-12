@@ -63,7 +63,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
 
       float r =  2 + i * lfoBulbBrigtness.currentValue * 15.0 / NUM_SAMPLES_WAVE;
       r += waveform.data[i] * _lineLenControlA;
-      pdebug("lfo " + lfoBulbBrigtness.currentValue);
+      //pdebug("lfo " + lfoBulbBrigtness.currentValue);
       buffer.pushStyle();
       buffer.fill(colorFromMap(), 30);
       buffer.ellipse(i * spacing, waveformBuf[i], r, r);
