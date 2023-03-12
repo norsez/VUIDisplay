@@ -1,16 +1,18 @@
-import com.hamoid.*; //<>// //<>// //<>// //<>//
-
- //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>//
 import java.awt.event.KeyEvent;
-boolean DEBUG = false;
+boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = false;
+
 boolean RECORD_VIDEO = false;
+int RECORD_SECS = 60 * 2;
+float framesToRecord;
+
 
 long APP_FRAME_RATE = 24;
 long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
 
 BloomPProcess bloom = new BloomPProcess();
-PFont FONT_6, FONT_8;
+PFont FONT_6, FONT_8, FONT_16;
 PGraphics g;
 List<DisplayInterface> displays;
 AbstractLayout layout;
@@ -40,15 +42,21 @@ void initDisplays() {
    displays.add(new DisplaySpectrumBars(bound));
    displays.add(new DisplaySourceCode(bound));
 
+   int titleWidth = 250, titleHeight = 33, titleMargin = 20;
+   ARect titleBound = new ARect(bound.width - titleWidth - titleMargin, bound.height - titleHeight - titleMargin, titleWidth, titleHeight);
+   DisplayTitle dtitle = new DisplayTitle(bound, titleBound, "Norsez - Volume of the Ocean");
+   displays.add(dtitle);
+
   layout = new LayoutAllInOne(bound, displays);
 }
 
 void setup() {
-  size(1024,640);
+  size(800,320);
   background(0);
   frameRate(APP_FRAME_RATE);
   FONT_6 = loadFont("automat-6.vlw");
   FONT_8 = loadFont("04b08-8.vlw");
+  FONT_16 = loadFont("Arcade-16.vlw");
   logG = createGraphics(width,height);
 
   g = createGraphics(width, height);
@@ -63,6 +71,7 @@ void initVideoExport(){
   if(!RECORD_VIDEO) return;
   videoExport = new VideoExport(this,"export.mp4",g);
   videoExport.startMovie();
+  framesToRecord = RECORD_SECS * frameRate;
 }
 
 
@@ -87,8 +96,13 @@ void draw() {
     bloom.ApplyBloom();
   }
 
-  if(RECORD_VIDEO)
+  if(RECORD_VIDEO) {
     videoExport.saveFrame();
+    if(frameCount >= framesToRecord) {
+      videoExport.endMovie();
+      exit();
+    }
+  }
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
