@@ -1,8 +1,9 @@
+import controlP5.*;
 import com.hamoid.*;  //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = false;
-
+boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
@@ -24,52 +25,63 @@ int wheelMode = KeyEvent.VK_A;
 
 
 VideoExport videoExport;
+ControlP5 cp5;
 
 void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
-  
-   displays.add(new DisplayRulers(bound));
-   displays.add(new DisplayStarZoom(bound));
-   displays.add(new DisplayFFTAlphaBall(bound));
-   displays.add(new DisplayBarWaveForm(bound));
-   displays.add(new DisplayBetaBall(bound));
-   displays.add(new DisplayBouncingLaser(bound));
-   displays.add(new DisplayWave(bound));
-   displays.add(new DisplayRunningWave(bound));
-   displays.add(new DisplayFFTPulse(bound));
-   displays.add(new DisplayWaveDNA(bound));
-   displays.add(new DisplaySpectrumBars(bound));
-   displays.add(new DisplaySourceCode(bound));
 
-   int titleWidth = 250, titleHeight = 33, titleMargin = 20;
-   ARect titleBound = new ARect(bound.width - titleWidth - titleMargin, bound.height - titleHeight - titleMargin, titleWidth, titleHeight);
-   DisplayTitle dtitle = new DisplayTitle(bound, titleBound, "Norsez - Volume of the Ocean");
-   displays.add(dtitle);
+  displays.add(new DisplayRulers(bound));
+  displays.add(new DisplayStarZoom(bound));
+  displays.add(new DisplayFFTAlphaBall(bound));
+  displays.add(new DisplayBarWaveForm(bound));
+  displays.add(new DisplayBetaBall(bound));
+  displays.add(new DisplayBouncingLaser(bound));
+  displays.add(new DisplayWave(bound));
+  displays.add(new DisplayRunningWave(bound));
+  displays.add(new DisplayFFTPulse(bound));
+  displays.add(new DisplayWaveDNA(bound));
+  displays.add(new DisplaySpectrumBars(bound));
+  displays.add(new DisplaySourceCode(bound));
+
+  int titleWidth = 250, titleHeight = 33, titleMargin = 20;
+  ARect titleBound = new ARect(bound.width - titleWidth - titleMargin, bound.height - titleHeight - titleMargin, titleWidth, titleHeight);
+  DisplayTitle dtitle = new DisplayTitle(bound, titleBound, "Norsez - Volume of the Ocean");
+  displays.add(dtitle);
 
   layout = new LayoutAllInOne(bound, displays);
+
+
+  /// add display toggles into cp5
+  for (int i=0; i<displays.size(); i++) {
+    String num = String.format("%3s", "" + (i+1));
+    cp5.addToggle("d" + num, true);
+  }
 }
 
 void setup() {
-  size(800,320);
+  size(800, 320);
+  cp5 = new ControlP5(this);
+  cp5.hide();
+
   background(0);
   frameRate(APP_FRAME_RATE);
   FONT_6 = loadFont("automat-6.vlw");
   FONT_8 = loadFont("04b08-8.vlw");
   FONT_16 = loadFont("Arcade-16.vlw");
-  logG = createGraphics(width,height);
+  logG = createGraphics(width, height);
 
   g = createGraphics(width, height);
   initTables();
   initColorMap(true);
-  initDisplays();
   initAudioInput();
   initVideoExport();
+  initDisplays();
 }
 
-void initVideoExport(){
-  if(!RECORD_VIDEO) return;
-  videoExport = new VideoExport(this,"export.mp4",g);
+void initVideoExport() {
+  if (!RECORD_VIDEO) return;
+  videoExport = new VideoExport(this, "export.mp4", g);
   videoExport.startMovie();
   framesToRecord = RECORD_SECS * frameRate;
 }
@@ -84,7 +96,7 @@ void draw() {
 
   if (!paused) {
     g.beginDraw();
-    
+
     layout.draw(g);
 
     showLogList(g);
@@ -96,9 +108,9 @@ void draw() {
     bloom.ApplyBloom();
   }
 
-  if(RECORD_VIDEO) {
+  if (RECORD_VIDEO) {
     videoExport.saveFrame();
-    if(frameCount >= framesToRecord) {
+    if (frameCount >= framesToRecord) {
       videoExport.endMovie();
       exit();
     }
@@ -137,9 +149,28 @@ void keyPressed() {
     exit();
   } else if (keyCode == KeyEvent.VK_W) {
     DEBUG = !DEBUG;
+  } else if (keyCode == KeyEvent.VK_H) {
+    this.cp5Hidden = !this.cp5Hidden;
+    if (this.cp5Hidden) {
+      cp5.hide();
+    } else {
+      cp5.show();
+    }
   }
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
+}
+
+public void controlEvent(ControlEvent e) {
+  String ctrlName = e.getName();
+  println(ctrlName);
+  
+  if (ctrlName.startsWith("d")) { //<>//
+    String ctrlId = ctrlName.substring(1, 4).trim();
+    println(ctrlId);
+    int index = Integer.parseInt(ctrlId) - 1;
+    displays.get(index).toggleHidden();
+  }
 }
 
 void mouseWheel(MouseEvent event) {
