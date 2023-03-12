@@ -4,7 +4,7 @@ boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = false;
 
 boolean RECORD_VIDEO = false;
-int RECORD_SECS = 60 * 2;
+float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
 
 

@@ -14,7 +14,7 @@ PGraphics logG;
 ArrayList<LogEntry> logList = new ArrayList();
 
 class LogEntry {
-  String text;
+  String text; //<>//
   color colour; //<>//
   LogEntry(String s, color c){
     this.text = s;
@@ -38,11 +38,15 @@ void pdebug(String txt) {
 }
 
 void pdebug(String txt, color c) {
-  _addLogList(txt, C_WHITE);
-  println(txt);
+  if(DEBUG) {
+    _addLogList(txt, C_WHITE);
+    println(txt);
+  }
 }
 
 void showLogList(PGraphics g) {
+  
+  if(!DEBUG) return;
 
   if(int(frameCount) % int(framesToShowLogEntries) == 0) {
 

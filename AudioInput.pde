@@ -1,7 +1,7 @@
 import processing.sound.*;
 
 
-  final String FILENAME = "Norsez 17.wav";
+  final String FILENAME = "Norsez 18.2.wav";
   SoundFile sample;
   Waveform waveform;
   //AMP
