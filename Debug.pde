@@ -7,6 +7,8 @@ float framesToShowLogEntries = 24;
 
 color C_RED = color(200,0,0,200);
 color C_WHITE = color(200,200);
+color C_PINK = color(244,0,245);
+color C_GREEN = color(0,220,0);
 PGraphics logG;
 
 ArrayList<LogEntry> logList = new ArrayList();
@@ -37,6 +39,7 @@ void pdebug(String txt) {
 
 void pdebug(String txt, color c) {
   _addLogList(txt, C_WHITE);
+  println(txt);
 }
 
 void showLogList(PGraphics g) {
