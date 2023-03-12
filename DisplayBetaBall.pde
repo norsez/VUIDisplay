@@ -51,7 +51,7 @@ class DisplayBetaBall extends AbstractDisplay {
     lg.endDraw();
     
     
-    drawOn(lg,g,super.bound); //<>//
+    drawOn(lg,g,super.bound);
   }
   
    //<>//
