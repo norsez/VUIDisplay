@@ -21,9 +21,11 @@ void initLinearTodB() {
 }
 
 float cvLinearTodB(float v) {
-  return _tableLinearTodB[int(v * TABLE_SIZE)];
+  v = constrain(v,0,1);
+  return _tableLinearTodB[int(v * (TABLE_SIZE-1))];
 }
 
 float cvLinearToExp8(float v) {
-  return _tableExp8[int(v*TABLE_SIZE)];
+  v = constrain(v,0,1);
+  return _tableExp8[int(v*(TABLE_SIZE-1))];
 }
