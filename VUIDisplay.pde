@@ -116,6 +116,8 @@ void draw() {
       exit();
     }
   }
+
+  stateC.tick();
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5

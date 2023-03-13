@@ -133,7 +133,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
 
   void draw(PGraphics g) {
     if (super.hidden) return;
-    stateC.tick();
+    
 
     if (this.state.stateId == STATE_WAIT_IN) {
       return;
