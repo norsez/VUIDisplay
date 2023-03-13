@@ -80,9 +80,9 @@ class Panel {
     this.panel = createGraphics(bound);
     this.panel.beginDraw();
     this.panel.strokeWeight(1);
-    this.panel.stroke(C_GREEN, 220);
-    this.panel.fill(C_GREEN, 100);
-    this.panel.rect(0, 0, (int)bound.width, (int)bound.height, 4);
+    this.panel.stroke(colorFromMap(), 100);
+    this.panel.fill(colorFromMap(), 180);
+    this.panel.rect(0, 0, (int)bound.width-1, (int)bound.height -1, 4);
     this.panel.endDraw();
   }
 
@@ -147,22 +147,15 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     localG = createGraphics(bound); // draw translate only
     localG.beginDraw();
 
-    if (this.state.stateId == STATE_WAIT) {
+    if (this.state.stateId == STATE_WAIT ||  this.state.stateId == STATE_TEXT ) {
       localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-    } else if (this.state.stateId == STATE_TEXT) {
-      localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-    } else if (this.state.stateId == STATE_IN) {
+    } else if (this.state.stateId == STATE_IN || this.state.stateId == STATE_OUT) {
       localG.push();
-      this.alphaPanel += this.dxInOut;
+      this.alphaPanel = this.alphaPanel + this.state.stateId == STATE_IN? this.dxInOut: -this.dxInOut;
       localG.tint(255, cvLinearToExp8( this.alphaPanel ) * 255);
       localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
       localG.pop();
-    } else if (this.state.stateId == STATE_OUT) {
-      localG.push();
-      this.alphaPanel -= this.dxInOut;
-      localG.tint(255, cvLinearToExp8(this.alphaPanel) * 255);
-      localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-      localG.pop();
+    
     }
 
 
