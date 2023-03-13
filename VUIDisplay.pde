@@ -7,7 +7,7 @@ boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
-
+StateSequenceController stateC;
 
 long APP_FRAME_RATE = 24;
 long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
@@ -61,6 +61,7 @@ void initDisplays() {
 
 void setup() {
   size(800, 320);
+  stateC = new StateSequenceController();
   cp5 = new ControlP5(this);
   cp5.hide();
 
@@ -164,7 +165,7 @@ void keyPressed() {
 public void controlEvent(ControlEvent e) {
   String ctrlName = e.getName();
   println(ctrlName);
-  
+   //<>//
   if (ctrlName.startsWith("d")) { //<>//
     String ctrlId = ctrlName.substring(1, 4).trim();
     println(ctrlId);

@@ -105,7 +105,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
   Panel panel;
   ARect panelBound;
 
-  StateSequenceController stateC;
+  
   State state;
   int STATE_WAIT_IN = 0, STATE_IN = 1, STATE_TEXT = 2,
     STATE_WAIT = 3, STATE_OUT = 4;
@@ -118,16 +118,16 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     panel = new Panel(this.panelBound, title);
     panel.setText(title, SEC_TEXT);
 
-    stateC = new StateSequenceController();
+    
     stateC.listeners.add(this);
-    state = new State(STATE_WAIT_IN, 1 * frameRate);
+    state = new State(this, STATE_WAIT_IN, 1 * frameRate);
     stateC.add(state);
-    stateC.add(new State(STATE_IN, SEC_IN_OUT * frameRate));
+    stateC.add(new State(this, STATE_IN, SEC_IN_OUT * frameRate));
 
-    stateC.add(new State(STATE_TEXT, SEC_TEXT * frameRate));
-    stateC.add(new State(STATE_WAIT, 4 * frameRate));
+    stateC.add(new State(this, STATE_TEXT, SEC_TEXT * frameRate));
+    stateC.add(new State(this, STATE_WAIT, 4 * frameRate));
 
-    stateC.add(new State(STATE_OUT, SEC_IN_OUT * frameRate));
+    stateC.add(new State(this, STATE_OUT, SEC_IN_OUT * frameRate));
     this.dxInOut = 1.0/(SEC_IN_OUT * frameRate);
   }
 
@@ -178,7 +178,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
 
 
   void callbackWith(StateSequenceController sc, State s, PGraphics g) {
-    if (sc != this.stateC) return;
+    if (s.owner != this) return;
     this.state = s;
 
     if (this.state.stateId == STATE_IN) {

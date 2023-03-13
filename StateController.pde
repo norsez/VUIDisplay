@@ -6,10 +6,12 @@ interface StateActionCallback {
 class State {
   int stateId;
   float durationInFrames;
+  Object owner;
 
-  State(int id, float durationInFrames) {
+  State(Object owner, int id, float durationInFrames) {
     this.stateId = id;
     this.durationInFrames = durationInFrames;
+    this.owner = owner;
   }
 
   String toString() {
