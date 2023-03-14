@@ -8,10 +8,12 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
     super.maxDisplays = 1;
 
     fixedDisplays = new ArrayList();
+    fixedDisplays.add(new DisplayGridMove(bound));
     fixedDisplays.add(new DisplayRulers(bound));
     fixedDisplays.add(new DisplayStarZoom(bound));
     fixedDisplays.add(new DisplaySourceCode(bound));
     fixedDisplays.add(new DisplayWalkingTiles(bound));
+    
     int titleWidth = 250, titleHeight = 33, titleMargin = 30;
     ARect titleBound = new ARect(bound.width - titleWidth - titleMargin, bound.height - titleHeight - titleMargin, titleWidth, titleHeight);
     DisplayTitle dtitle = new DisplayTitle(bound, titleBound, "Norsez - Volume of the Ocean");
@@ -22,6 +24,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   }
 
   void draw(PGraphics g) {
+    
     super.draw(g);
     g.push();
     g.tint(255,200);
@@ -29,5 +32,14 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
       d.draw(g);
     }
     g.pop();
+
+  }
+
+  void bang() {
+    super.bang();
+
+    for(DisplayInterface d: fixedDisplays) {
+      d.bang();
+    }
   }
 }

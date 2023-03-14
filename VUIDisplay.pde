@@ -23,6 +23,8 @@ final int MIN_CONTROL = 0, MAX_CONTROL = 128;
 boolean paused = false;
 int wheelMode = KeyEvent.VK_A;
 
+color C_DEFAULT_FILL = color(140,201,185);
+
 
 VideoExport videoExport;
 ControlP5 cp5;
@@ -163,9 +165,9 @@ public void controlEvent(ControlEvent e) {
    //<>//
   if (ctrlName.startsWith("d")) { //<>//
     String ctrlId = ctrlName.substring(1, 4).trim();
-    println(ctrlId);
+    println(ctrlId); //<>//
     int index = Integer.parseInt(ctrlId) - 1;
-    displays.get(index).toggleHidden(); //<>//
+    displays.get(index).toggleHidden();
   }
 }
 

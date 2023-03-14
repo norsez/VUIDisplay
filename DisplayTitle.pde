@@ -81,7 +81,7 @@ class Panel {
     this.panel.beginDraw();
     this.panel.strokeWeight(1);
     this.panel.stroke(colorFromMap(), 100);
-    this.panel.fill(colorFromMap(), 180);
+    this.panel.fill(C_DEFAULT_FILL, random(80,100));
     this.panel.rect(0, 0, (int)bound.width-1, (int)bound.height -1, 4);
     this.panel.endDraw();
   }
@@ -145,7 +145,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     panelG.endDraw();
 
     localG = createGraphics(bound); // draw translate only
-    localG.beginDraw();
+    localG.beginDraw(); 
 
     if (this.state.stateId == STATE_WAIT ||  this.state.stateId == STATE_TEXT ) {
       localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);

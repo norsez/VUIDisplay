@@ -24,7 +24,7 @@ class PulseLine {
   void draw(PGraphics g) {
     PGraphics localG = createGraphics(this.bound);
     localG.beginDraw();
-    localG.background(0,20);
+    //localG.background(0,20);
     for (AutoDrivenTile t: tiles) {
       t.draw(localG);
     }
