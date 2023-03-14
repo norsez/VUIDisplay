@@ -288,10 +288,10 @@ class BottomLine {
 }
 
 
-class DisplayFFTPulse extends AbstractDisplay {
+class DisplayWalkingTiles extends AbstractDisplay {
   PulseLine topLine;
   BottomLine bottomLine;
-  DisplayFFTPulse(ARect bound) {
+  DisplayWalkingTiles(ARect bound) {
     super(bound);
     
     ARect topRect = new ARect(10,10,bound.width-20, bound.height * 0.1);

@@ -7,7 +7,7 @@ boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
-
+StateSequenceController stateC;
 
 long APP_FRAME_RATE = 24;
 long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
@@ -23,6 +23,8 @@ final int MIN_CONTROL = 0, MAX_CONTROL = 128;
 boolean paused = false;
 int wheelMode = KeyEvent.VK_A;
 
+color C_DEFAULT_FILL = color(140,201,185);
+
 
 VideoExport videoExport;
 ControlP5 cp5;
@@ -31,25 +33,18 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
 
-  displays.add(new DisplayRulers(bound));
-  displays.add(new DisplayStarZoom(bound));
+  
   displays.add(new DisplayFFTAlphaBall(bound));
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
   displays.add(new DisplayBouncingLaser(bound));
   displays.add(new DisplayWave(bound));
   displays.add(new DisplayRunningWave(bound));
-  displays.add(new DisplayFFTPulse(bound));
   displays.add(new DisplayWaveDNA(bound));
   displays.add(new DisplaySpectrumBars(bound));
-  displays.add(new DisplaySourceCode(bound));
+  
 
-  int titleWidth = 250, titleHeight = 33, titleMargin = 20;
-  ARect titleBound = new ARect(bound.width - titleWidth - titleMargin, bound.height - titleHeight - titleMargin, titleWidth, titleHeight);
-  DisplayTitle dtitle = new DisplayTitle(bound, titleBound, "Norsez - Volume of the Ocean");
-  displays.add(dtitle);
-
-  layout = new LayoutAllInOne(bound, displays);
+  layout = new LayoutWithFixedDisplaySet(bound, displays);
 
 
   /// add display toggles into cp5
@@ -61,6 +56,7 @@ void initDisplays() {
 
 void setup() {
   size(800, 320);
+  stateC = new StateSequenceController();
   cp5 = new ControlP5(this);
   cp5.hide();
 
@@ -115,6 +111,8 @@ void draw() {
       exit();
     }
   }
+
+  stateC.tick();
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
@@ -164,10 +162,10 @@ void keyPressed() {
 public void controlEvent(ControlEvent e) {
   String ctrlName = e.getName();
   println(ctrlName);
-  
+   //<>//
   if (ctrlName.startsWith("d")) { //<>//
     String ctrlId = ctrlName.substring(1, 4).trim();
-    println(ctrlId);
+    println(ctrlId); //<>//
     int index = Integer.parseInt(ctrlId) - 1;
     displays.get(index).toggleHidden();
   }

@@ -80,9 +80,9 @@ class Panel {
     this.panel = createGraphics(bound);
     this.panel.beginDraw();
     this.panel.strokeWeight(1);
-    this.panel.stroke(C_GREEN, 220);
-    this.panel.fill(C_GREEN, 100);
-    this.panel.rect(0, 0, (int)bound.width, (int)bound.height, 4);
+    this.panel.stroke(colorFromMap(), 100);
+    this.panel.fill(C_DEFAULT_FILL, random(80,100));
+    this.panel.rect(0, 0, (int)bound.width-1, (int)bound.height -1, 4);
     this.panel.endDraw();
   }
 
@@ -105,7 +105,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
   Panel panel;
   ARect panelBound;
 
-  StateSequenceController stateC;
+  
   State state;
   int STATE_WAIT_IN = 0, STATE_IN = 1, STATE_TEXT = 2,
     STATE_WAIT = 3, STATE_OUT = 4;
@@ -118,22 +118,22 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     panel = new Panel(this.panelBound, title);
     panel.setText(title, SEC_TEXT);
 
-    stateC = new StateSequenceController();
+    
     stateC.listeners.add(this);
-    state = new State(STATE_WAIT_IN, 1 * frameRate);
+    state = new State(this, STATE_WAIT_IN, 1 * frameRate);
     stateC.add(state);
-    stateC.add(new State(STATE_IN, SEC_IN_OUT * frameRate));
+    stateC.add(new State(this, STATE_IN, SEC_IN_OUT * frameRate));
 
-    stateC.add(new State(STATE_TEXT, SEC_TEXT * frameRate));
-    stateC.add(new State(STATE_WAIT, 4 * frameRate));
+    stateC.add(new State(this, STATE_TEXT, SEC_TEXT * frameRate));
+    stateC.add(new State(this, STATE_WAIT, 4 * frameRate));
 
-    stateC.add(new State(STATE_OUT, SEC_IN_OUT * frameRate));
+    stateC.add(new State(this, STATE_OUT, SEC_IN_OUT * frameRate));
     this.dxInOut = 1.0/(SEC_IN_OUT * frameRate);
   }
 
   void draw(PGraphics g) {
     if (super.hidden) return;
-    stateC.tick();
+    
 
     if (this.state.stateId == STATE_WAIT_IN) {
       return;
@@ -145,24 +145,17 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     panelG.endDraw();
 
     localG = createGraphics(bound); // draw translate only
-    localG.beginDraw();
+    localG.beginDraw(); 
 
-    if (this.state.stateId == STATE_WAIT) {
+    if (this.state.stateId == STATE_WAIT ||  this.state.stateId == STATE_TEXT ) {
       localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-    } else if (this.state.stateId == STATE_TEXT) {
-      localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-    } else if (this.state.stateId == STATE_IN) {
+    } else if (this.state.stateId == STATE_IN || this.state.stateId == STATE_OUT) {
       localG.push();
-      this.alphaPanel += this.dxInOut;
+      this.alphaPanel = this.alphaPanel + this.state.stateId == STATE_IN? this.dxInOut: -this.dxInOut;
       localG.tint(255, cvLinearToExp8( this.alphaPanel ) * 255);
       localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
       localG.pop();
-    } else if (this.state.stateId == STATE_OUT) {
-      localG.push();
-      this.alphaPanel -= this.dxInOut;
-      localG.tint(255, cvLinearToExp8(this.alphaPanel) * 255);
-      localG.image(panelG, panelBound.originX, panelBound.originY, panelBound.width, panelBound.height);
-      localG.pop();
+    
     }
 
 
@@ -178,7 +171,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
 
 
   void callbackWith(StateSequenceController sc, State s, PGraphics g) {
-    if (sc != this.stateC) return;
+    if (s.owner != this) return;
     this.state = s;
 
     if (this.state.stateId == STATE_IN) {

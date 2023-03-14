@@ -24,7 +24,7 @@ class PulseLine {
   void draw(PGraphics g) {
     PGraphics localG = createGraphics(this.bound);
     localG.beginDraw();
-    localG.background(0,20);
+    //localG.background(0,20);
     for (AutoDrivenTile t: tiles) {
       t.draw(localG);
     }
@@ -61,10 +61,10 @@ class BottomLine {
 }
 
 
-class DisplayFFTPulse extends AbstractDisplay {
+class DisplayWalkingTiles extends AbstractDisplay {
   PulseLine topLine;
   BottomLine bottomLine;
-  DisplayFFTPulse(ARect bound) {
+  DisplayWalkingTiles(ARect bound) {
     super(bound);
     
     ARect topRect = new ARect(10,10,bound.width-20, bound.height * 0.1);
