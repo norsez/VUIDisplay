@@ -101,4 +101,3 @@ void bang() {
     _easingCtrlA = 0.9;
   }
 }
-

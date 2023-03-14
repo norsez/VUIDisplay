@@ -72,7 +72,7 @@ static class LFO {
     float upperV = this.lfoTable[nextIndex];
     float interpolationAmt = (floatIndex-firstIndex);
     previousValue = currentValue;
-    currentValue = lerp(lowerV, upperV, interpolationAmt); //<>//
+    currentValue = lerp(lowerV, upperV, interpolationAmt);
     
     angle += speed;
     if (angle>=1) {

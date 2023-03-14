@@ -1,5 +1,5 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = false;
@@ -7,6 +7,7 @@ boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
+color C_DEFAULT_FILL = color(151,216,204);
 
 
 long APP_FRAME_RATE = 24;
@@ -161,10 +162,10 @@ public void controlEvent(ControlEvent e) {
   String ctrlName = e.getName();
   println(ctrlName);
    //<>//
-  if (ctrlName.startsWith("d")) { //<>//
-    String ctrlId = ctrlName.substring(1, 4).trim();
+  if (ctrlName.startsWith("d")) { //<>// //<>//
+    String ctrlId = ctrlName.substring(1, 4).trim(); //<>//
     println(ctrlId);
-    int index = Integer.parseInt(ctrlId) - 1;
+    int index = Integer.parseInt(ctrlId) - 1; //<>//
     displays.get(index).toggleHidden();
   }
 }
