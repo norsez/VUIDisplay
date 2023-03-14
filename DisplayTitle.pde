@@ -104,6 +104,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
   PGraphics localG, panelG;
   Panel panel;
   ARect panelBound;
+  StateSequenceController stateC;
 
   
   State state;
@@ -118,7 +119,8 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     panel = new Panel(this.panelBound, title);
     panel.setText(title, SEC_TEXT);
 
-    
+
+    stateC = new StateSequenceController();
     stateC.listeners.add(this);
     state = new State(this, STATE_WAIT_IN, 1 * frameRate);
     stateC.add(state);
@@ -167,6 +169,7 @@ class DisplayTitle extends AbstractDisplay implements StateActionCallback {
     localG.endDraw();
 
     drawOn(localG, g, bound);
+    stateC.tick();
   }
 
 

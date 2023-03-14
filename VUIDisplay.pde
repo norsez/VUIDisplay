@@ -7,7 +7,7 @@ boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
 float framesToRecord;
-StateSequenceController stateC;
+
 
 long APP_FRAME_RATE = 24;
 long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
@@ -22,8 +22,6 @@ float controlA = 0, controlB = 0, controlC = 0, controlD = 0;
 final int MIN_CONTROL = 0, MAX_CONTROL = 128;
 boolean paused = false;
 int wheelMode = KeyEvent.VK_A;
-
-color C_DEFAULT_FILL = color(140,201,185);
 
 
 VideoExport videoExport;
@@ -56,7 +54,7 @@ void initDisplays() {
 
 void setup() {
   size(800, 320);
-  stateC = new StateSequenceController();
+  
   cp5 = new ControlP5(this);
   cp5.hide();
 
@@ -112,7 +110,7 @@ void draw() {
     }
   }
 
-  stateC.tick();
+  
 }
 
 int [] displayKey = {KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3, KeyEvent.VK_4, KeyEvent.VK_5
@@ -165,7 +163,7 @@ public void controlEvent(ControlEvent e) {
    //<>//
   if (ctrlName.startsWith("d")) { //<>//
     String ctrlId = ctrlName.substring(1, 4).trim();
-    println(ctrlId); //<>//
+    println(ctrlId);
     int index = Integer.parseInt(ctrlId) - 1;
     displays.get(index).toggleHidden();
   }
