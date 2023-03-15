@@ -41,5 +41,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
     for(DisplayInterface d: fixedDisplays) {
       d.bang();
     }
+
+    super.fullAlphaLayer = 0;
   }
 }
