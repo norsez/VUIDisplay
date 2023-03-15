@@ -41,9 +41,9 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     balls.removeIf((b -> b.dead));
     if (balls.size() >= maxInstances + mapCtrlA( 1024, 1)) {
         balls = balls.subList(maxInstances, balls.size() - 1);
-        pdebug("flush balls", C_RED);
+        //pdebug("flush balls", C_RED);
     }
-    pdebug(balls.size() + " balls.");
+    //pdebug(balls.size() + " balls.");
 
     if (mousePressed) {
       
