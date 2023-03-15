@@ -1,5 +1,5 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = true;
@@ -33,11 +33,16 @@ void initDisplays() {
   displays = new ArrayList();
 
   
-  displays.add(new DisplayFFTAlphaBall(bound));
+  float picWidth = bound.width * 0.5, picHeight = bound.height * 0.5;
+  //new ARect(bound.width - (picWidth* 0.5), bound.height - (picHeight * 0.5), picWidth, picHeight)
+  DisplayLaserPaint disPic = new DisplayLaserPaint(bound);
+  disPic.setImage("thai elephant.png");
+  displays.add(disPic);
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
   displays.add(new DisplayBouncingLaser(bound));
   displays.add(new DisplayWave(bound));
+  displays.add(new DisplayFFTAlphaBall(bound));
   displays.add(new DisplayRunningWave(bound));
   displays.add(new DisplayWaveDNA(bound));
   displays.add(new DisplaySpectrumBars(bound));
@@ -157,11 +162,11 @@ void keyPressed() {
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
 }
-
-public void controlEvent(ControlEvent e) {
-  String ctrlName = e.getName();
-  println(ctrlName);
-   //<>//
+ //<>//
+public void controlEvent(ControlEvent e) { //<>// //<>//
+  String ctrlName = e.getName(); //<>//
+  println(ctrlName); //<>//
+   //<>// //<>//
   if (ctrlName.startsWith("d")) { //<>// //<>// //<>//
     String ctrlId = ctrlName.substring(1, 4).trim(); //<>// //<>//
     println(ctrlId);
