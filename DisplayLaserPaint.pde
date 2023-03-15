@@ -1,7 +1,7 @@
 
 class LaserPaint {
     int x = 0, y = 0;
-    float yMod = 0, xMod = 0, alphaMod = 0;
+    float yMod = 0, xMod = 0, alphaMod = 0, modRadius = 0;
     color pixel = C_PINK;
     color colorStroke = C_DEFAULT_FILL;
     ARect bound; 
@@ -14,7 +14,7 @@ class LaserPaint {
         g.strokeWeight(1);
         g.stroke(colorStroke, 100 + alphaMod);
         g.noFill();
-        g.ellipse(this.x + this.xMod, this.y + this.yMod, 1,1);
+        g.ellipse(this.x + this.xMod, this.y + this.yMod, 1 + modRadius,1 + modRadius);
         g.pop();
     }
 
@@ -67,14 +67,14 @@ class DisplayLaserPaint extends AbstractDisplay {
 
         PGraphics localG = createGraphics(this.image.width, this.image.height); //<>//
         localG.beginDraw();
+        float _amp = ampsum * _modRadiusCtrlA;
         for(int i=0; i<lasers.size(); i++) {
             LaserPaint lp = lasers.get(i);
-            //lp.yMod = random(2,_yModCtrlA);
-            //lp.xMod = lfoLaserWave.currentValue * 6 + _xModCtrlA;
+            lp.modRadius  = random(0.1,_amp);
             lp.yMod = random(-_yModCtrlA,_yModCtrlA);
             lp.xMod = random(-_xModCtrlA,_xModCtrlA); //<>//
             
-            lp.alphaMod = lfoLaserWave.currentValue * 50 + random(40, 100);
+            lp.alphaMod = -lfoLaserWave.currentValue * _modAlphaCtrlA;
             
             lp.draw(localG);
         }
@@ -86,12 +86,14 @@ class DisplayLaserPaint extends AbstractDisplay {
         updateParams();
     }
     
-    float _yModCtrlA = 0, _xModCtrlA = 0;
+    float _yModCtrlA = 0, _xModCtrlA = 0, _modRadiusCtrlA = 0, _modAlphaCtrlA = 0;
 
     void updateParams() {
         if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
         _yModCtrlA = mapCtrlA(1, 50);
         _xModCtrlA = mapCtrlA(1, 50);
+        _modRadiusCtrlA = mapCtrlA(0,35);
+        _modAlphaCtrlA = mapCtrlA(1,150);
     }
     
     void bang() {
