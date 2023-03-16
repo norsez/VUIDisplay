@@ -6,6 +6,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   LayoutWithFixedDisplaySet(ARect bound, List<DisplayInterface> displays) {
     super(bound, displays);
     super.maxDisplays = 1;
+    super.useFullAlphaLayerMode = false;
 
     fixedDisplays = new ArrayList();
     fixedDisplays.add(new DisplayGridMove(bound));

@@ -1,7 +1,7 @@
 class LayoutAllInOne extends AbstractLayout {
   int maxDisplays = 5;
   int fullAlphaLayer = 0;
-
+  boolean useFullAlphaLayerMode = true;
 
   LayoutAllInOne(ARect bound, List<DisplayInterface> dis) {
     super(bound,dis);
@@ -14,7 +14,6 @@ class LayoutAllInOne extends AbstractLayout {
     PGraphics lg = createGraphics(bound);
     lg.beginDraw();
     lg.background(0);
-    // lg.background(0);
     if (super.isAuto) {
       if (switchFrame >= nextSwitch) {
         calcNextSwitch();
@@ -26,7 +25,7 @@ class LayoutAllInOne extends AbstractLayout {
       DisplayInterface d = displays.get(i);
       
      
-      if(i != fullAlphaLayer) lg.tint(255,200); else lg.noTint();
+      if(useFullAlphaLayerMode && i != fullAlphaLayer) lg.tint(255,200); else lg.noTint();
       d.draw(lg);
       
     }
