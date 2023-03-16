@@ -1,5 +1,5 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = true;
@@ -32,11 +32,11 @@ void initDisplays() {
   ARect bound = windowBoundingBox();
   displays = new ArrayList();
 
+
+  String [] imageFilenames = {"chang1.jpg","chang2.jpg","chang3.jpg","chang4.jpg","chang5.jpg"};
   
-  float picWidth = bound.width * 0.5, picHeight = bound.height * 0.5;
   //new ARect(bound.width - (picWidth* 0.5), bound.height - (picHeight * 0.5), picWidth, picHeight)
-  DisplayLaserPaint disPic = new DisplayLaserPaint(bound);
-  disPic.setImage("thai elephant.png");
+  DisplayLaserPaint disPic = new DisplayLaserPaint(bound, imageFilenames);
   displays.add(disPic);
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
@@ -162,10 +162,10 @@ void keyPressed() {
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
 }
- //<>//
-public void controlEvent(ControlEvent e) { //<>// //<>//
+ //<>// //<>//
+public void controlEvent(ControlEvent e) { //<>// //<>// //<>//
   String ctrlName = e.getName(); //<>//
-  println(ctrlName); //<>//
+  println(ctrlName); //<>// //<>//
    //<>// //<>//
   if (ctrlName.startsWith("d")) { //<>// //<>// //<>//
     String ctrlId = ctrlName.substring(1, 4).trim(); //<>// //<>//
