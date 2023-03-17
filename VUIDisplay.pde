@@ -1,5 +1,5 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = true;
@@ -59,7 +59,7 @@ void initDisplays() {
 }
 
 void setup() {
-  size(800, 320);
+  size(480, 800);
   
   cp5 = new ControlP5(this);
   cp5.hide();
@@ -162,10 +162,10 @@ void keyPressed() {
 
   println(controlA + " " + controlB + " " + controlC + " " + controlD);
 }
- //<>// //<>//
-public void controlEvent(ControlEvent e) { //<>// //<>// //<>//
+ //<>// //<>// //<>//
+public void controlEvent(ControlEvent e) { //<>// //<>// //<>// //<>//
   String ctrlName = e.getName(); //<>//
-  println(ctrlName); //<>// //<>//
+  println(ctrlName); //<>// //<>// //<>//
    //<>// //<>//
   if (ctrlName.startsWith("d")) { //<>// //<>// //<>//
     String ctrlId = ctrlName.substring(1, 4).trim(); //<>// //<>//

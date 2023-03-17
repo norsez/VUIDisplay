@@ -52,8 +52,8 @@ class LaserImage {
 
         LaserPaint lp = new LaserPaint();
         lp.pixel = p;
-        lp.colorStroke = colorFromMap();
         lp.brightness = brightness(p);
+        lp.colorStroke = color(red(C_DEFAULT_FILL), green(C_DEFAULT_FILL), blue(C_DEFAULT_FILL), 255 * cvLinearToExp8( lp.brightness/255.0));
         allBrightness.add(lp.brightness);
         lp.x = x;
         lp.y = y;
@@ -72,10 +72,14 @@ class LaserImage {
   }
 }
 
-class LaserImageSet { //<>//
+class LaserImageSet { //<>// //<>// //<>//
   List<LaserImage> images;
   int imageIndex = 0;
   float currentFrame, dxFrameToSwitch;
+
+  void nextImage() {
+    imageIndex = (imageIndex + 1) % images.size();
+  }
 
   LaserImageSet() {
     this.setSecondstoSwitch(3);
@@ -90,7 +94,7 @@ class LaserImageSet { //<>//
     currentFrame -= dxFrameToSwitch;
     if (currentFrame <= 0) {
       currentFrame = 1;
-      imageIndex = (imageIndex + 1) % images.size();
+      nextImage();
     }
   }
 
@@ -112,9 +116,10 @@ class DisplayLaserPaint extends AbstractDisplay {
   LaserImageSet imageSet;
   final int MAX_LASER = 5000;
   LFO lfoLaserWave;
-
+  ARect fixedBound;
   DisplayLaserPaint(ARect bound, String [] imageFilenames) {
     super(bound);
+    fixedBound = new ARect(0,0,480, 320);
     lfoLaserWave = new LFO(LFO.SHAPE_SINE, 0, 0.50/frameRate);
     imageSet = new LaserImageSet();
     imageSet.loadImages(imageFilenames, MAX_LASER);
@@ -132,18 +137,11 @@ class DisplayLaserPaint extends AbstractDisplay {
     //float _amp = ampsum * _modRadiusCtrlA;
     for (int i=0; i<lasers.size(); i++) {
       LaserPaint lp = lasers.get(i);
-      lp.modRadius  = ampsum * _modRadiusCtrlA;
-      lp.yMod = random(-_yModCtrlA, _yModCtrlA);
-      lp.xMod = random(-_xModCtrlA, _xModCtrlA)
-        +  (lp.brightness > li.averageBrightness ? -1:1) * ampsum * _xBrightnessDisCtrlA; //<>//
-
-      lp.alphaMod = -lfoLaserWave.currentValue * _modAlphaCtrlA;
-
       lp.draw(localG);
     }
     localG.endDraw();
 
-    drawOn(localG, g, bound);
+    drawOn(localG, g, fixedBound);
     lfoLaserWave.nextValue(); //<>//
     imageSet.tick();
     updateParams();
@@ -155,13 +153,13 @@ class DisplayLaserPaint extends AbstractDisplay {
   void updateParams() {
     if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
     _yModCtrlA = mapCtrlA(1, 50);
-    _xModCtrlA = mapCtrlA(1, 50);
+    _xModCtrlA = mapCtrlA(0, 1);
     _modRadiusCtrlA = map(cvLinearToExp8( mapCtrlA(0, 1)), 0, 1, 0, 25);
     _modAlphaCtrlA = mapCtrlA(1, 150);
     _xBrightnessDisCtrlA = mapCtrlA(0, 100);
   }
 
   void bang() {
-    
+    imageSet.nextImage();
   }
 }
