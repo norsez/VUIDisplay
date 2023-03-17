@@ -1,5 +1,5 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
 boolean DEBUG = false; //<>// //<>//
 boolean APPLY_BLOOM = true;
@@ -37,8 +37,8 @@ void initDisplays() {
   for(int i=0; i < imageFilenames.length; i++) {
     imageFilenames[i] = "chang" + (i+1) + ".jpg";
   }
-  //new ARect(bound.width - (picWidth* 0.5), bound.height - (picHeight * 0.5), picWidth, picHeight)
-  DisplayLaserPaint disPic = new DisplayLaserPaint(bound, imageFilenames);
+  ARect picBound = new ARect(0, bound.height * 0.5, 480, 320);
+  DisplayLaserPaint disPic = new DisplayLaserPaint(picBound, imageFilenames);
   displays.add(disPic);
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
@@ -61,7 +61,7 @@ void initDisplays() {
 }
 
 void setup() {
-  size(480, 800);
+  size(480, 640);
   
   cp5 = new ControlP5(this);
   cp5.hide();
@@ -162,10 +162,10 @@ void keyPressed() {
     }
   }
 
-  println(controlA + " " + controlB + " " + controlC + " " + controlD);
-}
+  println(controlA + " " + controlB + " " + controlC + " " + controlD); //<>//
+} //<>//
  //<>// //<>// //<>//
-public void controlEvent(ControlEvent e) { //<>// //<>// //<>// //<>//
+public void controlEvent(ControlEvent e) { //<>// //<>// //<>// //<>// //<>//
   String ctrlName = e.getName(); //<>//
   println(ctrlName); //<>// //<>// //<>//
    //<>// //<>//

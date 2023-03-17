@@ -20,7 +20,7 @@ class DisplayGridMove extends AbstractDisplay {
 
   void prepareGraphics() {
 
-    numRows =(int)random(2, 6);
+    numRows = width>height?(int)random(2, 6):(int)random(4,10);
     numCols = (int)(bound.width/(bound.height/float(numRows)));
     gCell = createGraphics(int(bound.width/numCols), int(bound.height/numRows));
     tx = gCell.width;

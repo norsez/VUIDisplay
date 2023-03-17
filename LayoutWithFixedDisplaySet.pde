@@ -3,10 +3,15 @@
 //with one display from the constructor to take turn
 class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   List<DisplayInterface> fixedDisplays;
+  LFO lfoCtrlA1, lfoCtrlA2;
+
   LayoutWithFixedDisplaySet(ARect bound, List<DisplayInterface> displays) {
     super(bound, displays);
     super.maxDisplays = 1;
     super.useFullAlphaLayerMode = false;
+
+    lfoCtrlA1 = new LFO(LFO.SHAPE_SINE, random(0,1), 0.26/ frameRate);
+    lfoCtrlA2 = new LFO(LFO.SHAPE_SINE, random(0,1), 4.6/ frameRate);
 
     fixedDisplays = new ArrayList();
     fixedDisplays.add(new DisplayGridMove(bound));
@@ -33,7 +38,16 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
       d.draw(g);
     }
     g.pop();
+    lfoCtrlA1.nextValue();
+    lfoCtrlA2.nextValue();
+    
+    updateParameters();
+  }
 
+  void updateParameters () {
+    if(frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+
+    controlA = abs((lfoCtrlA1.currentValue + lfoCtrlA2.currentValue) * 4);
   }
 
   void bang() {
