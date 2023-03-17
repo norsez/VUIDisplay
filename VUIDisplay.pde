@@ -33,8 +33,10 @@ void initDisplays() {
   displays = new ArrayList();
 
 
-  String [] imageFilenames = {"chang1.jpg","chang2.jpg","chang3.jpg","chang4.jpg","chang5.jpg"};
-  
+  String [] imageFilenames = new String [14];
+  for(int i=0; i < imageFilenames.length; i++) {
+    imageFilenames[i] = "chang" + (i+1) + ".jpg";
+  }
   //new ARect(bound.width - (picWidth* 0.5), bound.height - (picHeight * 0.5), picWidth, picHeight)
   DisplayLaserPaint disPic = new DisplayLaserPaint(bound, imageFilenames);
   displays.add(disPic);
