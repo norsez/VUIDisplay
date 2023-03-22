@@ -78,7 +78,7 @@ class DisplayGridMove extends AbstractDisplay {
       
 
       if ((long)currentFrame <= 0) {
-        calcNewBlinkRound(); //<>//
+        calcNewBlinkRound();
       }
     }
     currentFrame--;
@@ -101,12 +101,12 @@ class DisplayGridMove extends AbstractDisplay {
     // blinkY = (int)constrain(random(-1, 3)>0?2:1 + lastBlinkY, 0, numRows);
    blinkX = (int)random(0, numCols);
    blinkY = (int)random(0, numRows); 
-   _bX = blinkX * gCell.width; //<>//
+   _bX = blinkX * gCell.width;
     _bY = blinkY * gCell.height;
 
 
-    numToBlink -= 1; //<>//
-    if (numToBlink == 0) { //<>//
+    numToBlink -= 1;
+    if (numToBlink == 0) {
       state = STATE_WAIT;
       currentFrame = random(1.2, 2.5) * frameRate;
       blinkX = blinkY = lastBlinkX = lastBlinkY = 0;
