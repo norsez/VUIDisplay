@@ -1,0 +1,128 @@
+ //<>// //<>// //<>// //<>//
+class Subwindow extends Movable {
+
+  ARect bound;
+
+  void setImage(PImage img) {
+    PGraphics buf = createGraphics(img.width, img.height);
+    buf.beginDraw();
+    buf.image(img,0,0);
+    buf.noFill();
+    buf.stroke(C_DEFAULT_FILL, 200);
+    buf.strokeWeight(1);
+    buf.rect(0,0,img.width - 1, img.height - 1);
+    buf.endDraw();
+    super.gToMove = buf;
+  }
+}
+
+
+class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
+  List<Subwindow> subwindows;
+  int MAX_SUB_WINS = 4;
+
+  float currentFrame_saveFrame, dxFrame_saveFrame;
+  String SAVED_FRAME_NAME = "DisplaySubWindows.png";
+  int save_frame_count = 0;
+
+  PGraphics localG;
+  int state = 0;
+  int STATE_WAIT=0, STATE_LAYOUT = 1, STATE_HOLD = 2, STATE_DISMISS = 3;
+
+  ObjectMover pmover = new ObjectMover();
+  StateSequenceController scon = new StateSequenceController();
+
+  DisplaySubWindows(ARect bound) {
+    super(bound);
+    subwindows = new ArrayList();
+
+    pmover = new ObjectMover();
+
+    for (int i=0; i< MAX_SUB_WINS; i++) {
+      Subwindow sw = new Subwindow();
+      this.subwindows.add(sw);
+      pmover.movables.add(sw);
+    }
+
+
+    scon = new StateSequenceController();
+    scon.listeners.add(this);
+    scon.addId(this, STATE_WAIT, 2.1 * frameRate);
+    scon.addId(this, STATE_HOLD, 2.1 * frameRate);
+    scon.addId(this, STATE_LAYOUT, 0.25 * frameRate);
+    scon.addId(this, STATE_LAYOUT, 0.24 * frameRate);
+    
+  }
+
+  void createSubwindowsLayout() {
+    float w = 100;
+    float h = w * 3 /4.0;
+    float margin = 5;
+    float x = bound.width - w - margin;
+    float y = 5;
+
+    saveFrame(SAVED_FRAME_NAME);
+    PImage img = loadImage(SAVED_FRAME_NAME);
+
+    for (int i=0; i < this.subwindows.size(); i++) {
+      Subwindow s = this.subwindows.get(i);
+      int px = (int)random(0, width - w);
+      int py = (int)random(0, height - h);
+      s.setImage(  img.get(px, py, (int)w, (int)h) );
+      s.startX = (int)x;
+      s.startY = int(-h-y);
+      s.endX = (int)x;
+      s.endY = (int)(i * (h + margin));
+
+      s.setDuration(0.3);
+    }
+  }
+
+  void draw(PGraphics g) {
+    if (super.hidden) return;
+
+    localG = createGraphics(bound);
+    localG.beginDraw();
+    localG.tint(255, 185);
+    pmover.draw(localG);
+    localG.endDraw();
+
+
+    drawOn(localG, g, bound);
+
+    scon.tick();
+  }
+
+  void callbackWith(StateSequenceController sc, State s, PGraphics g) {
+    this.state = s.stateId;
+
+    if (this.state == STATE_WAIT) {
+        //do nothing
+    } else if (this.state == STATE_HOLD) {
+        //do nothing
+    } else if (this.state == STATE_LAYOUT) {
+        createSubwindowsLayout();
+    } else if (this.state == STATE_DISMISS) {
+        clearSubwindows();
+    }
+  }
+
+  void clearSubwindows() {
+    float w = 100;
+    float h = w * 3 /4.0;
+    float margin = 5;
+    float x = bound.width - w - margin;
+    float y = -h-w;
+
+
+    for (int i=0; i < this.subwindows.size(); i++) {
+      Subwindow s = this.subwindows.get(i);
+      s.startX = (int)s.nowX;
+      s.startY = (int)s.nowY;
+      s.endX = (int)x;
+      s.endY = (int)y;
+
+      s.setDuration(0.3);
+    }
+  }
+}
