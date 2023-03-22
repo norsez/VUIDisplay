@@ -68,7 +68,7 @@ void setup() {
 
   background(0);
   frameRate(APP_FRAME_RATE);
-  FONT_6 = loadFont("automat-6.vlw");
+  FONT_6 = loadFont("automat-6.vlw");  
   FONT_8 = loadFont("04b08-8.vlw");
   FONT_16 = loadFont("Arcade-16.vlw");
   logG = createGraphics(width, height);

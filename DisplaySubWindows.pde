@@ -10,7 +10,7 @@ class Subwindow extends Movable {
     buf.noFill();
     buf.stroke(C_DEFAULT_FILL, 200);
     buf.strokeWeight(1);
-    buf.rect(0,0,img.width - 1, img.height - 1);
+    buf.rect(0,0,img.width - 1, img.height - 1, 4);
     buf.endDraw();
     super.gToMove = buf;
   }
@@ -19,7 +19,7 @@ class Subwindow extends Movable {
 
 class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
   List<Subwindow> subwindows;
-  int MAX_SUB_WINS = 4;
+  int MAX_SUB_WINS = 3;
 
   float currentFrame_saveFrame, dxFrame_saveFrame;
   String SAVED_FRAME_NAME = "DisplaySubWindows.png";
@@ -48,18 +48,18 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
     scon = new StateSequenceController();
     scon.listeners.add(this);
     scon.addId(this, STATE_WAIT, 2.1 * frameRate);
-    scon.addId(this, STATE_HOLD, 2.1 * frameRate);
     scon.addId(this, STATE_LAYOUT, 0.25 * frameRate);
-    scon.addId(this, STATE_LAYOUT, 0.24 * frameRate);
+    scon.addId(this, STATE_HOLD, 2.1 * frameRate);
+    scon.addId(this, STATE_DISMISS, 0.24 * frameRate);
     
   }
 
   void createSubwindowsLayout() {
     float w = 100;
     float h = w * 3 /4.0;
-    float margin = 5;
+    float margin = 10;
     float x = bound.width - w - margin;
-    float y = 5;
+    float y =  + margin;
 
     saveFrame(SAVED_FRAME_NAME);
     PImage img = loadImage(SAVED_FRAME_NAME);
@@ -95,7 +95,7 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
 
   void callbackWith(StateSequenceController sc, State s, PGraphics g) {
     this.state = s.stateId;
-
+    println("state:" + this.state);
     if (this.state == STATE_WAIT) {
         //do nothing
     } else if (this.state == STATE_HOLD) {
@@ -110,7 +110,7 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
   void clearSubwindows() {
     float w = 100;
     float h = w * 3 /4.0;
-    float margin = 5;
+    float margin = 10;
     float x = bound.width - w - margin;
     float y = -h-w;
 
