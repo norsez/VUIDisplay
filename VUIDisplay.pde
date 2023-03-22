@@ -1,7 +1,7 @@
 import controlP5.*;
-import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import com.hamoid.*;  //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import java.awt.event.KeyEvent;
-boolean DEBUG = false; //<>// //<>//
+boolean DEBUG = false; //<>//
 boolean APPLY_BLOOM = true;
 boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;

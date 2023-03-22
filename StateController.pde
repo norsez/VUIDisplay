@@ -34,6 +34,11 @@ class StateSequenceController {
     states.add(s);
   }
 
+  void addId(Object owner, int id, float durationInFrames) {
+    State s = new State(owner, id, durationInFrames);
+    this.add(s);
+  }
+
   float getCurrentDx(){
     State state = getCurrentState();
     return state.durationInFrames;

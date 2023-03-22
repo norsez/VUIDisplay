@@ -1,23 +1,27 @@
 
 abstract class Movable {
-  int startX, startY;
+  int startX, startY, nowX, nowY;
   int endX, endY;
   float curFrames, dxFrames;
-  PGraphics gToMove;
+  PImage gToMove;
   boolean done = false;
+  
   void setDuration(float secs) {
     curFrames = secs * frameRate;
     dxFrames = 1.0/curFrames;
+    done = false;
   }
 
   void draw(PGraphics g) {
-    float nowX = endX, nowY = endY;
+    
+    if(this.gToMove == null) return;
+
     if (!done) {
       float curRatio =  1.0 -( curFrames * dxFrames );
-      nowX = lerp(startX, endX, curRatio);
-      nowY = lerp(startY, endY, curRatio);
+      nowX = (int)lerp(startX, endX, curRatio);
+      nowY = (int)lerp(startY, endY, curRatio);
     }
-
+    
     g.image(gToMove, nowX, nowY);
 
     curFrames--;

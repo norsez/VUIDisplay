@@ -5,6 +5,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   List<DisplayInterface> fixedDisplays;
   LFO lfoCtrlA1, lfoCtrlA2;
 
+
   LayoutWithFixedDisplaySet(ARect bound, List<DisplayInterface> displays) {
     super(bound, displays);
     super.maxDisplays = 1;
@@ -27,6 +28,8 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
 
     layout = new LayoutAllInOne(bound, displays);
     fixedDisplays.add(dtitle);
+    
+    fixedDisplays.add(new DisplaySubWindows(bound));
   }
 
   void draw(PGraphics g) {
@@ -51,6 +54,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   }
 
   void bang() {
+    
     super.bang();
 
     for(DisplayInterface d: fixedDisplays) {

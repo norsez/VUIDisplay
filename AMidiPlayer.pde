@@ -1,7 +1,7 @@
 
 //Credits: https://github.com/hamoid/Fun-Programming/tree/master/processing/ideas/2017/04/MidiViz
 import java.util.concurrent.ConcurrentHashMap;
-
+import javax.sound.midi.*;
 class AMidiPlayer implements Receiver {
   Sequencer sequencer;
   // Concurrent, so it can be accessed by the Processing main thread, and the
