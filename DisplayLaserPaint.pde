@@ -13,13 +13,13 @@ class LaserPaint {
     this.alphaFrame = random(0, 1);
   }
 
-  void draw(PGraphics g) {
+  void draw(PGraphics g, float scaling, float originX, float originY) {
     g.push();
     g.strokeWeight(1);
     g.stroke(colorStroke, alphaFrame * 100 + 100 * ampsum);
     g.noFill();
-    g.ellipse(this.x + this.xMod, this.y + this.yMod, 1 + modRadius, 1 + modRadius);
-    g.pop();
+    g.ellipse((this.x + this.xMod) * scaling, (this.y + this.yMod) * scaling, 1 + modRadius, 1 + modRadius);
+    g.pop(); //<>//
 
     alphaFrame -= dxAlphaFrame;
     if (alphaFrame <=0) alphaFrame = 1;
@@ -35,6 +35,10 @@ class LaserImage {
   float averageBrightness;
   List<LaserPaint> lasers = new ArrayList();
   int w,h;
+
+  float drawScaling = 1;
+  float drawOriginX = 0, drawOriginY = 0;
+
   void loadImageWithName(String filename, int max_points) {
     PImage image = loadImage(filename);
     w = image.width;
@@ -69,6 +73,14 @@ class LaserImage {
       sum += b;
     }
     averageBrightness = sum/allBrightness.size();
+
+    drawScaling = random(0.5,5);
+  }
+
+  void draw(PGraphics g) {
+    for(LaserPaint lp: this.lasers) {
+      lp.draw(g, drawScaling, drawOriginX, drawOriginY);
+    }
   }
 }
 
@@ -79,6 +91,9 @@ class LaserImageSet { //<>// //<>// //<>//
 
   void nextImage() {
     imageIndex = (imageIndex + 1) % images.size();
+    images.get(imageIndex).drawScaling = random(1,2);
+    // images.get(imageIndex).drawOriginX = random(0, width* 0.5);
+    // images.get(imageIndex).drawOriginY = random(0, height *  0.5);
   }
 
   LaserImageSet() {
@@ -116,10 +131,11 @@ class DisplayLaserPaint extends AbstractDisplay {
   LaserImageSet imageSet;
   final int MAX_LASER = 5000;
   LFO lfoLaserWave;
-  ARect fixedBound;
+  
+
   DisplayLaserPaint(ARect bound, String [] imageFilenames) {
     super(bound);
-    fixedBound = new ARect(0,0,480, 320);
+    
     lfoLaserWave = new LFO(LFO.SHAPE_SINE, 0, 0.50/frameRate);
     imageSet = new LaserImageSet();
     imageSet.loadImages(imageFilenames, MAX_LASER);
@@ -131,18 +147,14 @@ class DisplayLaserPaint extends AbstractDisplay {
     if (super.hidden) return;
     
     LaserImage li = imageSet.currentImage();
-    List<LaserPaint> lasers = li.lasers;
-    PGraphics localG = createGraphics(li.w, li.h); //<>//
+   
+    PGraphics localG = createGraphics(bound);
     localG.beginDraw();
-    //float _amp = ampsum * _modRadiusCtrlA;
-    for (int i=0; i<lasers.size(); i++) {
-      LaserPaint lp = lasers.get(i);
-      lp.draw(localG);
-    }
+    li.draw(localG);
     localG.endDraw();
 
-    drawOn(localG, g, fixedBound);
-    lfoLaserWave.nextValue(); //<>//
+    drawOn(localG, g, bound);
+    lfoLaserWave.nextValue();
     imageSet.tick();
     updateParams();
   }

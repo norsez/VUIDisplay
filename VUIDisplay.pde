@@ -37,8 +37,8 @@ void initDisplays() {
   for(int i=0; i < imageFilenames.length; i++) {
     imageFilenames[i] = "chang" + (i+1) + ".jpg";
   }
-  ARect picBound = new ARect(0, bound.height * 0.5, 480, 320);
-  DisplayLaserPaint disPic = new DisplayLaserPaint(picBound, imageFilenames);
+  //ARect picBound = new ARect(0, bound.height * 0.5, 480, 320);
+  DisplayLaserPaint disPic = new DisplayLaserPaint(bound, imageFilenames);
   displays.add(disPic);
   displays.add(new DisplayBarWaveForm(bound));
   displays.add(new DisplayBetaBall(bound));
