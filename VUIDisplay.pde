@@ -61,7 +61,7 @@ void initDisplays() {
 }
 
 void setup() {
-  size(480, 640);
+  size(800, 640);
   
   cp5 = new ControlP5(this);
   cp5.hide();

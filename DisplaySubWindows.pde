@@ -1,4 +1,4 @@
- //<>// //<>// //<>// //<>//
+//<>// //<>// //<>// //<>// //<>// //<>// //<>//
 class Subwindow extends Movable {
 
   ARect bound;
@@ -6,11 +6,14 @@ class Subwindow extends Movable {
   void setImage(PImage img) {
     PGraphics buf = createGraphics(img.width, img.height);
     buf.beginDraw();
-    buf.image(img,0,0);
+    buf.image(img, 0, 0);
     buf.noFill();
     buf.stroke(C_DEFAULT_FILL, 200);
     buf.strokeWeight(1);
-    buf.rect(0,0,img.width - 1, img.height - 1, 4);
+    buf.rect(0, 0, img.width - 1, img.height - 1, 4);
+    buf.textFont(FONT_6);
+    String txt = randomString(5);
+    buf.text(txt, img.width - textWidth(txt), img.height - 8);
     buf.endDraw();
     super.gToMove = buf;
   }
@@ -51,7 +54,25 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
     scon.addId(this, STATE_LAYOUT, 0.25 * frameRate);
     scon.addId(this, STATE_HOLD, 2.1 * frameRate);
     scon.addId(this, STATE_DISMISS, 0.24 * frameRate);
-    
+  }
+
+  PImage findBusySpotOfImage (PImage img, float w, float h) {
+
+    img.loadPixels();
+    int px = 0, py = 0;
+    float brightness = 0;
+
+    while (brightness < 155) {
+      px = (int)random(0, width - w);
+      py = (int)random(0, height - h);
+
+      color c = img.pixels[px + py * width];
+      brightness = brightness(c);
+    }
+
+    PImage result = img.get(px, py, (int)w, (int)h);
+    result.resize(int(w*random(1.2,4)), int(h*random(1.2,4)));
+    return result.get(0,0,(int)w,(int)h);
   }
 
   void createSubwindowsLayout() {
@@ -66,9 +87,8 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
 
     for (int i=0; i < this.subwindows.size(); i++) {
       Subwindow s = this.subwindows.get(i);
-      int px = (int)random(0, width - w);
-      int py = (int)random(0, height - h);
-      s.setImage(  img.get(px, py, (int)w, (int)h) );
+
+      s.setImage(  findBusySpotOfImage(img, w, h) );
       s.startX = (int)x;
       s.startY = int(-h-y);
       s.endX = (int)x;
@@ -97,13 +117,13 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
     this.state = s.stateId;
     println("state:" + this.state);
     if (this.state == STATE_WAIT) {
-        //do nothing
+      //do nothing
     } else if (this.state == STATE_HOLD) {
-        //do nothing
+      //do nothing
     } else if (this.state == STATE_LAYOUT) {
-        createSubwindowsLayout();
+      createSubwindowsLayout();
     } else if (this.state == STATE_DISMISS) {
-        clearSubwindows();
+      clearSubwindows();
     }
   }
 
@@ -124,5 +144,9 @@ class DisplaySubWindows extends AbstractDisplay implements StateActionCallback {
 
       s.setDuration(0.3);
     }
+  }
+
+  void bang() {
+    clearSubwindows();
   }
 }
