@@ -1,4 +1,4 @@
-class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
+class DisplayWaveDNA extends AbstractDisplay { //<>// //<>//
 
   float secsPerSnapshot;
   PGraphics buffer;
@@ -67,7 +67,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
       buffer.pushStyle();
       buffer.fill(colorFromMap(), 30);
       buffer.ellipse(i * spacing, waveformBuf[i], r, r);
-      buffer.stroke(colorFromMap(), random(20, 80));
+      // buffer.stroke(colorFromMap(), random(20, 80));
       buffer.popStyle();
 
     }
@@ -86,7 +86,7 @@ class DisplayWaveDNA extends AbstractDisplay { //<>// //<>// //<>//
   
 
 void updateParams() {
-    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    if (!shouldUpdateParams()) return;
     _strokeCtrlA = mapCtrlA(100,50) + 40;
     _fillCtrlA = 45 + mapCtrlA(70,0);
     _radiusCtrlA =  mapCtrlA(0, 5);

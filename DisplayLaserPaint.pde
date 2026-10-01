@@ -19,7 +19,7 @@ class LaserPaint {
     g.stroke(colorStroke, alphaFrame * 100 + 100 * ampsum);
     g.noFill();
     g.ellipse((this.x + this.xMod) * scaling, (this.y + this.yMod) * scaling, 1 + modRadius, 1 + modRadius);
-    g.pop(); //<>//
+    g.pop();
 
     alphaFrame -= dxAlphaFrame;
     if (alphaFrame <=0) alphaFrame = 1;
@@ -163,12 +163,13 @@ class DisplayLaserPaint extends AbstractDisplay {
     , _modAlphaCtrlA = 0, _xBrightnessDisCtrlA = 0;
 
   void updateParams() {
-    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
-    _yModCtrlA = mapCtrlA(1, 50);
-    _xModCtrlA = mapCtrlA(0, 1);
-    _modRadiusCtrlA = map(cvLinearToExp8( mapCtrlA(0, 1)), 0, 1, 0, 25);
-    _modAlphaCtrlA = mapCtrlA(1, 150);
-    _xBrightnessDisCtrlA = mapCtrlA(0, 100);
+    if (!shouldUpdateParams()) return;
+    //_yModCtrlA = mapCtrlA(1, 50);
+    //_xModCtrlA = mapCtrlA(0, 1);
+    //_modRadiusCtrlA = map(cvLinearToExp8( mapCtrlA(0, 1)), 0, 1, 0, 25);
+    //_modAlphaCtrlA = mapCtrlA(1, 150);
+    //_xBrightnessDisCtrlA = mapCtrlA(0, 100);
+    imageSet.currentImage().drawScaling = mapCtrlA(1,5);
   }
 
   void bang() {

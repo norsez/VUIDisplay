@@ -82,6 +82,12 @@ class DisplayGridMove extends AbstractDisplay {
       }
     }
     currentFrame--;
+
+    updateParameters();
+  }
+
+  void updateParameters() {
+   
   }
 
   float blinkX, blinkY, _bX, _bY;
@@ -92,7 +98,7 @@ class DisplayGridMove extends AbstractDisplay {
     currentFrame = 0.66 * frameRate;
     lfoBlink.speed = 1.0/(ampsum * 5);
 
- //<>//
+
 
     lastBlinkX = blinkX;
     lastBlinkY = blinkY;

@@ -1,3 +1,28 @@
+
+
+long APP_FRAME_RATE = 24;
+long APP_PARAM_UPDATE_RATE = (long)(APP_FRAME_RATE * 0.25);
+long count_APP_PARAM_UPDATE_RATE = APP_PARAM_UPDATE_RATE;
+
+
+void tickAllRates() {
+  
+  
+  if (count_APP_PARAM_UPDATE_RATE <= 0) {
+    count_APP_PARAM_UPDATE_RATE = APP_PARAM_UPDATE_RATE;
+  }
+  
+  count_APP_PARAM_UPDATE_RATE -= 1;
+
+
+}
+
+boolean shouldUpdateParams() {
+  return count_APP_PARAM_UPDATE_RATE <= 0;
+}
+
+
+
 float mapCurve(float n_value, float expfac) {
   //normalized value only.
   return pow(n_value,expfac);

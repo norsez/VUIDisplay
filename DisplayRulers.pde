@@ -83,7 +83,7 @@ class Ruler {
     }
    
    void updateParameters() {
-     if (frameCount % (long)(secsToChangeSpeed) == 0) {
+     if (shouldUpdateParams()) {
        lfoRuler1.speed = speedRuler1 + random(-0.01, 0.01) + ampsum * 0.01;
      }
    }

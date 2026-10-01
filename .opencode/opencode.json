@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "run": {
+      "description": "Open the sketch in the Processing IDE and report whether the sketch process actually started. Does not press Run, does not compile, does not verify code. For a fresh clone use /check-deps first.",
+      "template": "Follow the workflow in .agents/skills/run/SKILL.md\n\n$ARGUMENTS"
+    },
+    "check-deps": {
+      "description": "Resolve every import in every .pde tab against core.jar plus the sketchbook libraries and report the ones that cannot be found. Catches the failure that actually happens on a fresh clone: a library that is not installed. Does NOT prove the sketch compiles and never type-checks.",
+      "template": "Follow the workflow in .agents/skills/check-deps/SKILL.md\n\n$ARGUMENTS"
+    }
+  }
+}

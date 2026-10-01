@@ -15,6 +15,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
     lfoCtrlA2 = new LFO(LFO.SHAPE_SINE, random(0,1), 4.6/ frameRate);
 
     fixedDisplays = new ArrayList();
+
     fixedDisplays.add(new DisplayGridMove(bound));
     fixedDisplays.add(new DisplayRulers(bound));
     fixedDisplays.add(new DisplayStarZoom(bound));
@@ -30,6 +31,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
     fixedDisplays.add(dtitle);
     
     fixedDisplays.add(new DisplaySubWindows(bound));
+
   }
 
   void draw(PGraphics g) {
@@ -48,9 +50,9 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
   }
 
   void updateParameters () {
-    if(frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    
 
-    controlA = abs((lfoCtrlA1.currentValue + lfoCtrlA2.currentValue) * 4);
+    //controlA = abs((lfoCtrlA1.currentValue + lfoCtrlA2.currentValue) * 4);
   }
 
   void bang() {

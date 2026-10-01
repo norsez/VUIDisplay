@@ -58,7 +58,7 @@ class DisplayBarWaveForm extends AbstractDisplay {
       easings[i].easing = 0.25;
       easings[i].lastValue = 0.5;
     }
-    
+    _easingCtrlA = 0.1;
   }
   
   void draw(PGraphics g) {
@@ -91,6 +91,8 @@ class DisplayBarWaveForm extends AbstractDisplay {
   float _easingCtrlA, _alphaCtrlA;
   
   void updateParams() {
+    if(!shouldUpdateParams()) return;
+    
     maxWeight = mapCtrlA(0.7, 15);
     _easingCtrlA = mapCtrlA(0.025,0.7);
     _alphaCtrlA = mapCtrlA(200, 80);

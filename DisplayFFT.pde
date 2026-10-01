@@ -91,7 +91,7 @@ class DisplayFFTAlphaBall extends AbstractDisplay {
     
   }
   void updateParams() {
-    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    if (!shouldUpdateParams()) return;
 
      _maxRadius = 3 + random(1,3) +  mapCtrlA( 20, 1) + random(0.2,1) * mapCtrlA( 20, 1);
      _pixelPerSec = 0.05 + mapCtrlA(300, 2) ;

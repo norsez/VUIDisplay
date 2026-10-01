@@ -1,6 +1,5 @@
 import processing.sound.*;
 
-
   final String FILENAME = "Thai elephant.wav";
   SoundFile sample;
   Waveform waveform;
@@ -13,12 +12,13 @@ import processing.sound.*;
   
   //FFT
   FFT fft;
-  int FFT_NUM_BANDS = 512;
+  int FFT_NUM_BANDS = 256;
   float[] fftsum = new float[FFT_NUM_BANDS];
   int NUM_SAMPLES_WAVE = 64;
   List FFTBPs;
   Sound sound;
-  
+
+
   void initAudioInput() {
     
     //sound = new Sound(this);
@@ -36,7 +36,7 @@ import processing.sound.*;
     waveform = new Waveform(this, NUM_SAMPLES_WAVE);
     waveform.input(sample);
   }
-  
+
   void tickWave(){
     waveform.analyze();
   }
