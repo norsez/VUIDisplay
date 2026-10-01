@@ -7,7 +7,7 @@ brilliant short synth jam patterns. I write this visualiser to visualise my own 
 
 Below are example screenshots (with a little bit of bloom effect). Click a screenshot for a video.
 
-[![VUIDisplay](https://github.com/norsez/VUIDisplay/raw/master/readme.png)](https://www.youtube.com/watch?v=QH8t0uytZyU)
+[![VUIDisplay](https://github.com/norsez/VUIDisplay/raw/main/readme.png)](https://www.youtube.com/watch?v=QH8t0uytZyU)
 
 ## How to run it
 
