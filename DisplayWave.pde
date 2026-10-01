@@ -46,7 +46,7 @@ class DisplayWave extends AbstractDisplay {
   }
 
   void updateParams() {
-    if(frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    if(!shouldUpdateParams()) return;
     _maxRadius = 2 + 8 * mapCtrlA(0,1);
     _radiusY =  mapCtrlA(1,8);
 

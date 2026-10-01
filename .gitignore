@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Processing build output
+export/
+processing/
+*.class
+*.applet
+*.jnlp
+
+# Rendered output from the sketch
+*.mp4
+*.png
+!readme.png
+
+# Local test logs
+test.local.log
+test.prod.log

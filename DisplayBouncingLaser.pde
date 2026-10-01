@@ -58,7 +58,7 @@ class LaserTrail {
   }
 
   void updateParameters() {
-    if(frameCount % APP_PARAM_UPDATE_RATE !=0) return;
+    if(!shouldUpdateParams()) return;
     this.addAmpSpeed(ampsum);
   }
   
@@ -138,7 +138,7 @@ class DisplayBouncingLaser extends AbstractDisplay{
   float _speedCtrlA, _maxSizeCtrlA;
 
   void updateParameters() {
-    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    if (!shouldUpdateParams()) return;
 
     _speedCtrlA = mapCtrlA(15,500);
     _maxSizeCtrlA = mapCtrlA(10,150);

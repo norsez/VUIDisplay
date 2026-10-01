@@ -1,4 +1,4 @@
-class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>// //<>//
+class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>//
   final int HORIZONTAL = 0, VERTICAL = 1;
   int orientation = 0;
   color C_BAR_PLACEHOLDER = color(60,200);
@@ -91,7 +91,7 @@ class DisplaySpectrumBars extends AbstractDisplay { //<>// //<>// //<>// //<>//
   }
 
   void updateParams() {
-    if (frameCount % APP_PARAM_UPDATE_RATE != 0) return;
+    if (!shouldUpdateParams()) return;
   
     _alphaCtrlA = (100 + mapCtrlA(9, 130)) * ampsum;
     _hCtrlA = mapCtrlA(0.45, 1);
