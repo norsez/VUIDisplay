@@ -2,7 +2,7 @@ import controlP5.*;
 import com.hamoid.*;  
 import java.awt.event.KeyEvent;
 boolean DEBUG = false;
-boolean APPLY_BLOOM = false;
+boolean APPLY_BLOOM = true;
 boolean cp5Hidden = true;
 boolean RECORD_VIDEO = false;
 float RECORD_SECS = 60 * 3.35;
@@ -78,6 +78,23 @@ void setup() {
   initAudioInput();
   initVideoExport();
   initDisplays();
+
+  printKeyMap();
+}
+
+void printKeyMap() {
+  println("[VUIDisplay] keys");
+  println("  1-9   toggle a display");
+  println("  A B C D   pick which control the mouse wheel turns");
+  println("  wheel  turn that control (0-128)");
+  println("  SPACE pause / resume");
+  println("  Z     layout auto on/off");
+  println("  X     bang");
+  println("  R     reset A B C D to 0");
+  println("  L     bloom on/off");
+  println("  W     debug on/off");
+  println("  H     controls panel show/hide");
+  println("  Q     stop recording and exit");
 }
 
 void initVideoExport() {
@@ -146,8 +163,11 @@ void keyPressed() {
     this.layout.toggleAuto();
   } else if (keyCode == KeyEvent.VK_X) {
     println("bang!");
-    controlA = controlB = controlC = controlD = 0;
     layout.bang();
+  } else if (keyCode == KeyEvent.VK_R) {
+    controlA = controlB = controlC = controlD = 0;
+  } else if (keyCode == KeyEvent.VK_L) {
+    APPLY_BLOOM = !APPLY_BLOOM;
   } else if (keyCode == KeyEvent.VK_Q && RECORD_VIDEO) {
     videoExport.endMovie();
     exit();

@@ -5,8 +5,8 @@ import processing.sound.*;
   Waveform waveform;
   //AMP
   Amplitude rms;
-  float smoothingFactorAmp = 0.25;
-  float smoothingFactorFFT = 0.75;
+  float smoothingFactorAmp = 0.70;
+  float smoothingFactorFFT = 0.90;
   float ampsum;
   
   
