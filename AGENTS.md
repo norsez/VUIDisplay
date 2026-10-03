@@ -1,7 +1,7 @@
 # AGENTS.md — Processing Sketch Workspace
 
 > **Copy this file as `<workspace>/AGENTS.md` when initializing a `processing-java-sketch` stack.**
-> Fill `norsez`, `ai_coding_collab_style_product_owner.md`, `/Users/norsez/code/project template` at init.
+> Fill `norsez`, `interactions/product_owner.md`, `/Users/norsez/code/project template` at init.
 >
 > This is a **Processing Java Mode** workspace. `.pde` files, run by the Processing IDE. The sketch is
 > the product. There is no build tool, no test suite, and no deploy target — those are waived here and
@@ -26,7 +26,7 @@ code and report what I changed, never that it looks correct.
 
 ## Active collaboration style
 
-**Active style:** `./ai_coding_collab_style_product_owner.md`
+**Active style:** `./interactions/product_owner.md`
 
 - Mandatory. Read before planning, before writing code, and after any failed run.
 - It governs the four phases, the silent-fix rule, the escalation format, and the change-request record.
