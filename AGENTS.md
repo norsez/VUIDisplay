@@ -27,6 +27,7 @@ code and report what I changed, never that it looks correct.
 ## Active collaboration style
 
 **Active style:** `./interactions/product_owner.md`
+**Active session mode:** `normal`
 
 - Mandatory. Read before planning, before writing code, and after any failed run.
 - It governs the four phases, the silent-fix rule, the escalation format, and the change-request record.
