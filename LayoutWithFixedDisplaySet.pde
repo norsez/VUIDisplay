@@ -8,8 +8,7 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
 
   LayoutWithFixedDisplaySet(ARect bound, List<DisplayInterface> displays) {
     super(bound, displays);
-    super.maxDisplays = 1;
-    super.useFullAlphaLayerMode = false;
+    super.useFullAlphaLayerMode = true;
 
     lfoCtrlA1 = new LFO(LFO.SHAPE_SINE, random(0,1), 0.26/ frameRate);
     lfoCtrlA2 = new LFO(LFO.SHAPE_SINE, random(0,1), 4.6/ frameRate);
@@ -63,6 +62,6 @@ class LayoutWithFixedDisplaySet extends LayoutAllInOne {
       d.bang();
     }
 
-    super.fullAlphaLayer = 0;
+    super.resetSpotlight();
   }
 }
