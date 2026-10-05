@@ -12,6 +12,7 @@ color C_DEFAULT_FILL = color(151,216,204);
 
 
 BloomPProcess bloom = new BloomPProcess();
+ModulatedGrade grade = new ModulatedGrade();
 PFont FONT_6, FONT_8, FONT_16;
 PGraphics g;
 List<DisplayInterface> displays;
@@ -92,6 +93,7 @@ void printKeyMap() {
   println("  X     bang");
   println("  R     reset A B C D to 0");
   println("  L     bloom on/off");
+  println("  M     brightness/contrast grade on/off");
   println("  W     debug on/off");
   println("  H     controls panel show/hide");
   println("  Q     stop recording and exit");
@@ -126,6 +128,10 @@ void draw() {
   if (APPLY_BLOOM) {
     bloom.ApplyBloom();
   }
+
+  //after bloom so the glow is graded too, before the export so the recording
+  //matches what is on screen
+  grade.Apply(ampsum);
 
   if (RECORD_VIDEO) {
     videoExport.saveFrame();
@@ -168,6 +174,8 @@ void keyPressed() {
     controlA = controlB = controlC = controlD = 0;
   } else if (keyCode == KeyEvent.VK_L) {
     APPLY_BLOOM = !APPLY_BLOOM;
+  } else if (keyCode == KeyEvent.VK_M) {
+    grade.enabled = !grade.enabled;
   } else if (keyCode == KeyEvent.VK_Q && RECORD_VIDEO) {
     videoExport.endMovie();
     exit();

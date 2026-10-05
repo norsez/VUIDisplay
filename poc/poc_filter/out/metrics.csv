@@ -1,0 +1,13 @@
+frame,method,brightness,contrast,mean_delta_vs_A,max_delta_vs_A,pct_pixels_differ
+frame_native_800x640,C_composite,0,1.00,0.0000,0,0.0000
+frame_native_800x640,A_cpu,0,1.00,0,0,0.000
+frame_native_800x640,C_composite,40,1.00,0.0000,0,0.0000
+frame_native_800x640,A_cpu,40,1.00,0,0,0.000
+frame_native_800x640,C_composite,0,1.40,0.0000,0,0.0000
+frame_native_800x640,A_cpu,0,1.40,0,0,0.000
+frame_composite,C_composite,0,1.00,0.0000,0,0.0000
+frame_composite,A_cpu,0,1.00,0,0,0.000
+frame_composite,C_composite,40,1.00,0.0000,0,0.0000
+frame_composite,A_cpu,40,1.00,0,0,0.000
+frame_composite,C_composite,0,1.40,0.0000,0,0.0000
+frame_composite,A_cpu,0,1.40,0,0,0.000
